@@ -20,7 +20,7 @@ export default function Hero() {
           <source src="/background-video.mp4" type="video/mp4" />
         </video>
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 bg-black/50" />
         {/* Gradient fade at edges */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/60" />
       </div>
