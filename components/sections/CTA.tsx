@@ -1,26 +1,24 @@
 'use client'
 
 import Button from '@/components/ui/Button'
-import { ArrowRight, Play } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 export default function CTA() {
   return (
     <section className="py-20 md:py-32 bg-surface/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Video placeholder */}
+          {/* Video */}
           <div className="relative aspect-video bg-surface overflow-hidden border border-border">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button className="w-14 h-14 bg-primary flex items-center justify-center hover:bg-primary-dark transition-colors">
-                <Play size={22} className="text-black ml-0.5" />
-              </button>
-            </div>
-            <div className="absolute bottom-4 left-4 flex items-center gap-2">
-              <div className="w-8 h-8 bg-background/80 flex items-center justify-center">
-                <div className="w-2 h-2 bg-primary" />
-              </div>
-              <span className="text-sm text-white/80">Ver cómo funciona</span>
-            </div>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src="/background-video.mp4" type="video/mp4" />
+            </video>
           </div>
 
           {/* Content */}

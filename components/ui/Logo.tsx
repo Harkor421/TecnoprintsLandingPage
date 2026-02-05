@@ -14,9 +14,15 @@ const sizes = {
   lg: 'h-14',
 }
 
+const textSizes = {
+  sm: 'text-lg',
+  md: 'text-xl',
+  lg: 'text-2xl',
+}
+
 export default function Logo({ className, size = 'md' }: LogoProps) {
   return (
-    <div className={cn('flex items-center', className)}>
+    <div className={cn('flex items-center gap-2', className)}>
       <Image
         src="/logo.png"
         alt="Tecnoprints"
@@ -25,6 +31,13 @@ export default function Logo({ className, size = 'md' }: LogoProps) {
         className={cn('w-auto', sizes[size])}
         priority
       />
+      <span
+        className={cn('font-bold italic', textSizes[size])}
+        style={{ fontFamily: 'Arial, sans-serif' }}
+      >
+        <span className="text-white">Tecno</span>
+        <span className="text-primary">prints</span>
+      </span>
     </div>
   )
 }

@@ -18,28 +18,33 @@ const partners = [
 
 export default function Partners() {
   return (
-    <section className="py-14 border-y border-border bg-surface/30">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-xs text-muted uppercase tracking-wider mb-10">
-          Empresas que confían en nosotros
-        </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-12 md:gap-20">
+    <section className="py-16 md:py-20 bg-background">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <p className="text-sm text-muted tracking-wide">
+            Empresas que confían en nosotros
+          </p>
+        </div>
+
+        <div className="flex items-center justify-center gap-16 md:gap-24">
           {partners.map((partner) => (
             <Link
               key={partner.name}
               href={partner.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 opacity-50 hover:opacity-80 transition-opacity duration-300"
+              className="group flex flex-col items-center gap-4 transition-all duration-300"
             >
-              <Image
-                src={partner.logo}
-                alt={partner.name}
-                width={180}
-                height={60}
-                className="h-12 md:h-14 w-auto brightness-0 invert"
-              />
-              <span className="text-lg md:text-xl font-medium text-white/80">
+              <div className="relative h-16 md:h-20 w-40 md:w-48 flex items-center justify-center">
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  width={200}
+                  height={80}
+                  className="h-full w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
+              <span className="text-sm font-medium text-muted group-hover:text-white transition-colors duration-300">
                 {partner.name}
               </span>
             </Link>
