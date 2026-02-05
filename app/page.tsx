@@ -1,0 +1,25 @@
+import Hero from '@/components/sections/Hero'
+import Partners from '@/components/sections/Partners'
+import Services from '@/components/sections/Services'
+import Process from '@/components/sections/Process'
+import WhatsNew from '@/components/sections/WhatsNew'
+import CTA from '@/components/sections/CTA'
+import Support from '@/components/sections/Support'
+import QuoteForm from '@/components/sections/QuoteForm'
+import ContactForm from '@/components/sections/ContactForm'
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <Partners />
+      <Services />
+      <Process />
+      <WhatsNew />
+      <CTA />
+      <Support />
+      <QuoteForm />
+      <ContactForm />
+    </>
+  )
+}
