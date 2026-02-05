@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const siteConfig = {
   name: 'Tecnoprints',
-  description: 'Professional 3D printing services for prototyping and production. Fast turnaround, high quality PLA prints for your projects.',
+  description: 'Servicios profesionales de impresión 3D para prototipado y producción. Entrega rápida, impresiones PLA de alta calidad para tus proyectos.',
   url: 'https://tecnoprints.com',
   ogImage: '/og-image.jpg',
   links: {
@@ -10,21 +10,22 @@ export const siteConfig = {
     github: 'https://github.com/tecnoprints',
   },
   keywords: [
-    '3D printing',
-    '3D printing services',
-    'PLA printing',
-    'FDM printing',
-    'prototyping',
-    'custom parts',
-    'rapid prototyping',
-    '3D print on demand',
+    'impresión 3D',
+    'servicios de impresión 3D',
+    'impresión PLA',
+    'impresión FDM',
+    'prototipado',
+    'piezas personalizadas',
+    'prototipado rápido',
+    'impresión 3D bajo demanda',
+    'México',
   ],
 }
 
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} - Professional 3D Printing Services`,
+    default: `${siteConfig.name} - Servicios Profesionales de Impresión 3D`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -33,7 +34,7 @@ export const defaultMetadata: Metadata = {
   creator: siteConfig.name,
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'es_MX',
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
@@ -79,11 +80,11 @@ export function generateStructuredData() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      availableLanguage: ['English'],
+      availableLanguage: ['Spanish', 'English'],
     },
     offers: {
       '@type': 'Offer',
-      description: '3D Printing Services',
+      description: 'Servicios de Impresión 3D',
       availability: 'https://schema.org/InStock',
     },
   }

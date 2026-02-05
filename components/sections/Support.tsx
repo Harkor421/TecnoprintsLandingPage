@@ -7,18 +7,18 @@ import { MessageSquare, FileText, HelpCircle, ArrowRight } from 'lucide-react'
 const supportOptions = [
   {
     icon: MessageSquare,
-    title: 'Live Chat',
-    description: 'Get instant answers from our support team during business hours.',
+    title: 'Chat en Vivo',
+    description: 'Obtén respuestas instantáneas de nuestro equipo de soporte en horario laboral.',
   },
   {
     icon: FileText,
-    title: 'Design Review',
-    description: 'Submit your design for a free manufacturability review.',
+    title: 'Revisión de Diseño',
+    description: 'Envía tu diseño para una revisión gratuita de manufacturabilidad.',
   },
   {
     icon: HelpCircle,
-    title: 'Knowledge Base',
-    description: 'Browse our extensive library of guides and tutorials.',
+    title: 'Base de Conocimiento',
+    description: 'Explora nuestra extensa biblioteca de guías y tutoriales.',
   },
 ]
 
@@ -30,24 +30,24 @@ export default function Support() {
           {/* Content */}
           <div>
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Design &{' '}
+              Soporte de{' '}
               <span className="text-primary">
-                Engineering
+                Diseño
               </span>{' '}
-              Support
+              e Ingeniería
             </h2>
             <p className="text-muted mb-6">
-              Not sure if your design is printable? Our team of experts is here to help.
-              We offer free design consultations and can help optimize your models
-              for 3D printing.
+              ¿No estás seguro si tu diseño es imprimible? Nuestro equipo de expertos está aquí para ayudarte.
+              Ofrecemos consultas de diseño gratuitas y podemos ayudar a optimizar tus modelos
+              para impresión 3D.
             </p>
             <p className="text-muted mb-8">
-              Whether you need help with file preparation, material selection, or
-              design for manufacturability, we have got the expertise to guide you
-              through the process.
+              Ya sea que necesites ayuda con la preparación de archivos, selección de materiales o
+              diseño para manufactura, tenemos la experiencia para guiarte
+              a través del proceso.
             </p>
             <Button variant="outline" className="group">
-              Contact Our Team
+              Contactar a Nuestro Equipo
               <ArrowRight
                 size={18}
                 className="ml-2 group-hover:translate-x-1 transition-transform"
