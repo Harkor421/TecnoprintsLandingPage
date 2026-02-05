@@ -64,34 +64,44 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-muted hover:text-white transition-colors"
+            className="md:hidden p-2 -mr-2 text-muted hover:text-white transition-colors touch-manipulation"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
+      </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <nav className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-muted hover:text-white transition-colors duration-200 py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Button variant="primary" className="mt-4">
-                Cotizar Ahora
-              </Button>
-            </nav>
-          </div>
+      {/* Mobile Menu - Full screen overlay */}
+      <div
+        className={cn(
+          'md:hidden fixed inset-0 top-16 bg-background/98 backdrop-blur-xl z-40 transition-all duration-300',
+          isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
         )}
+      >
+        <nav className="flex flex-col p-6 gap-2">
+          {navLinks.map((link, index) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(
+                'text-lg font-medium text-muted hover:text-white transition-all duration-300 py-4 px-4 rounded-lg hover:bg-surface active:bg-surface/80 touch-manipulation',
+                isMobileMenuOpen ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-0'
+              )}
+              style={{ transitionDelay: isMobileMenuOpen ? `${index * 50}ms` : '0ms' }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-4 mt-4 border-t border-border">
+            <Button variant="primary" className="w-full py-4 text-lg touch-manipulation">
+              Cotizar Ahora
+            </Button>
+          </div>
+        </nav>
       </div>
     </header>
   )

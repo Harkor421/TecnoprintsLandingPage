@@ -1,8 +1,8 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, OrbitControls, RoundedBox } from '@react-three/drei'
+import { Float, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 
 // Bambu Lab style printer frame
@@ -363,12 +363,29 @@ function Scene() {
 }
 
 export default function PrinterScene() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   return (
-    <div className="w-full h-full min-h-[400px] md:min-h-[500px]">
+    <div className="w-full h-full min-h-[280px] sm:min-h-[350px] md:min-h-[450px] touch-manipulation">
       <Canvas
-        camera={{ position: [4, 2.5, 4], fov: 40 }}
-        gl={{ antialias: true, alpha: true }}
+        camera={{
+          position: isMobile ? [5, 3, 5] : [4, 2.5, 4],
+          fov: isMobile ? 50 : 40
+        }}
+        gl={{
+          antialias: !isMobile, // Disable antialiasing on mobile for performance
+          alpha: true,
+          powerPreference: 'high-performance'
+        }}
         style={{ background: 'transparent' }}
+        dpr={isMobile ? [1, 1.5] : [1, 2]} // Lower DPR on mobile
       >
         <Scene />
       </Canvas>
