@@ -9,15 +9,15 @@ export default function CTA() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Video placeholder */}
-          <div className="relative aspect-video bg-surface rounded-2xl overflow-hidden border border-border">
+          <div className="relative aspect-video bg-surface overflow-hidden border border-border">
             <div className="absolute inset-0 flex items-center justify-center">
-              <button className="w-16 h-16 rounded-full bg-primary flex items-center justify-center hover:scale-110 transition-transform">
-                <Play size={24} className="text-black ml-1" />
+              <button className="w-14 h-14 bg-primary flex items-center justify-center hover:bg-primary-dark transition-colors">
+                <Play size={22} className="text-black ml-0.5" />
               </button>
             </div>
             <div className="absolute bottom-4 left-4 flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-background/80 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+              <div className="w-8 h-8 bg-background/80 flex items-center justify-center">
+                <div className="w-2 h-2 bg-primary" />
               </div>
               <span className="text-sm text-white/80">Ver cómo funciona</span>
             </div>
@@ -45,7 +45,7 @@ export default function CTA() {
                 'Opciones de envío rápido',
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <div className="w-1.5 h-1.5 bg-primary" />
                   {item}
                 </li>
               ))}

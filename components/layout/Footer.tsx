@@ -129,6 +129,21 @@ export default function Footer() {
             ))}
           </div>
         </div>
+
+        {/* Parent Company */}
+        <div className="mt-6 pt-4 border-t border-border/50 text-center">
+          <p className="text-muted/70 text-xs">
+            Una empresa de{' '}
+            <a
+              href="https://degentech.co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:text-primary-light transition-colors font-medium"
+            >
+              Degentech SAS
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   )

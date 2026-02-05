@@ -64,7 +64,7 @@ export default function QuoteForm() {
         <Card hover={false} className="p-8">
           {submitted ? (
             <div className="text-center py-12">
-              <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-green-500/20 flex items-center justify-center mx-auto mb-4">
                 <svg
                   className="w-8 h-8 text-green-500"
                   fill="none"
@@ -93,7 +93,7 @@ export default function QuoteForm() {
                 </label>
                 <div className="relative">
                   {formData.file ? (
-                    <div className="flex items-center justify-between p-4 bg-background rounded-lg border border-border">
+                    <div className="flex items-center justify-between p-4 bg-background border border-border">
                       <div className="flex items-center gap-3">
                         <FileText size={20} className="text-primary" />
                         <span className="text-sm">{formData.file.name}</span>
@@ -107,7 +107,7 @@ export default function QuoteForm() {
                       </button>
                     </div>
                   ) : (
-                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary transition-colors">
+                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border cursor-pointer hover:border-primary transition-colors">
                       <Upload size={24} className="text-muted mb-2" />
                       <span className="text-sm text-muted">
                         Click to upload or drag and drop
@@ -132,7 +132,7 @@ export default function QuoteForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, material: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-white focus:border-primary focus:outline-none"
+                    className="w-full px-4 py-2.5 bg-background border border-border text-white focus:border-primary focus:outline-none"
                   >
                     {materials.map((m) => (
                       <option key={m.value} value={m.value}>
@@ -152,7 +152,7 @@ export default function QuoteForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, quantity: parseInt(e.target.value) })
                     }
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-white focus:border-primary focus:outline-none"
+                    className="w-full px-4 py-2.5 bg-background border border-border text-white focus:border-primary focus:outline-none"
                   />
                 </div>
               </div>
@@ -166,9 +166,9 @@ export default function QuoteForm() {
                       key={c.value}
                       type="button"
                       onClick={() => setFormData({ ...formData, color: c.value })}
-                      className={`w-8 h-8 rounded-full border-2 transition-all ${
+                      className={`w-8 h-8 border-2 transition-colors ${
                         formData.color === c.value
-                          ? 'border-primary scale-110'
+                          ? 'border-primary'
                           : 'border-transparent hover:border-border'
                       }`}
                       style={{ backgroundColor: c.color }}
@@ -188,7 +188,7 @@ export default function QuoteForm() {
                     setFormData({ ...formData, email: e.target.value })
                   }
                   placeholder="your@email.com"
-                  className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-white placeholder:text-muted focus:border-primary focus:outline-none"
+                  className="w-full px-4 py-2.5 bg-background border border-border text-white placeholder:text-muted focus:border-primary focus:outline-none"
                   required
                 />
               </div>
@@ -205,7 +205,7 @@ export default function QuoteForm() {
                   }
                   rows={3}
                   placeholder="Any specific requirements..."
-                  className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-white placeholder:text-muted focus:border-primary focus:outline-none resize-none"
+                  className="w-full px-4 py-2.5 bg-background border border-border text-white placeholder:text-muted focus:border-primary focus:outline-none resize-none"
                 />
               </div>
 

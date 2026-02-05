@@ -14,15 +14,22 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:pointer-events-none',
+          'inline-flex items-center justify-center font-medium',
+          'transition-colors duration-200',
+          'focus:outline-none focus:ring-2 focus:ring-primary/50',
+          'disabled:opacity-50 disabled:pointer-events-none',
           {
-            'bg-primary text-black font-semibold hover:bg-primary-light':
+            // Primary variant - clean, professional
+            'bg-primary text-black font-semibold hover:bg-primary-dark':
               variant === 'primary',
-            'bg-surface text-white border border-border hover:border-primary':
+            // Secondary variant
+            'bg-surface text-white border border-border hover:border-primary/70':
               variant === 'secondary',
-            'border border-border bg-transparent text-white hover:bg-surface hover:border-primary':
+            // Outline variant
+            'border border-border bg-transparent text-white hover:bg-surface/50 hover:border-primary/70':
               variant === 'outline',
-            'bg-transparent text-muted hover:text-white hover:bg-surface':
+            // Ghost variant
+            'bg-transparent text-muted hover:text-white':
               variant === 'ghost',
           },
           {

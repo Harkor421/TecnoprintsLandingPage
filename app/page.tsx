@@ -5,8 +5,10 @@ import Process from '@/components/sections/Process'
 import WhatsNew from '@/components/sections/WhatsNew'
 import CTA from '@/components/sections/CTA'
 import Support from '@/components/sections/Support'
+import FAQ from '@/components/sections/FAQ'
 import QuoteForm from '@/components/sections/QuoteForm'
 import ContactForm from '@/components/sections/ContactForm'
+import Certifications from '@/components/sections/Certifications'
 
 export default function Home() {
   return (
@@ -18,8 +20,10 @@ export default function Home() {
       <WhatsNew />
       <CTA />
       <Support />
+      <FAQ />
       <QuoteForm />
       <ContactForm />
+      <Certifications />
     </>
   )
 }
