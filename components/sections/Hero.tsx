@@ -8,8 +8,22 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 export default function Hero() {
   return (
     <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-16 md:pt-20">
-      {/* Clean gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-surface/30" />
+      {/* Video background */}
+      <div className="absolute inset-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/background-video.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/70" />
+        {/* Gradient fade at edges */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/60" />
+      </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-20 w-full">
         {/* Centered content */}
@@ -65,7 +79,7 @@ export default function Hero() {
 
         {/* Stats bar */}
         <FadeIn delay={0.7} duration={0.8}>
-          <div className="mt-16 sm:mt-20 pt-8 border-t border-border">
+          <div className="mt-16 sm:mt-20 pt-8 border-t border-border/50">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto text-center">
               <div>
                 <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
