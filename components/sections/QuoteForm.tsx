@@ -17,7 +17,7 @@ const colors = [
   { value: 'white', label: 'White', color: '#ffffff' },
   { value: 'gray', label: 'Gray', color: '#6b7280' },
   { value: 'red', label: 'Red', color: '#ef4444' },
-  { value: 'teal', label: 'Teal', color: '#00D67F' },
+  { value: 'teal', label: 'Teal', color: '#1ed760' },
   { value: 'green', label: 'Green', color: '#22c55e' },
   { value: 'yellow', label: 'Yellow', color: '#eab308' },
   { value: 'orange', label: 'Orange', color: '#f97316' },

@@ -6,8 +6,8 @@
   --background: #0a0a0a;
   --surface: #141414;
   --border: #262626;
-  --primary: #00D67F;
-  --secondary: #00A86B;
+  --primary: #1ed760;
+  --secondary: #17a34a;
   --muted: #a1a1aa;
 }
 
@@ -60,7 +60,7 @@ html {
 
 /* Selection */
 ::selection {
-  background-color: rgba(0, 214, 127, 0.3);
+  background-color: rgba(30, 215, 96, 0.3);
 }
 
 @layer utilities {

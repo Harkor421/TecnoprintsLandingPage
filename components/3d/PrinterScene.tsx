@@ -44,11 +44,11 @@ function PrinterFrame() {
       {/* Z-axis rails (vertical) on pillars */}
       <mesh position={[-1.15, 0, -1.1]}>
         <boxGeometry args={[0.05, 2.8, 0.08]} />
-        <meshStandardMaterial color="#00D67F" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#1ed760" metalness={0.8} roughness={0.2} />
       </mesh>
       <mesh position={[1.15, 0, -1.1]}>
         <boxGeometry args={[0.05, 2.8, 0.08]} />
-        <meshStandardMaterial color="#00D67F" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#1ed760" metalness={0.8} roughness={0.2} />
       </mesh>
 
       {/* Electronics box - right side */}
@@ -60,7 +60,7 @@ function PrinterFrame() {
       {/* Screen on electronics box */}
       <mesh position={[1.81, -0.3, 0]}>
         <boxGeometry args={[0.02, 0.5, 0.7]} />
-        <meshStandardMaterial color="#00D67F" emissive="#00D67F" emissiveIntensity={0.3} />
+        <meshStandardMaterial color="#1ed760" emissive="#1ed760" emissiveIntensity={0.3} />
       </mesh>
 
       {/* Spool holder - top right */}
@@ -72,7 +72,7 @@ function PrinterFrame() {
       {/* Filament spool */}
       <mesh position={[1.6, 1.2, -0.5]} rotation={[0, 0, Math.PI / 2]}>
         <torusGeometry args={[0.35, 0.12, 8, 24]} />
-        <meshStandardMaterial color="#00D67F" metalness={0.3} roughness={0.6} />
+        <meshStandardMaterial color="#1ed760" metalness={0.3} roughness={0.6} />
       </mesh>
     </group>
   )
@@ -101,7 +101,7 @@ function XGantry() {
       {/* X-axis rail */}
       <mesh position={[0, -0.05, 0.7]}>
         <boxGeometry args={[2.3, 0.04, 0.06]} />
-        <meshStandardMaterial color="#00D67F" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#1ed760" metalness={0.8} roughness={0.2} />
       </mesh>
 
       {/* Left carriage mount */}
@@ -162,7 +162,7 @@ function PrintHead() {
       {/* Part cooling duct */}
       <mesh position={[0.12, -0.15, 0.12]} rotation={[0.3, 0, 0.2]}>
         <boxGeometry args={[0.08, 0.15, 0.08]} />
-        <meshStandardMaterial color="#00D67F" metalness={0.5} roughness={0.4} />
+        <meshStandardMaterial color="#1ed760" metalness={0.5} roughness={0.4} />
       </mesh>
 
       {/* LED light strip */}
@@ -216,11 +216,11 @@ function BuildPlate() {
       {/* Y-axis rails */}
       <mesh position={[-0.9, -0.15, 0]}>
         <boxGeometry args={[0.06, 0.04, 2.2]} />
-        <meshStandardMaterial color="#00D67F" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#1ed760" metalness={0.8} roughness={0.2} />
       </mesh>
       <mesh position={[0.9, -0.15, 0]}>
         <boxGeometry args={[0.06, 0.04, 2.2]} />
-        <meshStandardMaterial color="#00D67F" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#1ed760" metalness={0.8} roughness={0.2} />
       </mesh>
     </group>
   )
@@ -253,8 +253,8 @@ function PrintedObject() {
       <boxGeometry args={[0.5, 0.5, 0.35]} />
       <meshStandardMaterial
         ref={materialRef}
-        color="#00D67F"
-        emissive="#00A86B"
+        color="#1ed760"
+        emissive="#17a34a"
         emissiveIntensity={0.15}
         metalness={0.2}
         roughness={0.6}
@@ -279,7 +279,7 @@ function FilamentPath() {
   return (
     <mesh>
       <tubeGeometry args={[curve, 20, 0.02, 8, false]} />
-      <meshStandardMaterial color="#00D67F" metalness={0.3} roughness={0.6} />
+      <meshStandardMaterial color="#1ed760" metalness={0.3} roughness={0.6} />
     </mesh>
   )
 }
@@ -318,7 +318,7 @@ function PrintParticles() {
       </bufferGeometry>
       <pointsMaterial
         size={0.02}
-        color="#00D67F"
+        color="#1ed760"
         transparent
         opacity={0.4}
         sizeAttenuation
@@ -332,7 +332,7 @@ function Scene() {
     <>
       <ambientLight intensity={0.4} />
       <pointLight position={[5, 5, 5]} intensity={0.8} color="#ffffff" />
-      <pointLight position={[-3, 3, 3]} intensity={0.4} color="#00D67F" />
+      <pointLight position={[-3, 3, 3]} intensity={0.4} color="#1ed760" />
       <spotLight
         position={[0, 4, 2]}
         angle={0.4}

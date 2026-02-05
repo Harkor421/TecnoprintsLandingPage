@@ -25,7 +25,7 @@ export default function Logo({ className, showText = true }: LogoProps) {
             width="32"
             height="28"
             rx="2"
-            stroke="#00D67F"
+            stroke="#1ed760"
             strokeWidth="2"
             fill="none"
           />
@@ -36,7 +36,7 @@ export default function Logo({ className, showText = true }: LogoProps) {
             width="24"
             height="4"
             rx="1"
-            fill="#00D67F"
+            fill="#1ed760"
           />
           {/* Print head */}
           <rect
@@ -45,12 +45,12 @@ export default function Logo({ className, showText = true }: LogoProps) {
             width="8"
             height="6"
             rx="1"
-            fill="#00D67F"
+            fill="#1ed760"
           />
           {/* Printed object */}
           <path
             d="M14 32L20 22L26 32H14Z"
-            fill="#00D67F"
+            fill="#1ed760"
             opacity="0.8"
           />
           {/* Build plate */}
@@ -60,7 +60,7 @@ export default function Logo({ className, showText = true }: LogoProps) {
             width="20"
             height="2"
             rx="1"
-            fill="#00D67F"
+            fill="#1ed760"
           />
         </svg>
       </div>
