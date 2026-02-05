@@ -64,8 +64,8 @@ function PrinterFrame() {
       </mesh>
 
       {/* Spool holder - top right */}
-      <mesh position={[1.6, 1.2, -0.5]}>
-        <cylinderGeometry args={[0.08, 0.08, 0.6, 16]} rotation={[0, 0, Math.PI / 2]} />
+      <mesh position={[1.6, 1.2, -0.5]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.08, 0.08, 0.6, 16]} />
         <meshStandardMaterial color="#3a3a3a" metalness={0.6} roughness={0.4} />
       </mesh>
 
