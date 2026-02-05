@@ -1,21 +1,37 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Button from '@/components/ui/Button'
 import FadeIn from '@/components/ui/FadeIn'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    // Force play on mobile
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay was prevented, video will show first frame
+      })
+    }
+  }, [])
+
   return (
     <section className="relative min-h-[100dvh] flex items-center overflow-hidden pt-16 md:pt-20">
       {/* Video background */}
       <div className="absolute inset-0">
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          controls={false}
+          disablePictureInPicture
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          style={{ objectPosition: 'center center' }}
         >
           <source src="/background-video.mp4" type="video/mp4" />
         </video>

@@ -1,9 +1,18 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Button from '@/components/ui/Button'
 import { ArrowRight } from 'lucide-react'
 
 export default function CTA() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {})
+    }
+  }, [])
+
   return (
     <section className="py-20 md:py-32 bg-surface/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,11 +20,14 @@ export default function CTA() {
           {/* Video */}
           <div className="relative aspect-video bg-surface overflow-hidden border border-border">
             <video
+              ref={videoRef}
               autoPlay
               muted
               loop
               playsInline
-              className="absolute inset-0 w-full h-full object-cover"
+              controls={false}
+              disablePictureInPicture
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             >
               <source src="/background-video.mp4" type="video/mp4" />
             </video>
