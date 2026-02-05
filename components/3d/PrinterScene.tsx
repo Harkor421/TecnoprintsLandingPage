@@ -341,8 +341,8 @@ function Scene() {
         color="#ffffff"
       />
 
-      <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.3}>
-        <group rotation={[0.15, 0.4, 0]} scale={0.85}>
+      <Float speed={1} rotationIntensity={0} floatIntensity={0.2}>
+        <group rotation={[0.1, 0, 0]} scale={0.85}>
           <PrinterFrame />
           <XGantry />
           <PrintHead />
@@ -356,10 +356,7 @@ function Scene() {
       <OrbitControls
         enableZoom={false}
         enablePan={false}
-        maxPolarAngle={Math.PI / 2}
-        minPolarAngle={Math.PI / 4}
-        autoRotate
-        autoRotateSpeed={0.4}
+        enableRotate={false}
       />
     </>
   )
