@@ -1,20 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import Logo from '@/components/ui/Logo'
 import Button from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
+import { NAVIGATION } from '@/lib/constants'
 
-const navLinks = [
-  { href: '#services', label: 'Servicios' },
-  { href: '#process', label: 'Cómo Funciona' },
-  { href: '#about', label: 'Nosotros' },
-  { href: '#contact', label: 'Contacto' },
-]
-
-export default function Header() {
+function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
@@ -30,7 +24,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {NAVIGATION.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -68,7 +62,7 @@ export default function Header() {
         )}
       >
         <nav className="flex flex-col p-6 gap-2">
-          {navLinks.map((link, index) => (
+          {NAVIGATION.map((link, index) => (
             <Link
               key={link.href}
               href={link.href}
@@ -92,3 +86,5 @@ export default function Header() {
     </header>
   )
 }
+
+export default memo(Header)

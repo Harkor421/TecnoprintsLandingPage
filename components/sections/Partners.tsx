@@ -2,21 +2,10 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { memo } from 'react'
+import { PARTNERS } from '@/lib/constants'
 
-const partners = [
-  {
-    name: 'Degentech SAS',
-    logo: '/degentech-logo.png',
-    url: 'https://degentech.co',
-  },
-  {
-    name: 'Centro INCA',
-    logo: '/inca-logo.png',
-    url: 'https://centroinca.com/centroinca/',
-  },
-]
-
-export default function Partners() {
+function Partners() {
   return (
     <section className="py-16 md:py-20 bg-background">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +16,7 @@ export default function Partners() {
         </div>
 
         <div className="flex items-center justify-center gap-16 md:gap-24">
-          {partners.map((partner) => (
+          {PARTNERS.map((partner) => (
             <Link
               key={partner.name}
               href={partner.url}
@@ -54,3 +43,5 @@ export default function Partners() {
     </section>
   )
 }
+
+export default memo(Partners)

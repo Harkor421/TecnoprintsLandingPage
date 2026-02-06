@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, memo } from 'react'
 import Button from '@/components/ui/Button'
 import { ArrowRight } from 'lucide-react'
+import { CTA_BENEFITS } from '@/lib/constants'
 
-export default function CTA() {
+function CTA() {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -48,12 +49,7 @@ export default function CTA() {
               te tenemos cubierto.
             </p>
             <ul className="space-y-3 mb-8">
-              {[
-                'Sin cantidad mínima de pedido',
-                'Cotizaciones en línea instantáneas',
-                'Equipo de soporte experto',
-                'Opciones de envío rápido',
-              ].map((item) => (
+              {CTA_BENEFITS.map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm">
                   <div className="w-1.5 h-1.5 bg-primary" />
                   {item}
@@ -73,3 +69,5 @@ export default function CTA() {
     </section>
   )
 }
+
+export default memo(CTA)

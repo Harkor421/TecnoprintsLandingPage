@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, memo } from 'react'
 import Button from '@/components/ui/Button'
 import FadeIn from '@/components/ui/FadeIn'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { HERO_STATS, HERO_FEATURES, ANIMATION } from '@/lib/constants'
 
-export default function Hero() {
+function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -77,18 +78,12 @@ export default function Hero() {
           {/* Trust indicators */}
           <FadeIn delay={0.55} duration={0.8}>
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-primary" />
-                <span>ISO 9001 Certificado</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-primary" />
-                <span>Entrega en 24-48h</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 size={16} className="text-primary" />
-                <span>Sin Pedido Mínimo</span>
-              </div>
+              {HERO_FEATURES.map((feature) => (
+                <div key={feature} className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-primary" />
+                  <span>{feature}</span>
+                </div>
+              ))}
             </div>
           </FadeIn>
         </div>
@@ -97,30 +92,14 @@ export default function Hero() {
         <FadeIn delay={0.7} duration={0.8}>
           <div className="mt-16 sm:mt-20 pt-8 border-t border-border/50">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto text-center">
-              <div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
-                  <AnimatedCounter end={500} suffix="+" />
+              {HERO_STATS.map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
+                    <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <div className="text-xs sm:text-sm text-muted uppercase tracking-wider">{stat.label}</div>
                 </div>
-                <div className="text-xs sm:text-sm text-muted uppercase tracking-wider">Proyectos Entregados</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
-                  <AnimatedCounter end={24} suffix="h" />
-                </div>
-                <div className="text-xs sm:text-sm text-muted uppercase tracking-wider">Tiempo de Entrega</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
-                  <AnimatedCounter end={99} suffix="%" />
-                </div>
-                <div className="text-xs sm:text-sm text-muted uppercase tracking-wider">Satisfacción</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">
-                  <AnimatedCounter end={50} suffix="+" />
-                </div>
-                <div className="text-xs sm:text-sm text-muted uppercase tracking-wider">Clientes Activos</div>
-              </div>
+              ))}
             </div>
           </div>
         </FadeIn>
@@ -138,3 +117,5 @@ export default function Hero() {
     </section>
   )
 }
+
+export default memo(Hero)

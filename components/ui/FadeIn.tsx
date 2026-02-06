@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState, ReactNode } from 'react'
+import { useEffect, useState, ReactNode, memo } from 'react'
 import { cn } from '@/lib/utils'
+import { EASING } from '@/lib/animation'
 
 interface FadeInProps {
   children: ReactNode
@@ -10,7 +11,12 @@ interface FadeInProps {
   duration?: number
 }
 
-export default function FadeIn({
+/**
+ * FadeIn Component
+ * Animates children on page load with a staggered fade and slide-up effect
+ * Uses GPU-accelerated transforms for smooth performance
+ */
+function FadeIn({
   children,
   className,
   delay = 0,
@@ -32,10 +38,13 @@ export default function FadeIn({
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-        transition: `opacity ${duration}s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s, transform ${duration}s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s`,
+        transition: `opacity ${duration}s ${EASING.smooth} 0s, transform ${duration}s ${EASING.smooth} 0s`,
+        willChange: 'opacity, transform',
       }}
     >
       {children}
     </div>
   )
 }
+
+export default memo(FadeIn)
