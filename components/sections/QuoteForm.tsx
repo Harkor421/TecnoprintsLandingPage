@@ -6,21 +6,21 @@ import Card from '@/components/ui/Card'
 import { Upload, X, FileText } from 'lucide-react'
 
 const materials = [
-  { value: 'pla-standard', label: 'PLA Standard' },
-  { value: 'pla-plus', label: 'PLA+ (High Strength)' },
-  { value: 'pla-silk', label: 'PLA Silk (Glossy)' },
-  { value: 'pla-matte', label: 'PLA Matte' },
+  { value: 'pla-standard', label: 'PLA Estándar' },
+  { value: 'pla-plus', label: 'PLA+ (Alta Resistencia)' },
+  { value: 'pla-silk', label: 'PLA Silk (Brillante)' },
+  { value: 'pla-matte', label: 'PLA Mate' },
 ]
 
 const colors = [
-  { value: 'black', label: 'Black', color: '#1a1a1a' },
-  { value: 'white', label: 'White', color: '#ffffff' },
-  { value: 'gray', label: 'Gray', color: '#6b7280' },
-  { value: 'red', label: 'Red', color: '#ef4444' },
-  { value: 'teal', label: 'Teal', color: '#1ed760' },
-  { value: 'green', label: 'Green', color: '#22c55e' },
-  { value: 'yellow', label: 'Yellow', color: '#eab308' },
-  { value: 'orange', label: 'Orange', color: '#f97316' },
+  { value: 'black', label: 'Negro', color: '#1a1a1a' },
+  { value: 'white', label: 'Blanco', color: '#ffffff' },
+  { value: 'gray', label: 'Gris', color: '#6b7280' },
+  { value: 'red', label: 'Rojo', color: '#ef4444' },
+  { value: 'teal', label: 'Verde Azulado', color: '#1ed760' },
+  { value: 'green', label: 'Verde', color: '#22c55e' },
+  { value: 'yellow', label: 'Amarillo', color: '#eab308' },
+  { value: 'orange', label: 'Naranja', color: '#f97316' },
 ]
 
 export default function QuoteForm() {
@@ -51,13 +51,14 @@ export default function QuoteForm() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Get an{' '}
+            Obtén tu{' '}
             <span className="text-primary">
-              Instant Quote
-            </span>
+              Cotización
+            </span>{' '}
+            al Instante
           </h2>
           <p className="text-muted">
-            Upload your 3D model and get a quote in seconds.
+            Sube tu modelo 3D y recibe una cotización en segundos.
           </p>
         </div>
 
@@ -79,9 +80,9 @@ export default function QuoteForm() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Quote Request Submitted!</h3>
+              <h3 className="text-xl font-semibold mb-2">Cotización Enviada!</h3>
               <p className="text-muted">
-                This is a demo. In production, you would receive a quote via email.
+                Esto es un demo. En producción, recibirías tu cotización por correo.
               </p>
             </div>
           ) : (
@@ -89,7 +90,7 @@ export default function QuoteForm() {
               {/* File Upload */}
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Upload 3D Model (STL, OBJ, STEP)
+                  Subir Modelo 3D (STL, OBJ, STEP)
                 </label>
                 <div className="relative">
                   {formData.file ? (
@@ -110,7 +111,7 @@ export default function QuoteForm() {
                     <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border cursor-pointer hover:border-primary transition-colors">
                       <Upload size={24} className="text-muted mb-2" />
                       <span className="text-sm text-muted">
-                        Click to upload or drag and drop
+                        Haz clic para subir o arrastra tu archivo
                       </span>
                       <input
                         type="file"
@@ -144,7 +145,7 @@ export default function QuoteForm() {
 
                 {/* Quantity */}
                 <div>
-                  <label className="block text-sm font-medium mb-2">Quantity</label>
+                  <label className="block text-sm font-medium mb-2">Cantidad</label>
                   <input
                     type="number"
                     min="1"
@@ -180,14 +181,14 @@ export default function QuoteForm() {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium mb-2">Email</label>
+                <label className="block text-sm font-medium mb-2">Correo Electrónico</label>
                 <input
                   type="email"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  placeholder="your@email.com"
+                  placeholder="tu@correo.com"
                   className="w-full px-4 py-2.5 bg-background border border-border text-white placeholder:text-muted focus:border-primary focus:outline-none"
                   required
                 />
@@ -196,7 +197,7 @@ export default function QuoteForm() {
               {/* Notes */}
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  Additional Notes (Optional)
+                  Notas Adicionales (Opcional)
                 </label>
                 <textarea
                   value={formData.notes}
@@ -204,13 +205,13 @@ export default function QuoteForm() {
                     setFormData({ ...formData, notes: e.target.value })
                   }
                   rows={3}
-                  placeholder="Any specific requirements..."
+                  placeholder="Requisitos específicos..."
                   className="w-full px-4 py-2.5 bg-background border border-border text-white placeholder:text-muted focus:border-primary focus:outline-none resize-none"
                 />
               </div>
 
               <Button type="submit" size="lg" className="w-full">
-                Get Quote
+                Obtener Cotización
               </Button>
             </form>
           )}

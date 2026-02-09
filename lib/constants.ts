@@ -37,7 +37,6 @@ export const HERO_STATS = [
 ] as const
 
 export const HERO_FEATURES = [
-  'ISO 9001 Certificado',
   'Entrega en 24-48h',
   'Sin Pedido Mínimo',
 ] as const
@@ -50,8 +49,8 @@ export const CTA_BENEFITS = [
 ] as const
 
 export const SITE_CONFIG = {
-  title: 'Tecnoprints - Soluciones de Impresión 3D',
+  title: 'Tecnoprints - Impresión 3D para Todos',
   description:
-    'Transformamos ideas en realidad con tecnología de impresión 3D de alta precisión para empresas, emprendedores y estudiantes.',
+    'Transformamos ideas en realidad con tecnología de impresión 3D de alta precisión para estudiantes, emprendedores, makers y empresas.',
   url: 'https://tecnoprints.co',
 } as const

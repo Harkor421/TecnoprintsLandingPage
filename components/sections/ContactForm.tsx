@@ -25,14 +25,14 @@ export default function ContactForm() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Get in{' '}
+            Ponte en{' '}
             <span className="text-primary">
-              Touch
+              Contacto
             </span>
           </h2>
           <p className="text-muted max-w-2xl mx-auto">
-            Have questions? We are here to help. Send us a message and we will respond
-            as soon as possible.
+            ¿Tienes preguntas? Estamos aquí para ayudarte. Envíanos un mensaje y te
+            responderemos lo antes posible.
           </p>
         </div>
 
@@ -44,8 +44,8 @@ export default function ContactForm() {
                 <Mail size={20} className="text-black" />
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Email</h3>
-                <p className="text-sm text-muted">hello@tecnoprints.com</p>
+                <h3 className="font-semibold mb-1">Correo</h3>
+                <p className="text-sm text-muted">contact@tecnoprints.com</p>
               </div>
             </Card>
 
@@ -54,8 +54,8 @@ export default function ContactForm() {
                 <Phone size={20} className="text-black" />
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Phone</h3>
-                <p className="text-sm text-muted">+1 (555) 123-4567</p>
+                <h3 className="font-semibold mb-1">Teléfono</h3>
+                <p className="text-sm text-muted">+57 (300) 123-4567</p>
               </div>
             </Card>
 
@@ -64,8 +64,8 @@ export default function ContactForm() {
                 <MapPin size={20} className="text-black" />
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Location</h3>
-                <p className="text-sm text-muted">San Francisco, CA</p>
+                <h3 className="font-semibold mb-1">Ubicación</h3>
+                <p className="text-sm text-muted">Colombia</p>
               </div>
             </Card>
           </div>
@@ -89,36 +89,36 @@ export default function ContactForm() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Message Sent!</h3>
+                <h3 className="text-xl font-semibold mb-2">Mensaje Enviado!</h3>
                 <p className="text-muted">
-                  This is a demo. In production, your message would be delivered.
+                  Esto es un demo. En producción, tu mensaje sería entregado.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Name</label>
+                    <label className="block text-sm font-medium mb-2">Nombre</label>
                     <input
                       type="text"
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
-                      placeholder="John Doe"
+                      placeholder="Tu nombre"
                       className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-white placeholder:text-muted focus:border-primary focus:outline-none"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Email</label>
+                    <label className="block text-sm font-medium mb-2">Correo Electrónico</label>
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      placeholder="john@example.com"
+                      placeholder="tu@correo.com"
                       className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-white placeholder:text-muted focus:border-primary focus:outline-none"
                       required
                     />
@@ -126,35 +126,35 @@ export default function ContactForm() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Subject</label>
+                  <label className="block text-sm font-medium mb-2">Asunto</label>
                   <input
                     type="text"
                     value={formData.subject}
                     onChange={(e) =>
                       setFormData({ ...formData, subject: e.target.value })
                     }
-                    placeholder="How can we help?"
+                    placeholder="¿En qué podemos ayudarte?"
                     className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-white placeholder:text-muted focus:border-primary focus:outline-none"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-2">Message</label>
+                  <label className="block text-sm font-medium mb-2">Mensaje</label>
                   <textarea
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
                     rows={5}
-                    placeholder="Tell us about your project..."
+                    placeholder="Cuéntanos sobre tu proyecto..."
                     className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-white placeholder:text-muted focus:border-primary focus:outline-none resize-none"
                     required
                   />
                 </div>
 
                 <Button type="submit" size="lg" className="w-full group">
-                  Send Message
+                  Enviar Mensaje
                   <Send
                     size={18}
                     className="ml-2 group-hover:translate-x-1 transition-transform"

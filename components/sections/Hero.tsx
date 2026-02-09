@@ -47,16 +47,16 @@ function Hero() {
         <div className="text-center max-w-4xl mx-auto">
           <FadeIn delay={0.1} duration={0.8}>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Soluciones de Impresión{' '}
+              Impresión{' '}
               <span className="text-primary">3D</span>{' '}
-              para Empresas
+              para Todos
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.25} duration={0.8}>
             <p className="text-base sm:text-lg text-muted mb-8 max-w-2xl mx-auto leading-relaxed">
-              Desde prototipado rápido hasta producción en serie. Tecnología de precisión,
-              tiempos de entrega garantizados y calidad certificada para sus proyectos industriales.
+              Desde proyectos académicos hasta producción en serie. Tecnología de precisión
+              para estudiantes, emprendedores, makers y empresas.
             </p>
           </FadeIn>
 

@@ -44,8 +44,8 @@ function CTA() {
               Hoy
             </h2>
             <p className="text-muted mb-6">
-              Únete a cientos de makers, ingenieros y empresas que confían en Tecnoprints
-              para sus necesidades de impresión 3D. Desde prototipos individuales hasta producción en serie,
+              Ya sea para tu tesis, tu emprendimiento o tu empresa, en Tecnoprints
+              hacemos realidad tus ideas. Desde una sola pieza hasta producción en serie,
               te tenemos cubierto.
             </p>
             <ul className="space-y-3 mb-8">

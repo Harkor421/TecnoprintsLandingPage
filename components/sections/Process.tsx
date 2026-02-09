@@ -2,28 +2,28 @@
 
 import Button from '@/components/ui/Button'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
-import { Upload, Calculator, Printer, Truck, ArrowRight } from 'lucide-react'
+import { MessageCircle, Upload, Printer, Truck, ArrowRight } from 'lucide-react'
 
 const steps = [
   {
-    icon: Upload,
-    title: 'Sube tu Archivo',
-    description: 'Sube tu modelo 3D en formato STL, OBJ o STEP. Aceptamos los formatos más comunes.',
+    icon: MessageCircle,
+    title: 'Contáctanos por WhatsApp',
+    description: 'Escríbenos por WhatsApp con tu idea o archivo 3D. Te cotizamos de forma rápida y personalizada.',
   },
   {
-    icon: Calculator,
-    title: 'Obtén tu Cotización',
-    description: 'Nuestro sistema analiza tu archivo y proporciona una cotización instantánea con precios y opciones de entrega.',
+    icon: Upload,
+    title: 'O usa nuestra web',
+    description: 'Si no estamos disponibles, sube tu archivo (STL, OBJ, STEP) a nuestro sistema en línea y obtén un estimado al instante.',
   },
   {
     icon: Printer,
     title: 'Inicia la Producción',
-    description: 'Una vez aprobado, tus piezas entran en producción con nuestras impresoras 3D de última generación.',
+    description: 'Una vez aprobada la cotización, tus piezas entran en producción con nuestras impresoras Bambu Lab de última generación.',
   },
   {
     icon: Truck,
-    title: 'Envío de Piezas',
-    description: 'Las piezas inspeccionadas son empacadas cuidadosamente y enviadas directamente a tu puerta.',
+    title: 'Recibe tus Piezas',
+    description: 'Tus piezas son inspeccionadas, empacadas con cuidado y enviadas directamente a tu puerta.',
   },
 ]
 
@@ -40,8 +40,8 @@ export default function Process() {
               </span>
             </h2>
             <p className="text-muted max-w-2xl mx-auto">
-              Imprimir tus piezas es simple. Sigue estos cuatro pasos fáciles
-              para ir del diseño a la entrega.
+              Obtener tus piezas es muy fácil. Contáctanos directo por WhatsApp
+              o usa nuestro cotizador en línea si no estamos disponibles.
             </p>
           </div>
         </ScrollFadeIn>
