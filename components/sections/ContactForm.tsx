@@ -35,10 +35,10 @@ const contactChannels = [
 
 export default function ContactForm() {
   return (
-    <section id="contact" className="py-20 md:py-32">
+    <section id="contact" className="py-16 sm:py-20 md:py-32">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
             Ponte en{' '}
             <span className="text-primary">
               Contacto
@@ -49,23 +49,25 @@ export default function ContactForm() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           {contactChannels.map((channel) => (
             <Link
               key={channel.title}
               href={channel.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col items-center text-center p-6 md:p-8 border border-border bg-surface/50 hover:border-primary/50 transition-colors duration-300"
+              className="group flex flex-row sm:flex-col items-center sm:text-center gap-4 sm:gap-0 p-4 sm:p-6 md:p-8 border border-border bg-surface/50 hover:border-primary/50 active:border-primary/70 transition-colors duration-300 touch-manipulation"
             >
-              <div className="w-12 h-12 bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+              <div className="w-12 h-12 flex-shrink-0 bg-primary/10 flex items-center justify-center sm:mb-4 group-hover:bg-primary/20 transition-colors">
                 <channel.icon size={24} className="text-primary" />
               </div>
-              <h3 className="font-semibold text-white mb-2">{channel.title}</h3>
-              <p className="text-sm text-muted mb-4">{channel.description}</p>
-              <span className="text-sm font-medium text-primary group-hover:underline">
-                {channel.cta}
-              </span>
+              <div className="flex-1 sm:flex-initial">
+                <h3 className="font-semibold text-white mb-0.5 sm:mb-2">{channel.title}</h3>
+                <p className="text-xs sm:text-sm text-muted sm:mb-4">{channel.description}</p>
+                <span className="hidden sm:inline text-sm font-medium text-primary group-hover:underline">
+                  {channel.cta}
+                </span>
+              </div>
             </Link>
           ))}
         </div>

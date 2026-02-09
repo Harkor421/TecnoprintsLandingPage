@@ -18,8 +18,17 @@ export const siteConfig = {
     'piezas personalizadas',
     'prototipado rápido',
     'impresión 3D bajo demanda',
-    'México',
+    'Colombia',
+    'Barranquilla',
+    'Bambu Lab',
   ],
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover' as const,
 }
 
 export const defaultMetadata: Metadata = {
@@ -39,7 +48,7 @@ export const defaultMetadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'es_MX',
+    locale: 'es_CO',
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,

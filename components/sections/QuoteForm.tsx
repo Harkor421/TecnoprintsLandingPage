@@ -116,31 +116,32 @@ export default function QuoteForm() {
           </p>
         </div>
 
-        <Card hover={false} className="p-8">
+        <Card hover={false} className="p-4 sm:p-6 md:p-8">
           {result ? (
-            <div className="space-y-6">
+            <div className="space-y-5 sm:space-y-6">
               {/* Result summary */}
               <div className="text-center">
-                <div className="w-16 h-16 bg-primary/20 flex items-center justify-center mx-auto mb-4">
-                  <FileText size={28} className="text-primary" />
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-primary/20 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <FileText size={24} className="text-primary sm:hidden" />
+                  <FileText size={28} className="text-primary hidden sm:block" />
                 </div>
-                <h3 className="text-xl font-semibold mb-1">Estimado Listo</h3>
-                <p className="text-sm text-muted">{result.fileName}</p>
+                <h3 className="text-lg sm:text-xl font-semibold mb-1">Estimado Listo</h3>
+                <p className="text-xs sm:text-sm text-muted truncate max-w-[250px] sm:max-w-none mx-auto">{result.fileName}</p>
               </div>
 
               {/* Stats grid */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-background border border-border p-4 text-center">
-                  <p className="text-2xl font-bold text-primary">{result.volumeCm3}</p>
-                  <p className="text-xs text-muted mt-1">cm³ volumen</p>
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                <div className="bg-background border border-border p-3 sm:p-4 text-center">
+                  <p className="text-lg sm:text-2xl font-bold text-primary">{result.volumeCm3}</p>
+                  <p className="text-[10px] sm:text-xs text-muted mt-1">cm³ volumen</p>
                 </div>
-                <div className="bg-background border border-border p-4 text-center">
-                  <p className="text-2xl font-bold text-primary">{result.grams}g</p>
-                  <p className="text-xs text-muted mt-1">PLA estimado</p>
+                <div className="bg-background border border-border p-3 sm:p-4 text-center">
+                  <p className="text-lg sm:text-2xl font-bold text-primary">{result.grams}g</p>
+                  <p className="text-[10px] sm:text-xs text-muted mt-1">PLA estimado</p>
                 </div>
-                <div className="bg-background border border-border p-4 text-center">
-                  <p className="text-2xl font-bold text-primary">{getQualityLabel(result.quality).replace('Calidad ', '')}</p>
-                  <p className="text-xs text-muted mt-1">calidad</p>
+                <div className="bg-background border border-border p-3 sm:p-4 text-center">
+                  <p className="text-lg sm:text-2xl font-bold text-primary">{getQualityLabel(result.quality).replace('Calidad ', '')}</p>
+                  <p className="text-[10px] sm:text-xs text-muted mt-1">calidad</p>
                 </div>
               </div>
 
@@ -169,7 +170,7 @@ export default function QuoteForm() {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleEstimate} className="space-y-6">
+            <form onSubmit={handleEstimate} className="space-y-5 sm:space-y-6">
               {/* File Upload */}
               <div>
                 <label className="block text-sm font-medium mb-2">

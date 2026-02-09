@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, memo } from 'react'
+import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { ArrowRight } from 'lucide-react'
 import { CTA_BENEFITS } from '@/lib/constants'
@@ -56,13 +57,15 @@ function CTA() {
                 </li>
               ))}
             </ul>
-            <Button size="lg" className="group">
-              Comenzar Ahora
-              <ArrowRight
-                size={18}
-                className="ml-2 group-hover:translate-x-1 transition-transform"
-              />
-            </Button>
+            <Link href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="group">
+                Comenzar Ahora
+                <ArrowRight
+                  size={18}
+                  className="ml-2 group-hover:translate-x-1 transition-transform"
+                />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

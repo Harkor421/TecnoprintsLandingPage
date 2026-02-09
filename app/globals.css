@@ -74,6 +74,18 @@ html {
   html {
     font-size: 15px;
   }
+
+  /* Prevent horizontal overflow on small screens */
+  section {
+    overflow-x: hidden;
+  }
+}
+
+/* Extra small screens (< 375px) */
+@media (max-width: 374px) {
+  html {
+    font-size: 14px;
+  }
 }
 
 /* Touch-friendly interactions */

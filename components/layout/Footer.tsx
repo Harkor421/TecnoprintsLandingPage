@@ -2,26 +2,19 @@
 
 import Link from 'next/link'
 import Logo from '@/components/ui/Logo'
-import { Mail, Phone, MapPin, Instagram } from 'lucide-react'
+import { Mail, MapPin, Instagram } from 'lucide-react'
 
 const footerLinks = {
-  services: [
-    { label: 'Piezas Personalizadas', href: '#services' },
-    { label: 'Prototipado', href: '#services' },
-    { label: 'Producción en Lotes', href: '#services' },
-    { label: 'Servicios de Diseño', href: '#services' },
-  ],
   company: [
-    { label: 'Nosotros', href: '#about' },
     { label: 'Cómo Funciona', href: '#process' },
+    { label: 'Nuestros Equipos', href: '#equipment' },
+    { label: 'Cotizar', href: '#quote' },
     { label: 'Contacto', href: '#contact' },
-    { label: 'Empleos', href: '#' },
   ],
   resources: [
-    { label: 'Guía de Diseño', href: '#' },
-    { label: 'Guía de Materiales', href: '#' },
-    { label: 'Preguntas Frecuentes', href: '#' },
-    { label: 'Blog', href: '#' },
+    { label: 'Preguntas Frecuentes', href: '#faq' },
+    { label: 'WhatsApp', href: 'https://wa.me/573001234567' },
+    { label: 'Instagram', href: 'https://instagram.com/tecno_prints' },
   ],
 }
 
@@ -40,9 +33,9 @@ export default function Footer() {
   return (
     <footer className="bg-surface border-t border-border safe-area-inset-bottom">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 md:py-16">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Column */}
-          <div className="col-span-2 lg:col-span-2">
+          <div className="sm:col-span-2">
             <Logo />
             <p className="mt-4 text-muted text-sm max-w-md">
               Servicios profesionales de impresión 3D para prototipado y producción.
@@ -55,26 +48,9 @@ export default function Footer() {
               </a>
               <div className="flex items-center gap-3 text-sm text-muted py-1">
                 <MapPin size={16} className="text-primary flex-shrink-0" />
-                <span>Colombia</span>
+                <span>Barranquilla, Colombia</span>
               </div>
             </div>
-          </div>
-
-          {/* Services Links */}
-          <div>
-            <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Servicios</h4>
-            <ul className="space-y-2 sm:space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-muted text-sm hover:text-white transition-colors py-1 inline-block touch-manipulation"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Company Links */}
@@ -95,13 +71,15 @@ export default function Footer() {
           </div>
 
           {/* Resources Links */}
-          <div className="col-span-2 sm:col-span-1">
+          <div>
             <h4 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Recursos</h4>
             <ul className="space-y-2 sm:space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     className="text-muted text-sm hover:text-white transition-colors py-1 inline-block touch-manipulation"
                   >
                     {link.label}
@@ -122,6 +100,8 @@ export default function Footer() {
               <Link
                 key={social.label}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-muted hover:text-primary transition-colors p-2 -m-2 touch-manipulation"
                 aria-label={social.label}
               >

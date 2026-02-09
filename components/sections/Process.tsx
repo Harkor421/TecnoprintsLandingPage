@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 import { MessageCircle, Upload, Printer, Truck, ArrowRight } from 'lucide-react'
@@ -76,13 +77,15 @@ export default function Process() {
 
         <ScrollFadeIn direction="up" delay={0.4}>
           <div className="text-center mt-12">
-            <Button size="lg" className="group">
-              Iniciar Proyecto
-              <ArrowRight
-                size={18}
-                className="ml-2 group-hover:translate-x-1 transition-transform"
-              />
-            </Button>
+            <Link href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="group">
+                Iniciar Proyecto
+                <ArrowRight
+                  size={18}
+                  className="ml-2 group-hover:translate-x-1 transition-transform"
+                />
+              </Button>
+            </Link>
           </div>
         </ScrollFadeIn>
       </div>

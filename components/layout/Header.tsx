@@ -37,9 +37,11 @@ function Header() {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="primary" size="sm">
-              Cotizar Ahora
-            </Button>
+            <Link href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer">
+              <Button variant="primary" size="sm">
+                Cotizar Ahora
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -77,9 +79,16 @@ function Header() {
             </Link>
           ))}
           <div className="pt-4 mt-4 border-t border-border">
-            <Button variant="primary" className="w-full py-4 text-lg touch-manipulation">
-              Cotizar Ahora
-            </Button>
+            <Link
+              href="https://wa.me/573001234567"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Button variant="primary" className="w-full py-4 text-lg touch-manipulation">
+                Cotizar Ahora
+              </Button>
+            </Link>
           </div>
         </nav>
       </div>
