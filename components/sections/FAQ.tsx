@@ -32,9 +32,9 @@ const faqs = [
       'Sí, contamos con un equipo de diseñadores especializados que pueden ayudarte a crear o modificar modelos 3D. Ya sea que tengas un boceto, una idea, o necesites optimizar un diseño existente, estamos aquí para apoyarte.',
   },
   {
-    question: '¿Hacen envíos a toda la República Mexicana?',
+    question: '¿Hacen envíos a toda Colombia?',
     answer:
-      'Sí, realizamos envíos a todo México a través de paqueterías confiables. Los costos de envío se calculan automáticamente según tu ubicación al momento de cotizar. Para pedidos grandes, ofrecemos tarifas especiales de envío.',
+      'Estamos ubicados en Barranquilla, Colombia. Realizamos envíos a todo el país a través de paqueterías confiables. Los costos de envío se calculan según tu ubicación al momento de cotizar. Para pedidos grandes, ofrecemos tarifas especiales de envío.',
   },
 ]
 

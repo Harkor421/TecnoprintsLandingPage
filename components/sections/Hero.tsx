@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, memo } from 'react'
+import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import FadeIn from '@/components/ui/FadeIn'
 import AnimatedCounter from '@/components/ui/AnimatedCounter'
@@ -62,16 +63,20 @@ function Hero() {
 
           <FadeIn delay={0.4} duration={0.8}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button size="lg" className="group">
-                Solicitar Cotización
-                <ArrowRight
-                  size={18}
-                  className="ml-2 group-hover:translate-x-1 transition-transform"
-                />
-              </Button>
-              <Button variant="outline" size="lg">
-                Ver Capacidades
-              </Button>
+              <Link href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="group">
+                  Solicitar Cotización
+                  <ArrowRight
+                    size={18}
+                    className="ml-2 group-hover:translate-x-1 transition-transform"
+                  />
+                </Button>
+              </Link>
+              <Link href="#quote">
+                <Button variant="outline" size="lg">
+                  Estimar Cotización en Línea
+                </Button>
+              </Link>
             </div>
           </FadeIn>
 

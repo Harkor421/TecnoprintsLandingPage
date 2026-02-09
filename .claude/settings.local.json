@@ -7,7 +7,8 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(move degentech-logo.png public )",
-      "Bash(move:*)"
+      "Bash(move:*)",
+      "Bash(npx next build:*)"
     ]
   }
 }
