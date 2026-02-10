@@ -6,7 +6,7 @@ export const siteConfig = {
   url: 'https://tecnoprints.com',
   ogImage: '/og-image.jpg',
   links: {
-    instagram: 'https://instagram.com/tecno_prints',
+    instagram: 'https://instagram.com/tecnoprintsco',
     whatsapp: 'https://wa.me/573239267656',
   },
   keywords: [

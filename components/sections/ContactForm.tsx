@@ -21,7 +21,7 @@ const contactChannels = [
     icon: Instagram,
     title: 'Instagram',
     description: 'Síguenos y envíanos un DM con tu proyecto',
-    href: 'https://instagram.com/tecno_prints',
+    href: 'https://instagram.com/tecnoprintsco',
     cta: 'Ir a Instagram',
   },
   {
