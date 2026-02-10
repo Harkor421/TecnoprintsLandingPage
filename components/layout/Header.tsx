@@ -37,7 +37,7 @@ function Header() {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer">
+            <Link href="https://wa.me/573239267656" target="_blank" rel="noopener noreferrer">
               <Button variant="primary" size="sm">
                 Cotizar Ahora
               </Button>
@@ -80,7 +80,7 @@ function Header() {
           ))}
           <div className="pt-4 mt-4 border-t border-border">
             <Link
-              href="https://wa.me/573001234567"
+              href="https://wa.me/573239267656"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}

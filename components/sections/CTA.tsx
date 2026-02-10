@@ -57,7 +57,7 @@ function CTA() {
                 </li>
               ))}
             </ul>
-            <Link href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer">
+            <Link href="https://wa.me/573239267656" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="group">
                 Comenzar Ahora
                 <ArrowRight

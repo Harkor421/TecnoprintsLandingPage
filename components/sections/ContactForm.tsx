@@ -14,7 +14,7 @@ const contactChannels = [
     icon: WhatsAppIcon,
     title: 'WhatsApp',
     description: 'Escríbenos directo y te cotizamos al instante',
-    href: 'https://wa.me/573001234567',
+    href: 'https://wa.me/573239267656',
     cta: 'Abrir WhatsApp',
   },
   {

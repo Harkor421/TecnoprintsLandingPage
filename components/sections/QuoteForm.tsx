@@ -92,7 +92,7 @@ export default function QuoteForm() {
       `Calidad: ${qualityLabel}\n\n` +
       `¿Me pueden dar el precio final?`
     )
-    window.open(`https://wa.me/573001234567?text=${message}`, '_blank')
+    window.open(`https://wa.me/573239267656?text=${message}`, '_blank')
   }
 
   const handleReset = () => {

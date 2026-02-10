@@ -13,7 +13,7 @@ const footerLinks = {
   ],
   resources: [
     { label: 'Preguntas Frecuentes', href: '#faq' },
-    { label: 'WhatsApp', href: 'https://wa.me/573001234567' },
+    { label: 'WhatsApp', href: 'https://wa.me/573239267656' },
     { label: 'Instagram', href: 'https://instagram.com/tecno_prints' },
   ],
 }
@@ -26,7 +26,7 @@ const WhatsAppIcon = ({ size = 22 }: { size?: number }) => (
 
 const socialLinks = [
   { icon: Instagram, href: 'https://instagram.com/tecno_prints', label: 'Instagram' },
-  { icon: WhatsAppIcon, href: 'https://wa.me/573001234567', label: 'WhatsApp' },
+  { icon: WhatsAppIcon, href: 'https://wa.me/573239267656', label: 'WhatsApp' },
 ]
 
 export default function Footer() {

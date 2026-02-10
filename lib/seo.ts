@@ -7,7 +7,7 @@ export const siteConfig = {
   ogImage: '/og-image.jpg',
   links: {
     instagram: 'https://instagram.com/tecno_prints',
-    whatsapp: 'https://wa.me/573001234567',
+    whatsapp: 'https://wa.me/573239267656',
   },
   keywords: [
     'impresión 3D Barranquilla',
@@ -94,7 +94,7 @@ export function generateStructuredData() {
       url: siteConfig.url,
       logo: `${siteConfig.url}/logo.png`,
       image: `${siteConfig.url}/og-image.jpg`,
-      telephone: '+573001234567',
+      telephone: '+573239267656',
       email: 'contact@tecnoprints.com',
       address: {
         '@type': 'PostalAddress',
