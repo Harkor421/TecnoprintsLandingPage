@@ -2,25 +2,27 @@ import { Metadata } from 'next'
 
 export const siteConfig = {
   name: 'Tecnoprints',
-  description: 'Servicios profesionales de impresión 3D para prototipado y producción. Entrega rápida, impresiones PLA de alta calidad para tus proyectos.',
+  description: 'Servicio de impresión 3D en Barranquilla, Colombia. Prototipado rápido, piezas personalizadas en PLA con impresoras Bambu Lab. Cotización inmediata, entrega en 24-48 horas.',
   url: 'https://tecnoprints.com',
   ogImage: '/og-image.jpg',
   links: {
-    twitter: 'https://twitter.com/tecnoprints',
-    github: 'https://github.com/tecnoprints',
+    instagram: 'https://instagram.com/tecno_prints',
+    whatsapp: 'https://wa.me/573001234567',
   },
   keywords: [
+    'impresión 3D Barranquilla',
+    'impresiones 3D Barranquilla',
+    'servicio impresión 3D Colombia',
     'impresión 3D',
-    'servicios de impresión 3D',
-    'impresión PLA',
+    'prototipado rápido Barranquilla',
+    'piezas 3D personalizadas',
+    'impresión PLA Colombia',
     'impresión FDM',
-    'prototipado',
-    'piezas personalizadas',
-    'prototipado rápido',
     'impresión 3D bajo demanda',
-    'Colombia',
-    'Barranquilla',
-    'Bambu Lab',
+    'Bambu Lab Colombia',
+    'cotización impresión 3D',
+    'impresión 3D estudiantes',
+    'prototipos 3D Barranquilla',
   ],
 }
 
@@ -34,7 +36,7 @@ export const viewport = {
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} - Servicios Profesionales de Impresión 3D`,
+    default: `${siteConfig.name} - Impresión 3D en Barranquilla, Colombia`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -83,23 +85,59 @@ export const defaultMetadata: Metadata = {
 }
 
 export function generateStructuredData() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    logo: `${siteConfig.url}/logo.png`,
-    sameAs: [siteConfig.links.twitter, siteConfig.links.github],
-    contactPoint: {
-      '@type': 'ContactPoint',
-      contactType: 'customer service',
-      availableLanguage: ['Spanish', 'English'],
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      name: siteConfig.name,
+      description: siteConfig.description,
+      url: siteConfig.url,
+      logo: `${siteConfig.url}/logo.png`,
+      image: `${siteConfig.url}/og-image.jpg`,
+      telephone: '+573001234567',
+      email: 'contact@tecnoprints.com',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Barranquilla',
+        addressRegion: 'Atlántico',
+        addressCountry: 'CO',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 10.9685,
+        longitude: -74.7813,
+      },
+      areaServed: {
+        '@type': 'Country',
+        name: 'Colombia',
+      },
+      sameAs: [siteConfig.links.instagram],
+      priceRange: '$$',
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '08:00',
+        closes: '18:00',
+      },
     },
-    offers: {
-      '@type': 'Offer',
-      description: 'Servicios de Impresión 3D',
-      availability: 'https://schema.org/InStock',
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      serviceType: 'Impresión 3D',
+      provider: {
+        '@type': 'LocalBusiness',
+        name: siteConfig.name,
+      },
+      areaServed: {
+        '@type': 'City',
+        name: 'Barranquilla',
+      },
+      description: 'Servicio de impresión 3D profesional con impresoras Bambu Lab. Prototipado rápido, piezas personalizadas, producción en lotes.',
+      offers: {
+        '@type': 'Offer',
+        availability: 'https://schema.org/InStock',
+        priceCurrency: 'COP',
+      },
     },
-  }
+  ]
 }
