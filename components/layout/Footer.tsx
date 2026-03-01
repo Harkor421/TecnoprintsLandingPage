@@ -6,13 +6,14 @@ import { Mail, MapPin, Instagram } from 'lucide-react'
 
 const footerLinks = {
   company: [
-    { label: 'Cómo Funciona', href: '#process' },
-    { label: 'Nuestros Equipos', href: '#equipment' },
-    { label: 'Cotizar', href: '#quote' },
-    { label: 'Contacto', href: '#contact' },
+    { label: 'Servicios', href: '/servicios-impresion-3d-barranquilla' },
+    { label: 'Cómo Funciona', href: '/#process' },
+    { label: 'Cotizar', href: '/cotizar-impresion-3d' },
+    { label: 'Contacto', href: '/#contact' },
   ],
   resources: [
-    { label: 'Preguntas Frecuentes', href: '#faq' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Preguntas Frecuentes', href: '/#faq' },
     { label: 'WhatsApp', href: 'https://wa.me/573239267656' },
     { label: 'Instagram', href: 'https://instagram.com/tecnoprintsco' },
   ],

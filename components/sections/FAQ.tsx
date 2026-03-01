@@ -4,39 +4,7 @@ import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
-
-const faqs = [
-  {
-    question: '¿Qué materiales utilizan para la impresión 3D?',
-    answer:
-      'Trabajamos principalmente con PLA (Ácido Poliláctico) en diversas variantes: PLA Estándar, PLA+ de alta resistencia, PLA Silk con acabado brillante, y PLA Mate. Cada material tiene propiedades específicas para diferentes aplicaciones.',
-  },
-  {
-    question: '¿Cuánto tiempo tarda en llegar mi pedido?',
-    answer:
-      'Los tiempos de entrega varían según la complejidad del proyecto. Para prototipos simples, ofrecemos entrega en 24-48 horas. Proyectos más complejos o lotes grandes pueden tomar de 3 a 7 días hábiles. Siempre te proporcionamos una estimación precisa al momento de cotizar.',
-  },
-  {
-    question: '¿Qué formatos de archivo aceptan?',
-    answer:
-      'Aceptamos los formatos más comunes de modelos 3D: STL, OBJ, STEP y STP. Si tienes tu diseño en otro formato, contáctanos y te ayudaremos a convertirlo sin costo adicional.',
-  },
-  {
-    question: '¿Cuál es el tamaño máximo de impresión?',
-    answer:
-      'Nuestras impresoras pueden fabricar piezas de hasta 256 x 256 x 256 mm en una sola pieza. Para proyectos más grandes, podemos dividir el diseño en secciones que se ensamblan posteriormente.',
-  },
-  {
-    question: '¿Ofrecen servicios de diseño 3D?',
-    answer:
-      'Sí, contamos con un equipo de diseñadores especializados que pueden ayudarte a crear o modificar modelos 3D. Ya sea que tengas un boceto, una idea, o necesites optimizar un diseño existente, estamos aquí para apoyarte.',
-  },
-  {
-    question: '¿Hacen envíos a toda Colombia?',
-    answer:
-      'Estamos ubicados en Barranquilla, Colombia. Realizamos envíos a todo el país a través de paqueterías confiables. Los costos de envío se calculan según tu ubicación al momento de cotizar. Para pedidos grandes, ofrecemos tarifas especiales de envío.',
-  },
-]
+import { FAQ_DATA } from '@/lib/constants'
 
 interface FAQItemProps {
   question: string
@@ -103,7 +71,7 @@ export default function FAQ() {
         </ScrollFadeIn>
 
         <div className="space-y-3">
-          {faqs.map((faq, index) => (
+          {FAQ_DATA.map((faq, index) => (
             <FAQItem
               key={index}
               question={faq.question}

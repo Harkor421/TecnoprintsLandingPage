@@ -25,7 +25,7 @@ export default function Logo({ className, size = 'md' }: LogoProps) {
     <div className={cn('flex items-center gap-2', className)}>
       <Image
         src="/logo.png"
-        alt="Tecnoprints"
+        alt="Tecnoprints - Servicio de impresión 3D en Barranquilla"
         width={200}
         height={200}
         className={cn('w-auto', sizes[size])}

@@ -27,7 +27,7 @@ function Partners() {
               <div className="relative h-16 md:h-20 w-40 md:w-48 flex items-center justify-center">
                 <Image
                   src={partner.logo}
-                  alt={partner.name}
+                  alt={`${partner.name} - Cliente de impresión 3D Tecnoprints`}
                   width={200}
                   height={80}
                   className="h-full w-auto object-contain brightness-0 invert opacity-60 group-hover:opacity-100 transition-opacity duration-300"

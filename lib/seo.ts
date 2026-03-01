@@ -69,7 +69,7 @@ export const defaultMetadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: '@tecnoprints',
+    creator: '@tecnoprintsco',
   },
   robots: {
     index: true,
@@ -84,60 +84,123 @@ export const defaultMetadata: Metadata = {
   },
 }
 
-export function generateStructuredData() {
-  return [
-    {
-      '@context': 'https://schema.org',
+// Schema: LocalBusiness (used in root layout — appears on every page)
+export function generateLocalBusinessSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    logo: `${siteConfig.url}/logo.png`,
+    image: `${siteConfig.url}/og-image.jpg`,
+    telephone: '+573239267656',
+    email: 'contact@tecnoprints.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Barranquilla',
+      addressRegion: 'Atlántico',
+      addressCountry: 'CO',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 10.9685,
+      longitude: -74.7813,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Colombia',
+    },
+    sameAs: [siteConfig.links.instagram],
+    priceRange: '$$',
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '18:00',
+    },
+  }
+}
+
+// Schema: Service (used on homepage and service page)
+export function generateServiceSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Impresión 3D',
+    provider: {
       '@type': 'LocalBusiness',
       name: siteConfig.name,
-      description: siteConfig.description,
-      url: siteConfig.url,
-      logo: `${siteConfig.url}/logo.png`,
-      image: `${siteConfig.url}/og-image.jpg`,
-      telephone: '+573239267656',
-      email: 'contact@tecnoprints.com',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Barranquilla',
-        addressRegion: 'Atlántico',
-        addressCountry: 'CO',
+    },
+    areaServed: {
+      '@type': 'City',
+      name: 'Barranquilla',
+    },
+    description: 'Servicio de impresión 3D profesional con impresoras Bambu Lab. Prototipado rápido, piezas personalizadas, producción en lotes.',
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      priceCurrency: 'COP',
+    },
+  }
+}
+
+// Schema: FAQPage (used on homepage)
+export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
       },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: 10.9685,
-        longitude: -74.7813,
-      },
-      areaServed: {
-        '@type': 'Country',
-        name: 'Colombia',
-      },
-      sameAs: [siteConfig.links.instagram],
-      priceRange: '$$',
-      openingHoursSpecification: {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '08:00',
-        closes: '18:00',
+    })),
+  }
+}
+
+// Schema: Article (used on blog posts)
+export function generateArticleSchema(article: {
+  title: string
+  description: string
+  slug: string
+  datePublished: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.description,
+    datePublished: article.datePublished,
+    dateModified: article.datePublished,
+    author: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteConfig.url}/logo.png`,
       },
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      serviceType: 'Impresión 3D',
-      provider: {
-        '@type': 'LocalBusiness',
-        name: siteConfig.name,
-      },
-      areaServed: {
-        '@type': 'City',
-        name: 'Barranquilla',
-      },
-      description: 'Servicio de impresión 3D profesional con impresoras Bambu Lab. Prototipado rápido, piezas personalizadas, producción en lotes.',
-      offers: {
-        '@type': 'Offer',
-        availability: 'https://schema.org/InStock',
-        priceCurrency: 'COP',
-      },
-    },
-  ]
+    mainEntityOfPage: `${siteConfig.url}/blog/${article.slug}`,
+  }
+}
+
+// Schema: BreadcrumbList (used on sub-pages)
+export function generateBreadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  }
 }
