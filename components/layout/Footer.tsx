@@ -49,7 +49,7 @@ export default function Footer() {
               </a>
               <div className="flex items-center gap-3 text-sm text-muted py-1">
                 <MapPin size={16} className="text-primary flex-shrink-0" />
-                <span>Barranquilla, Colombia</span>
+                <span>Cra. 53 #Calle 96 - 24, Barranquilla, Colombia</span>
               </div>
             </div>
           </div>

@@ -98,6 +98,7 @@ export function generateLocalBusinessSchema() {
     email: 'contact@tecnoprints.com',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: 'Cra. 53 #Calle 96 - 24',
       addressLocality: 'Barranquilla',
       addressRegion: 'Atlántico',
       addressCountry: 'CO',

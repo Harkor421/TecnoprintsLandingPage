@@ -71,6 +71,27 @@ export default function ContactForm() {
             </Link>
           ))}
         </div>
+
+        <div className="mt-8 sm:mt-12">
+          <h3 className="text-lg font-semibold text-white text-center mb-4">
+            Nuestra Ubicación en <span className="text-primary">Barranquilla</span>
+          </h3>
+          <div className="border border-border overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.5!2d-74.8095!3d10.9932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8ef42d44d12ae525%3A0x2633536b5028d30!2sCra.%2053%20%23Calle%2096%20-%2024%2C%20Barranquilla%2C%20Atl%C3%A1ntico%2C%20Colombia!5e0!3m2!1ses!2sco!4v1709836800000!5m2!1ses!2sco"
+              width="100%"
+              height="300"
+              style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg)' }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ubicación de Tecnoprints - Impresión 3D en Barranquilla, Colombia"
+            />
+          </div>
+          <p className="text-sm text-muted text-center mt-3">
+            Cra. 53 #Calle 96 - 24, Barranquilla, Atlántico, Colombia
+          </p>
+        </div>
       </div>
     </section>
   )

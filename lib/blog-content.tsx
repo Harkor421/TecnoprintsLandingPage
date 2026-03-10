@@ -126,6 +126,245 @@ export function ComoPreparartSTLContent() {
   )
 }
 
+export function MejoresMaterialesContent() {
+  return (
+    <>
+      <p>
+        Elegir el material correcto es clave para el éxito de tu impresión 3D en Barranquilla.
+        Cada filamento tiene propiedades diferentes que lo hacen ideal para ciertos usos. En esta
+        guía comparamos los materiales más populares disponibles en nuestro servicio de impresión 3D.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        <span className="text-primary">PLA</span> — El Material Más Popular
+      </h2>
+      <p>
+        El PLA (Ácido Poliláctico) es el material estándar en impresión 3D FDM y el que más
+        utilizamos en Tecnoprints Barranquilla. Es biodegradable, fácil de imprimir y produce
+        piezas con excelente detalle superficial.
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Ideal para:</strong> Prototipos, maquetas, figuras decorativas, piezas de presentación, tesis universitarias.</li>
+        <li><strong className="text-white">Temperatura de impresión:</strong> 190-220°C</li>
+        <li><strong className="text-white">Resistencia:</strong> Buena rigidez, baja flexibilidad. No apto para piezas que reciban impactos fuertes.</li>
+        <li><strong className="text-white">Acabado:</strong> Superficie lisa, disponible en múltiples colores incluyendo PLA Silk con acabado metalizado.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        <span className="text-primary">PETG</span> — Resistencia y Durabilidad
+      </h2>
+      <p>
+        El PETG combina la facilidad de impresión del PLA con mayor resistencia mecánica y
+        térmica. Es el material que recomendamos para piezas funcionales en Barranquilla.
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Ideal para:</strong> Piezas mecánicas, componentes que reciban esfuerzo, carcasas de dispositivos, piezas para exteriores.</li>
+        <li><strong className="text-white">Temperatura de impresión:</strong> 230-250°C</li>
+        <li><strong className="text-white">Resistencia:</strong> Mayor resistencia al impacto y flexibilidad que PLA. Resistente a químicos.</li>
+        <li><strong className="text-white">Acabado:</strong> Ligeramente más brillante que PLA, semi-transparente en colores naturales.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        <span className="text-primary">TPU</span> — Material Flexible
+      </h2>
+      <p>
+        El TPU es un filamento flexible similar al caucho. Perfecto para juntas, fundas, amortiguadores
+        y cualquier pieza que necesite deformarse sin romperse.
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Ideal para:</strong> Fundas de celular, sellos, amortiguadores, ruedas flexibles, wearables.</li>
+        <li><strong className="text-white">Dureza Shore:</strong> 95A (semi-flexible)</li>
+        <li><strong className="text-white">Ventaja:</strong> Extrema resistencia al desgaste y a la fatiga mecánica.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        ¿Cuál <span className="text-primary">Elegir</span>?
+      </h2>
+      <p>
+        Si no estás seguro qué material necesitas para tu proyecto en Barranquilla, contáctanos
+        por WhatsApp. Te asesoramos gratis según tu aplicación, presupuesto y requisitos mecánicos.
+        En Tecnoprints trabajamos con filamentos de alta calidad para garantizar los mejores resultados.
+      </p>
+    </>
+  )
+}
+
+export function PrototipadoRapidoContent() {
+  return (
+    <>
+      <p>
+        En el mundo empresarial de Barranquilla, la velocidad de ejecución marca la diferencia.
+        El prototipado rápido con impresión 3D permite transformar una idea en un producto físico
+        en menos de 24 horas, sin moldes, sin herramientas y sin pedidos mínimos.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        ¿Qué es el <span className="text-primary">Prototipado Rápido</span>?
+      </h2>
+      <p>
+        El prototipado rápido es el proceso de fabricar un modelo físico de un diseño digital
+        en el menor tiempo posible. La impresión 3D FDM es la tecnología más accesible para
+        prototipado en Barranquilla: sin necesidad de moldes costosos, puedes tener tu pieza
+        lista para evaluar en horas, no en semanas.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Ventajas del Prototipado 3D en <span className="text-primary">Barranquilla</span>
+      </h2>
+      <ul className="list-disc list-inside space-y-3 mt-4">
+        <li><strong className="text-white">Velocidad:</strong> De archivo digital a pieza física en 24-48 horas. Ideal para iteraciones rápidas donde cada día cuenta.</li>
+        <li><strong className="text-white">Costo bajo:</strong> Sin moldes ni herramientas. Un prototipo en PLA puede costar desde $5,000 COP, permitiéndote probar múltiples versiones.</li>
+        <li><strong className="text-white">Iteración rápida:</strong> Detecta errores de diseño en la pieza real, corrige el archivo y vuelve a imprimir el mismo día.</li>
+        <li><strong className="text-white">Sin pedido mínimo:</strong> Imprime una sola pieza o cien. La impresión 3D es económica desde la primera unidad.</li>
+        <li><strong className="text-white">Confidencialidad:</strong> Tu diseño nunca sale de Barranquilla. Servicio local, atención directa.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Casos de Uso en <span className="text-primary">Barranquilla</span>
+      </h2>
+      <ul className="list-disc list-inside space-y-3 mt-4">
+        <li><strong className="text-white">Startups:</strong> Valida tu producto con un prototipo real antes de invertir en producción masiva.</li>
+        <li><strong className="text-white">Ingenieros:</strong> Prueba ensamblajes, ajustes y tolerancias antes de mecanizar.</li>
+        <li><strong className="text-white">Diseñadores:</strong> Presenta modelos tangibles a tus clientes en lugar de renders.</li>
+        <li><strong className="text-white">Estudiantes:</strong> Materializa tus proyectos de clase y tesis con un servicio rápido y asequible.</li>
+        <li><strong className="text-white">Empresas:</strong> Desarrolla jigs, fixtures y herramientas personalizadas para tu línea de producción.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Nuestro <span className="text-primary">Proceso</span>
+      </h2>
+      <ol className="list-decimal list-inside space-y-2 mt-4">
+        <li>Envíanos tu archivo STL o STEP por WhatsApp.</li>
+        <li>Te cotizamos en minutos con precio exacto.</li>
+        <li>Imprimimos con impresoras Bambu Lab de alta velocidad.</li>
+        <li>Tu prototipo listo en 24-48 horas en Barranquilla.</li>
+      </ol>
+    </>
+  )
+}
+
+export function ArquitecturaMaquetasContent() {
+  return (
+    <>
+      <p>
+        Las maquetas arquitectónicas impresas en 3D han revolucionado la forma en que los
+        arquitectos y estudiantes de arquitectura en Barranquilla presentan sus proyectos.
+        Más precisas, más rápidas y más económicas que las maquetas hechas a mano.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Ventajas de las Maquetas <span className="text-primary">Impresas en 3D</span>
+      </h2>
+      <ul className="list-disc list-inside space-y-3 mt-4">
+        <li><strong className="text-white">Precisión milimétrica:</strong> Cada detalle de tu diseño se reproduce fielmente. Escaleras, ventanas, columnas — todo con la proporción exacta.</li>
+        <li><strong className="text-white">Rapidez:</strong> Una maqueta que tomaría días cortar a mano se imprime en horas. Ideal para entregas ajustadas en la universidad.</li>
+        <li><strong className="text-white">Modificaciones fáciles:</strong> Si el jurado pide cambios, modifica el archivo y reimprime. Sin empezar de cero.</li>
+        <li><strong className="text-white">Acabado profesional:</strong> Las impresoras Bambu Lab producen superficies limpias que se pueden lijar y pintar fácilmente.</li>
+        <li><strong className="text-white">Costo predecible:</strong> Sabes exactamente cuánto costará antes de imprimir, sin sorpresas de material sobrante.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Cómo Preparar tu <span className="text-primary">Maqueta</span> para Impresión
+      </h2>
+      <p>
+        La clave para una buena maqueta impresa en 3D es el modelado. Estos son nuestros consejos
+        para arquitectos en Barranquilla:
+      </p>
+      <ul className="list-disc list-inside space-y-3 mt-4">
+        <li><strong className="text-white">Software recomendado:</strong> SketchUp, Revit, ArchiCAD o Rhino. Todos exportan a STL.</li>
+        <li><strong className="text-white">Escala:</strong> Las escalas más comunes son 1:100 y 1:200. Asegúrate de que las paredes tengan al menos 1mm de grosor real después de escalar.</li>
+        <li><strong className="text-white">Seccionar el modelo:</strong> Para maquetas grandes, divide el edificio en secciones que quepan en la impresora y ensámblalas después.</li>
+        <li><strong className="text-white">Terreno y entorno:</strong> El terreno se imprime por separado en una base plana. Árboles y vegetación pueden imprimirse aparte.</li>
+        <li><strong className="text-white">Color:</strong> Recomendamos PLA blanco o gris para maquetas de presentación. Puedes pintar después con acrílico.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Tipos de Proyectos que <span className="text-primary">Imprimimos</span>
+      </h2>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li>Maquetas de edificios residenciales y comerciales</li>
+        <li>Proyectos urbanísticos y de planificación</li>
+        <li>Maquetas de interiores y espacios</li>
+        <li>Detalles constructivos a escala</li>
+        <li>Maquetas topográficas con curvas de nivel</li>
+        <li>Proyectos de tesis y trabajos finales de arquitectura</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Precio de Maquetas en <span className="text-primary">Barranquilla</span>
+      </h2>
+      <p>
+        El costo depende del tamaño y la complejidad. Una maqueta sencilla de una casa a escala
+        1:100 puede costar entre $30,000 y $80,000 COP. Proyectos más grandes como edificios
+        o conjuntos se cotizan según volumen de material. Usa nuestro estimador en línea o
+        contáctanos por WhatsApp para un precio exacto.
+      </p>
+    </>
+  )
+}
+
+export function DondeImprimirContent() {
+  return (
+    <>
+      <p>
+        Si estás buscando dónde imprimir en 3D en Barranquilla, has llegado al lugar correcto.
+        En esta guía te explicamos qué debes buscar en un servicio de impresión 3D, cómo comparar
+        opciones y por qué Tecnoprints es la mejor alternativa en la ciudad.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Qué Buscar en un Servicio de <span className="text-primary">Impresión 3D</span>
+      </h2>
+      <p>
+        No todos los servicios de impresión 3D en Barranquilla son iguales. Estos son los factores
+        clave para elegir el mejor:
+      </p>
+      <ul className="list-disc list-inside space-y-3 mt-4">
+        <li><strong className="text-white">Calidad de las impresoras:</strong> Las impresoras profesionales como Bambu Lab producen piezas con capas de 0.08-0.20mm, mucho más finas que impresoras caseras. Esto se traduce en mejor acabado y precisión dimensional.</li>
+        <li><strong className="text-white">Tiempo de entrega:</strong> Un buen servicio entrega en 24-48 horas para piezas estándar. Desconfía de tiempos de una semana o más para piezas simples.</li>
+        <li><strong className="text-white">Asesoría técnica:</strong> El proveedor debe poder aconsejarte sobre orientación de impresión, relleno óptimo y material adecuado. No solo imprimir lo que le envíes.</li>
+        <li><strong className="text-white">Precio transparente:</strong> Deberías poder estimar el costo antes de ordenar. Los precios ocultos o cotizaciones que tardan días son señales de alerta.</li>
+        <li><strong className="text-white">Atención directa:</strong> Poder comunicarte por WhatsApp o en persona facilita resolver dudas y hacer ajustes rápidos.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Por Qué Elegir <span className="text-primary">Tecnoprints</span> en Barranquilla
+      </h2>
+      <ul className="list-disc list-inside space-y-3 mt-4">
+        <li><strong className="text-white">Impresoras Bambu Lab:</strong> Utilizamos impresoras de última generación con velocidades hasta 500mm/s y precisión de 0.05mm.</li>
+        <li><strong className="text-white">Cotización instantánea:</strong> Nuestro estimador en línea te calcula los gramos de material y el costo aproximado en segundos.</li>
+        <li><strong className="text-white">Entrega en 24-48h:</strong> Para la mayoría de proyectos, tu pieza estará lista al día siguiente.</li>
+        <li><strong className="text-white">Asesoría gratuita:</strong> Te ayudamos a optimizar tu diseño para mejor resultado y menor costo.</li>
+        <li><strong className="text-white">Ubicación en Barranquilla:</strong> Estamos en Cra. 53 #Calle 96 - 24. Recoge en persona o te lo enviamos.</li>
+        <li><strong className="text-white">Precios competitivos:</strong> Sin intermediarios ni costos ocultos. Precio justo por gramo de material.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Cómo <span className="text-primary">Ordenar</span> tu Impresión
+      </h2>
+      <ol className="list-decimal list-inside space-y-2 mt-4">
+        <li>Prepara tu archivo en formato STL (también aceptamos OBJ, STEP, STP).</li>
+        <li>Usa nuestro estimador en línea para ver los gramos de material y elegir calidad.</li>
+        <li>Envía tu archivo por WhatsApp al +57 323 926 7656 para cotización final.</li>
+        <li>Aprueba el precio y comenzamos a imprimir inmediatamente.</li>
+        <li>Recoge en nuestra ubicación en Barranquilla o te lo enviamos a domicilio.</li>
+      </ol>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Servicios <span className="text-primary">Disponibles</span>
+      </h2>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li>Impresión 3D FDM en PLA, PETG y TPU</li>
+        <li>Prototipado rápido para empresas y emprendedores</li>
+        <li>Maquetas arquitectónicas a escala</li>
+        <li>Prototipos para tesis universitarias</li>
+        <li>Producción en lotes pequeños y medianos</li>
+        <li>Asesoría en diseño 3D y preparación de archivos</li>
+      </ul>
+    </>
+  )
+}
+
 export function TesisUniversitariasContent() {
   return (
     <>

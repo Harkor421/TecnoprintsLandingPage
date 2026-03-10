@@ -3,7 +3,15 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { BLOG_POSTS } from '@/lib/blog-data'
 import { siteConfig, generateArticleSchema, generateBreadcrumbSchema } from '@/lib/seo'
-import { CuantoCuestaContent, ComoPreparartSTLContent, TesisUniversitariasContent } from '@/lib/blog-content'
+import {
+  CuantoCuestaContent,
+  ComoPreparartSTLContent,
+  TesisUniversitariasContent,
+  MejoresMaterialesContent,
+  PrototipadoRapidoContent,
+  ArquitecturaMaquetasContent,
+  DondeImprimirContent,
+} from '@/lib/blog-content'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
@@ -14,6 +22,10 @@ const contentMap: Record<string, () => JSX.Element> = {
   'cuanto-cuesta-impresion-3d-barranquilla': CuantoCuestaContent,
   'como-preparar-archivo-stl': ComoPreparartSTLContent,
   'impresion-3d-tesis-universitarias': TesisUniversitariasContent,
+  'mejores-materiales-impresion-3d': MejoresMaterialesContent,
+  'prototipado-rapido-barranquilla': PrototipadoRapidoContent,
+  'impresion-3d-arquitectura-maquetas': ArquitecturaMaquetasContent,
+  'donde-imprimir-3d-barranquilla': DondeImprimirContent,
 }
 
 export function generateStaticParams() {
