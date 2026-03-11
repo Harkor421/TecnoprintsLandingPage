@@ -25,13 +25,11 @@ app.get('/api/models', async (req, res) => {
   const page = parseInt(req.query.page || '1', 10)
   const limit = 12
 
-  if (!keyword.trim()) {
-    return res.json({ models: [], total: 0 })
-  }
-
   try {
     const offset = (page - 1) * limit
-    const url = `https://api.bambulab.com/v1/search-service/select/design2?keyword=${encodeURIComponent(keyword)}&limit=${limit}&offset=${offset}`
+    const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
+    if (keyword.trim()) params.set('keyword', keyword.trim())
+    const url = `https://api.bambulab.com/v1/search-service/select/design2?${params}`
 
     const resp = await fetch(url)
     if (!resp.ok) {

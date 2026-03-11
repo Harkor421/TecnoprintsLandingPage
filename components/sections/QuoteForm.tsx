@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import {
@@ -84,6 +84,23 @@ export default function QuoteForm() {
   const [searched, setSearched] = useState(false)
   const [selectedModel, setSelectedModel] = useState<BrowseModel | null>(null)
   const [copied, setCopied] = useState(false)
+
+  // Preload trending models
+  useEffect(() => {
+    let cancelled = false
+    async function loadTrending() {
+      try {
+        const res = await fetch('https://tecnoprints-api-production.up.railway.app/api/models?page=1')
+        const data = await res.json()
+        if (!cancelled && !searched) {
+          setModels(data.models || [])
+          setBrowseTotal(data.total || 0)
+        }
+      } catch { /* ignore */ }
+    }
+    loadTrending()
+    return () => { cancelled = true }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ─── Upload handlers ────────────────────────────────────────
 
@@ -506,7 +523,9 @@ export default function QuoteForm() {
             {!browseLoading && models.length > 0 && (
               <>
                 <p className="text-xs text-muted mb-4 text-center">
-                  {browseTotal.toLocaleString()} modelos encontrados — ordenados por más descargados
+                  {searched
+                    ? `${browseTotal.toLocaleString()} modelos encontrados — ordenados por más descargados`
+                    : 'Modelos populares — busca algo específico o explora lo más descargado'}
                 </p>
 
                 {/* Tip banner */}

@@ -16,6 +16,7 @@ const footerLinks = {
     { label: 'Preguntas Frecuentes', href: '/#faq' },
     { label: 'WhatsApp', href: 'https://wa.me/573239267656' },
     { label: 'Instagram', href: 'https://instagram.com/tecnoprintsco' },
+    { label: 'TikTok', href: 'https://www.tiktok.com/@tecnoprints' },
   ],
 }
 
@@ -25,8 +26,15 @@ const WhatsAppIcon = ({ size = 22 }: { size?: number }) => (
   </svg>
 )
 
+const TikTokIcon = ({ size = 22 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46V13.2a8.16 8.16 0 005.58 2.17V12a4.85 4.85 0 01-5.58-2.17V2.44h3.45a4.83 4.83 0 002.13 4.25z" />
+  </svg>
+)
+
 const socialLinks = [
   { icon: Instagram, href: 'https://instagram.com/tecnoprintsco', label: 'Instagram' },
+  { icon: TikTokIcon, href: 'https://www.tiktok.com/@tecnoprints', label: 'TikTok' },
   { icon: WhatsAppIcon, href: 'https://wa.me/573239267656', label: 'WhatsApp' },
 ]
 
