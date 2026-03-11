@@ -154,7 +154,7 @@ export default function QuoteForm() {
     setSearched(true)
 
     try {
-      const res = await fetch(`/api/models?keyword=${encodeURIComponent(q)}`)
+      const res = await fetch(`https://tecnoprints-api-production.up.railway.app/api/models?keyword=${encodeURIComponent(q)}`)
       const data = await res.json()
       setModels(data.models || [])
       setBrowseTotal(data.total || 0)
@@ -304,6 +304,10 @@ export default function QuoteForm() {
                         <span className="font-medium">{result.surfaceAreaCm2} cm²</span>
                       </div>
                       <div className="flex justify-between items-center text-sm">
+                        <span className="text-muted">Capas calculadas</span>
+                        <span className="font-medium">{result.layerCount.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center text-sm">
                         <span className="text-muted">Triángulos procesados</span>
                         <span className="font-medium">{result.triangleCount.toLocaleString()}</span>
                       </div>
@@ -311,7 +315,7 @@ export default function QuoteForm() {
                   </div>
 
                   <p className="text-xs text-muted text-center">
-                    * Estimado basado en análisis del mesh (volumen + área superficial). El precio final puede variar según complejidad, soportes y acabado.
+                    * Estimado capa por capa como un slicer profesional. El precio final puede variar según soportes y acabado.
                   </p>
 
                   {/* Actions */}
