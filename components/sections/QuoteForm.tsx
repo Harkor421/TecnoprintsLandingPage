@@ -79,6 +79,8 @@ export default function QuoteForm() {
   const [models, setModels] = useState<BrowseModel[]>([])
   const [browseTotal, setBrowseTotal] = useState(0)
   const [browseLoading, setBrowseLoading] = useState(false)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const [browsePage, setBrowsePage] = useState(1)
   const [searched, setSearched] = useState(false)
   const [selectedModel, setSelectedModel] = useState<BrowseModel | null>(null)
   const [copied, setCopied] = useState(false)
@@ -152,9 +154,10 @@ export default function QuoteForm() {
 
     setBrowseLoading(true)
     setSearched(true)
+    setBrowsePage(1)
 
     try {
-      const res = await fetch(`https://tecnoprints-api-production.up.railway.app/api/models?keyword=${encodeURIComponent(q)}`)
+      const res = await fetch(`https://tecnoprints-api-production.up.railway.app/api/models?keyword=${encodeURIComponent(q)}&page=1`)
       const data = await res.json()
       setModels(data.models || [])
       setBrowseTotal(data.total || 0)
@@ -165,6 +168,25 @@ export default function QuoteForm() {
       setBrowseLoading(false)
     }
   }, [searchQuery])
+
+  const handleLoadMore = useCallback(async () => {
+    const q = searchQuery.trim()
+    if (!q) return
+
+    const nextPage = browsePage + 1
+    setLoadingMore(true)
+
+    try {
+      const res = await fetch(`https://tecnoprints-api-production.up.railway.app/api/models?keyword=${encodeURIComponent(q)}&page=${nextPage}`)
+      const data = await res.json()
+      setModels((prev) => [...prev, ...(data.models || [])])
+      setBrowsePage(nextPage)
+    } catch {
+      // silently fail
+    } finally {
+      setLoadingMore(false)
+    }
+  }, [searchQuery, browsePage])
 
   const handleQuickSearch = (term: string) => {
     setSearchQuery(term)
@@ -500,7 +522,7 @@ export default function QuoteForm() {
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                  {models.slice(0, 12).map((model) => (
+                  {models.map((model) => (
                     <div key={model.id} className="group">
                       <Card className="p-0 overflow-hidden h-full flex flex-col">
                         <div className="aspect-square relative bg-background overflow-hidden">
@@ -527,6 +549,26 @@ export default function QuoteForm() {
                     </div>
                   ))}
                 </div>
+
+                {/* Load more */}
+                {models.length < browseTotal && (
+                  <div className="flex justify-center mt-6">
+                    <button
+                      onClick={handleLoadMore}
+                      disabled={loadingMore}
+                      className="px-6 py-3 border border-border text-sm font-medium hover:border-primary/50 hover:text-primary transition-colors disabled:opacity-50"
+                    >
+                      {loadingMore ? (
+                        <span className="flex items-center gap-2">
+                          <Loader2 size={16} className="animate-spin" />
+                          Cargando...
+                        </span>
+                      ) : (
+                        `Cargar más modelos (${models.length} de ${browseTotal.toLocaleString()})`
+                      )}
+                    </button>
+                  </div>
+                )}
 
                 {/* ─── Quote Modal ─────────────────────────── */}
                 {selectedModel && (
