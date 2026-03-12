@@ -4,6 +4,7 @@ import './globals.css'
 import { defaultMetadata, viewport as seoViewport, generateLocalBusinessSchema } from '@/lib/seo'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import WhatsAppFloat from '@/components/ui/WhatsAppFloat'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   )
