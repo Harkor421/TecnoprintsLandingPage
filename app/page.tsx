@@ -2,7 +2,7 @@ import Hero from '@/components/sections/Hero'
 import Partners from '@/components/sections/Partners'
 import About from '@/components/sections/About'
 import Process from '@/components/sections/Process'
-import Equipment from '@/components/sections/Equipment'
+import Catalog from '@/components/sections/Catalog'
 import CTA from '@/components/sections/CTA'
 import FAQ from '@/components/sections/FAQ'
 import QuoteForm from '@/components/sections/QuoteForm'
@@ -26,7 +26,7 @@ export default function Home() {
       <Partners />
       <About />
       <Process />
-      <Equipment />
+      <Catalog />
       <CTA />
       <QuoteForm />
       <ContactForm />

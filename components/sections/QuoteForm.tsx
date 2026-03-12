@@ -1,11 +1,10 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState } from 'react'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import {
   Upload, X, FileText, Loader2, Box, Layers, DollarSign, Ruler,
-  Search, Copy, Check,
 } from 'lucide-react'
 import { parseSTLFile, STLResult } from '@/lib/stl-parser'
 
@@ -16,13 +15,6 @@ const qualities = [
   { value: 'media', label: 'Calidad Media', description: '~30% relleno — buen balance', infill: '30%' },
   { value: 'alta', label: 'Calidad Alta', description: '~50% relleno — piezas finales', infill: '50%' },
 ]
-
-const POPULAR_SEARCHES = [
-  'llavero', 'maceta', 'organizador', 'soporte celular',
-  'lámpara', 'figura', 'caja', 'engranaje',
-]
-
-type Tab = 'upload' | 'browse'
 
 // ─── Sub-components ──────────────────────────────────────────
 
@@ -37,17 +29,6 @@ const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
 interface EstimateResult extends STLResult {
   quality: string
   fileName: string
-}
-
-interface BrowseModel {
-  id: number
-  title: string
-  cover: string
-  likeCount: number
-  downloadCount: number
-  printCount: number
-  creator: string
-  url: string
 }
 
 // ─── Helpers ─────────────────────────────────────────────────
@@ -65,42 +46,12 @@ function formatCOP(value: number): string {
 // ─── Main Component ──────────────────────────────────────────
 
 export default function QuoteForm() {
-  const [tab, setTab] = useState<Tab>('upload')
-
   // Upload state
   const [file, setFile] = useState<File | null>(null)
   const [quality, setQuality] = useState('media')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<EstimateResult | null>(null)
-
-  // Browse state
-  const [searchQuery, setSearchQuery] = useState('')
-  const [models, setModels] = useState<BrowseModel[]>([])
-  const [browseTotal, setBrowseTotal] = useState(0)
-  const [browseLoading, setBrowseLoading] = useState(false)
-  const [loadingMore, setLoadingMore] = useState(false)
-  const [browsePage, setBrowsePage] = useState(1)
-  const [searched, setSearched] = useState(false)
-  const [selectedModel, setSelectedModel] = useState<BrowseModel | null>(null)
-  const [copied, setCopied] = useState(false)
-
-  // Preload trending models
-  useEffect(() => {
-    let cancelled = false
-    async function loadTrending() {
-      try {
-        const res = await fetch('https://tecnoprints-api-production.up.railway.app/api/models?page=1')
-        const data = await res.json()
-        if (!cancelled && !searched) {
-          setModels(data.models || [])
-          setBrowseTotal(data.total || 0)
-        }
-      } catch { /* ignore */ }
-    }
-    loadTrending()
-    return () => { cancelled = true }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ─── Upload handlers ────────────────────────────────────────
 
@@ -163,53 +114,6 @@ export default function QuoteForm() {
     setError(null)
   }
 
-  // ─── Browse handlers ────────────────────────────────────────
-
-  const handleSearch = useCallback(async (overrideQuery?: string) => {
-    const q = (overrideQuery || searchQuery).trim()
-    if (!q) return
-
-    setBrowseLoading(true)
-    setSearched(true)
-    setBrowsePage(1)
-
-    try {
-      const res = await fetch(`https://tecnoprints-api-production.up.railway.app/api/models?keyword=${encodeURIComponent(q)}&page=1`)
-      const data = await res.json()
-      setModels(data.models || [])
-      setBrowseTotal(data.total || 0)
-    } catch {
-      setModels([])
-      setBrowseTotal(0)
-    } finally {
-      setBrowseLoading(false)
-    }
-  }, [searchQuery])
-
-  const handleLoadMore = useCallback(async () => {
-    const q = searchQuery.trim()
-    if (!q) return
-
-    const nextPage = browsePage + 1
-    setLoadingMore(true)
-
-    try {
-      const res = await fetch(`https://tecnoprints-api-production.up.railway.app/api/models?keyword=${encodeURIComponent(q)}&page=${nextPage}`)
-      const data = await res.json()
-      setModels((prev) => [...prev, ...(data.models || [])])
-      setBrowsePage(nextPage)
-    } catch {
-      // silently fail
-    } finally {
-      setLoadingMore(false)
-    }
-  }, [searchQuery, browsePage])
-
-  const handleQuickSearch = (term: string) => {
-    setSearchQuery(term)
-    handleSearch(term)
-  }
-
   // ─── Render ─────────────────────────────────────────────────
 
   return (
@@ -222,40 +126,14 @@ export default function QuoteForm() {
             <span className="text-primary">Cotización</span>
           </h2>
           <p className="text-muted max-w-xl mx-auto">
-            ¿Ya tienes tu modelo 3D o necesitas buscar uno? Elige una opción para comenzar.
+            Sube tu archivo STL y obtén un estimado al instante. ¿No tienes modelo? Explora nuestro{' '}
+            <a href="/#catalog" className="text-primary underline underline-offset-2 hover:text-primary-light">catálogo</a>.
           </p>
         </div>
 
-        {/* Tab selector */}
-        <div className="flex max-w-lg mx-auto mb-8">
-          <button
-            onClick={() => setTab('upload')}
-            className={`flex-1 py-3 px-4 text-sm font-medium border transition-colors ${
-              tab === 'upload'
-                ? 'bg-primary/10 border-primary text-primary'
-                : 'bg-surface border-border text-muted hover:text-white hover:border-primary/50'
-            }`}
-          >
-            <Upload size={16} className="inline-block mr-2 -mt-0.5" />
-            Ya tengo mi modelo
-          </button>
-          <button
-            onClick={() => setTab('browse')}
-            className={`flex-1 py-3 px-4 text-sm font-medium border border-l-0 transition-colors ${
-              tab === 'browse'
-                ? 'bg-primary/10 border-primary text-primary'
-                : 'bg-surface border-border text-muted hover:text-white hover:border-primary/50'
-            }`}
-          >
-            <Search size={16} className="inline-block mr-2 -mt-0.5" />
-            Buscar en catálogo
-          </button>
-        </div>
-
-        {/* ─── TAB: Upload STL ─────────────────────────────── */}
-        {tab === 'upload' && (
-          <div className="max-w-3xl mx-auto">
-            <Card hover={false} className="p-4 sm:p-6 md:p-8">
+        {/* ─── Upload STL ─────────────────────────────── */}
+        <div className="max-w-3xl mx-auto">
+          <Card hover={false} className="p-4 sm:p-6 md:p-8">
               {result ? (
                 <div className="space-y-5 sm:space-y-6">
                   {/* Result header */}
@@ -456,241 +334,8 @@ export default function QuoteForm() {
                   </Button>
                 </form>
               )}
-            </Card>
-          </div>
-        )}
-
-        {/* ─── TAB: Browse Models ──────────────────────────── */}
-        {tab === 'browse' && (
-          <div>
-            {/* Search bar */}
-            <div className="max-w-2xl mx-auto mb-6">
-              <form
-                onSubmit={(e) => { e.preventDefault(); handleSearch() }}
-                className="flex gap-2"
-              >
-                <div className="relative flex-1">
-                  <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="¿Qué quieres imprimir? (ej: llavero, maceta, figura)"
-                    className="w-full pl-10 pr-4 py-3 bg-surface border border-border text-sm placeholder:text-muted/60 focus:outline-none focus:border-primary transition-colors"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={browseLoading || !searchQuery.trim()}
-                  className="px-5 py-3 bg-primary text-black font-semibold text-sm hover:bg-primary-dark transition-colors disabled:opacity-50"
-                >
-                  {browseLoading ? <Loader2 size={18} className="animate-spin" /> : 'Buscar'}
-                </button>
-              </form>
-            </div>
-
-            {/* Quick search tags (shown before searching) */}
-            {!searched && (
-              <div className="flex flex-wrap justify-center gap-2 mb-6">
-                {POPULAR_SEARCHES.map((term) => (
-                  <button
-                    key={term}
-                    onClick={() => handleQuickSearch(term)}
-                    className="px-3 py-1.5 border border-border text-xs text-muted hover:border-primary/50 hover:text-white transition-colors"
-                  >
-                    {term}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Loading */}
-            {browseLoading && (
-              <div className="flex items-center justify-center py-16">
-                <Loader2 size={24} className="animate-spin text-primary mr-2" />
-                <span className="text-muted text-sm">Buscando modelos...</span>
-              </div>
-            )}
-
-            {/* No results */}
-            {!browseLoading && searched && models.length === 0 && (
-              <div className="text-center py-16">
-                <p className="text-muted">No se encontraron modelos. Intenta con otra búsqueda.</p>
-              </div>
-            )}
-
-            {/* Results grid */}
-            {!browseLoading && models.length > 0 && (
-              <>
-                <p className="text-xs text-muted mb-4 text-center">
-                  {searched
-                    ? `${browseTotal.toLocaleString()} modelos encontrados — ordenados por más descargados`
-                    : 'Modelos populares — busca algo específico o explora lo más descargado'}
-                </p>
-
-                {/* Tip banner */}
-                <div className="bg-primary/10 border border-primary/30 p-3 sm:p-4 mb-4 flex items-start gap-3">
-                  <Upload size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                  <p className="text-xs sm:text-sm text-muted">
-                    <span className="text-white font-medium">Tip:</span> Descarga el STL del modelo que te guste y súbelo en{' '}
-                    <button onClick={() => setTab('upload')} className="text-primary underline underline-offset-2 hover:text-primary-light">
-                      &quot;Ya tengo mi modelo&quot;
-                    </button>{' '}
-                    para ver los gramos exactos y el precio estimado.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                  {models.map((model) => (
-                    <div key={model.id} className="group">
-                      <Card className="p-0 overflow-hidden h-full flex flex-col">
-                        <div className="aspect-square relative bg-background overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={model.cover}
-                            alt={model.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="p-3 flex flex-col flex-1">
-                          <h3 className="text-sm font-medium line-clamp-2 leading-tight mb-3 flex-1">
-                            {model.title}
-                          </h3>
-                          <button
-                            onClick={() => { setSelectedModel(model); setCopied(false) }}
-                            className="w-full py-2 bg-primary text-black text-xs font-semibold hover:bg-primary-dark transition-colors"
-                          >
-                            Cotizar Ahora
-                          </button>
-                        </div>
-                      </Card>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Load more */}
-                {models.length < browseTotal && (
-                  <div className="flex justify-center mt-6">
-                    <button
-                      onClick={handleLoadMore}
-                      disabled={loadingMore}
-                      className="px-6 py-3 border border-border text-sm font-medium hover:border-primary/50 hover:text-primary transition-colors disabled:opacity-50"
-                    >
-                      {loadingMore ? (
-                        <span className="flex items-center gap-2">
-                          <Loader2 size={16} className="animate-spin" />
-                          Cargando...
-                        </span>
-                      ) : (
-                        `Cargar más modelos (${models.length} de ${browseTotal.toLocaleString()})`
-                      )}
-                    </button>
-                  </div>
-                )}
-
-                {/* ─── Quote Modal ─────────────────────────── */}
-                {selectedModel && (
-                  <div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
-                    onClick={() => setSelectedModel(null)}
-                  >
-                    <div
-                      className="bg-surface border border-border w-full max-w-md p-5 sm:p-6 relative"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {/* Close */}
-                      <button
-                        onClick={() => setSelectedModel(null)}
-                        className="absolute top-3 right-3 text-muted hover:text-white"
-                      >
-                        <X size={20} />
-                      </button>
-
-                      {/* Model preview */}
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className="w-20 h-20 flex-shrink-0 bg-background border border-border overflow-hidden">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={selectedModel.cover}
-                            alt={selectedModel.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <h3 className="text-sm font-semibold line-clamp-2 mb-1">{selectedModel.title}</h3>
-                          <p className="text-[11px] text-muted">por {selectedModel.creator}</p>
-                        </div>
-                      </div>
-
-                      {/* Explanation for non-technical users */}
-                      <div className="bg-background border border-border p-3 sm:p-4 mb-4 text-sm text-muted leading-relaxed">
-                        <p className="mb-2">
-                          <span className="text-white font-medium">¿Te gusta este modelo?</span> Nosotros nos encargamos de todo.
-                        </p>
-                        <p>
-                          Solo envíanos este enlace por WhatsApp y te daremos el <span className="text-white">precio exacto</span>, el{' '}
-                          <span className="text-white">tiempo de entrega</span> y las opciones de{' '}
-                          <span className="text-white">material y color</span>. No necesitas descargar nada.
-                        </p>
-                      </div>
-
-                      {/* Model link to copy */}
-                      <div className="mb-5">
-                        <label className="block text-xs text-muted mb-1.5">Enlace del modelo</label>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="text"
-                            readOnly
-                            value={selectedModel.url}
-                            className="flex-1 px-3 py-2 bg-background border border-border text-xs text-muted truncate"
-                          />
-                          <button
-                            onClick={() => {
-                              navigator.clipboard.writeText(selectedModel.url)
-                              setCopied(true)
-                              setTimeout(() => setCopied(false), 2000)
-                            }}
-                            className="px-3 py-2 border border-border text-xs hover:border-primary/50 transition-colors flex items-center gap-1"
-                          >
-                            {copied ? <Check size={14} className="text-primary" /> : <Copy size={14} />}
-                            {copied ? 'Copiado' : 'Copiar'}
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Actions */}
-                      <div className="space-y-3">
-                        <a
-                          href={`https://wa.me/573239267656?text=${encodeURIComponent(
-                            `Hola! Me gustaría que me impriman este modelo 3D:\n\n` +
-                            `${selectedModel.title}\n` +
-                            `${selectedModel.url}\n\n` +
-                            `¿Me pueden dar el precio, tiempo de entrega y opciones de color?`
-                          )}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-black font-semibold text-sm hover:bg-primary-dark transition-colors"
-                        >
-                          <WhatsAppIcon size={18} />
-                          Enviar por WhatsApp y Cotizar
-                        </a>
-                        <a
-                          href={selectedModel.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full flex items-center justify-center gap-2 py-3 border border-border text-sm font-medium hover:border-primary/50 transition-colors"
-                        >
-                          Ver detalles del modelo
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        )}
+          </Card>
+        </div>
       </div>
     </section>
   )

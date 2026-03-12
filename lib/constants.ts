@@ -5,6 +5,7 @@
 
 export const NAVIGATION = [
   { href: '/servicios-impresion-3d-barranquilla', label: 'Servicios' },
+  { href: '/#catalog', label: 'Catálogo' },
   { href: '/#process', label: 'Cómo Funciona' },
   { href: '/#about', label: 'Nosotros' },
   { href: '/blog', label: 'Blog' },

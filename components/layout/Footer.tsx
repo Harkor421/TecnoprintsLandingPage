@@ -7,6 +7,7 @@ import { Mail, MapPin, Instagram } from 'lucide-react'
 const footerLinks = {
   company: [
     { label: 'Servicios', href: '/servicios-impresion-3d-barranquilla' },
+    { label: 'Catálogo', href: '/#catalog' },
     { label: 'Cómo Funciona', href: '/#process' },
     { label: 'Cotizar', href: '/cotizar-impresion-3d' },
     { label: 'Contacto', href: '/#contact' },
