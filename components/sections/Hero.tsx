@@ -50,14 +50,14 @@ function Hero() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Impresión{' '}
               <span className="text-primary">3D</span>{' '}
-              para Todos
+              en Barranquilla
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.25} duration={0.8}>
             <p className="text-base sm:text-lg text-muted mb-8 max-w-2xl mx-auto leading-relaxed">
-              Desde proyectos académicos hasta producción en serie. Tecnología de precisión
-              para estudiantes, emprendedores, makers y empresas.
+              Servicio profesional de impresión 3D en Barranquilla. Prototipado rápido, maquetas,
+              piezas personalizadas. Cotiza gratis y recibe en 24-48 horas.
             </p>
           </FadeIn>
 
