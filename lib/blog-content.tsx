@@ -212,7 +212,7 @@ export function PrototipadoRapidoContent() {
         Ventajas del Prototipado 3D en <span className="text-primary">Barranquilla</span>
       </h2>
       <ul className="list-disc list-inside space-y-3 mt-4">
-        <li><strong className="text-white">Velocidad:</strong> De archivo digital a pieza física en 24-48 horas. Ideal para iteraciones rápidas donde cada día cuenta.</li>
+        <li><strong className="text-white">Velocidad:</strong> De archivo digital a pieza física en el mismo día hasta 48 horas. Ideal para iteraciones rápidas donde cada día cuenta.</li>
         <li><strong className="text-white">Costo bajo:</strong> Sin moldes ni herramientas. Un prototipo en PLA puede costar desde $5,000 COP, permitiéndote probar múltiples versiones.</li>
         <li><strong className="text-white">Iteración rápida:</strong> Detecta errores de diseño en la pieza real, corrige el archivo y vuelve a imprimir el mismo día.</li>
         <li><strong className="text-white">Sin pedido mínimo:</strong> Imprime una sola pieza o cien. La impresión 3D es económica desde la primera unidad.</li>
@@ -237,7 +237,7 @@ export function PrototipadoRapidoContent() {
         <li>Envíanos tu archivo STL o STEP por WhatsApp.</li>
         <li>Te cotizamos en minutos con precio exacto.</li>
         <li>Imprimimos con impresoras Bambu Lab de alta velocidad.</li>
-        <li>Tu prototipo listo en 24-48 horas en Barranquilla.</li>
+        <li>Tu prototipo listo en el mismo día hasta 48 horas en Barranquilla.</li>
       </ol>
     </>
   )
@@ -321,7 +321,7 @@ export function DondeImprimirContent() {
       </p>
       <ul className="list-disc list-inside space-y-3 mt-4">
         <li><strong className="text-white">Calidad de las impresoras:</strong> Las impresoras profesionales como Bambu Lab producen piezas con capas de 0.08-0.20mm, mucho más finas que impresoras caseras. Esto se traduce en mejor acabado y precisión dimensional.</li>
-        <li><strong className="text-white">Tiempo de entrega:</strong> Un buen servicio entrega en 24-48 horas para piezas estándar. Desconfía de tiempos de una semana o más para piezas simples.</li>
+        <li><strong className="text-white">Tiempo de entrega:</strong> Un buen servicio entrega en el mismo día hasta 48 horas para piezas estándar. Desconfía de tiempos de una semana o más para piezas simples.</li>
         <li><strong className="text-white">Asesoría técnica:</strong> El proveedor debe poder aconsejarte sobre orientación de impresión, relleno óptimo y material adecuado. No solo imprimir lo que le envíes.</li>
         <li><strong className="text-white">Precio transparente:</strong> Deberías poder estimar el costo antes de ordenar. Los precios ocultos o cotizaciones que tardan días son señales de alerta.</li>
         <li><strong className="text-white">Atención directa:</strong> Poder comunicarte por WhatsApp o en persona facilita resolver dudas y hacer ajustes rápidos.</li>
@@ -333,7 +333,7 @@ export function DondeImprimirContent() {
       <ul className="list-disc list-inside space-y-3 mt-4">
         <li><strong className="text-white">Impresoras Bambu Lab:</strong> Utilizamos impresoras de última generación con velocidades hasta 500mm/s y precisión de 0.05mm.</li>
         <li><strong className="text-white">Cotización instantánea:</strong> Nuestro estimador en línea te calcula los gramos de material y el costo aproximado en segundos.</li>
-        <li><strong className="text-white">Entrega en 24-48h:</strong> Para la mayoría de proyectos, tu pieza estará lista al día siguiente.</li>
+        <li><strong className="text-white">Entrega en mismo día a 48h:</strong> Para la mayoría de proyectos, tu pieza estará lista al día siguiente.</li>
         <li><strong className="text-white">Asesoría gratuita:</strong> Te ayudamos a optimizar tu diseño para mejor resultado y menor costo.</li>
         <li><strong className="text-white">Ubicación en Barranquilla:</strong> Estamos en Cra. 53 #Calle 96 - 24. Recoge en persona o te lo enviamos.</li>
         <li><strong className="text-white">Precios competitivos:</strong> Sin intermediarios ni costos ocultos. Precio justo por gramo de material.</li>
@@ -418,7 +418,7 @@ export function TesisUniversitariasContent() {
         <li>Contáctanos por WhatsApp con tu archivo y te damos el precio final. Podemos asesorarte
         sobre orientación de impresión y calidad ideal para tu caso.</li>
         <li>Recoge tu pieza en Barranquilla o te la enviamos. Para prototipos simples, la entrega
-        es en 24-48 horas.</li>
+        es en el mismo día hasta 48 horas.</li>
       </ol>
 
       <h2 className="text-2xl font-bold text-white mt-10 mb-4">
@@ -437,6 +437,339 @@ export function TesisUniversitariasContent() {
         mejor precio.</li>
         <li>Planifica con tiempo. Los pedidos urgentes pueden tener recargos.</li>
       </ul>
+    </>
+  )
+}
+
+export function ImpresionEconomicaContent() {
+  return (
+    <>
+      <p>
+        ¿Buscas un servicio de <strong className="text-white">impresión 3D económica en Barranquilla</strong>?
+        En Tecnoprints ofrecemos precios accesibles sin sacrificar calidad. Sabemos que el precio de
+        una impresión 3D puede ser una barrera, por eso hemos optimizado nuestros procesos para darte
+        la mejor relación costo-beneficio de la ciudad.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        ¿Cuánto Cuesta Realmente una <span className="text-primary">Impresión 3D</span> en Barranquilla?
+      </h2>
+      <p>
+        El precio de una impresión 3D depende principalmente del peso en gramos del modelo y la calidad
+        seleccionada. En Tecnoprints Barranquilla manejamos tarifas competitivas por gramo de material,
+        lo que significa que solo pagas por lo que realmente se imprime. Aquí algunos ejemplos de precios
+        reales:
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Llavero personalizado (5-15g):</strong> Desde $3,000 COP.
+        Perfecto para detalles, regalos o pruebas rápidas.</li>
+        <li><strong className="text-white">Pieza mecánica pequeña (20-50g):</strong> Entre $8,000 y
+        $20,000 COP. Ideal para repuestos o prototipos iniciales.</li>
+        <li><strong className="text-white">Prototipo mediano (80-150g):</strong> Entre $30,000 y
+        $60,000 COP. Para carcasas, modelos funcionales o maquetas.</li>
+        <li><strong className="text-white">Proyecto grande (200g+):</strong> Cotización personalizada.
+        Pedidos en lote tienen descuento por volumen.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Consejos para una <span className="text-primary">Impresión 3D Barata</span> sin Perder Calidad
+      </h2>
+      <p>
+        Conseguir una impresión 3D barata en Barranquilla no significa conformarte con mala calidad.
+        Con estos consejos puedes reducir significativamente el costo de tu proyecto:
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Elige el relleno adecuado:</strong> Para piezas decorativas,
+        un 15% de relleno es suficiente y reduce el precio considerablemente.</li>
+        <li><strong className="text-white">Optimiza el diseño:</strong> Reduce paredes innecesariamente
+        gruesas. Un grosor de 1.2mm es resistente y económico.</li>
+        <li><strong className="text-white">Agrupa pedidos:</strong> Si necesitas varias piezas,
+        cotiza todo junto. Ofrecemos mejores precios por volumen.</li>
+        <li><strong className="text-white">Usa PLA estándar:</strong> Es el material más económico y
+        funciona perfectamente para la mayoría de aplicaciones.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        ¿Por Qué Nuestro <span className="text-primary">Precio</span> es Competitivo?
+      </h2>
+      <p>
+        En Tecnoprints Barranquilla mantenemos precios bajos gracias a impresoras Bambu Lab de alta
+        velocidad que reducen tiempos de producción, compra de filamento al por mayor y un proceso
+        digital sin intermediarios. No cobramos por cotizar ni por asesoría — solo pagas por tu pieza.
+      </p>
+      <p className="mt-4">
+        ¿Quieres saber exactamente cuánto cuesta tu proyecto? Usa nuestro{' '}
+        <a href="/cotizar-impresion-3d" className="text-primary underline">estimador en línea</a> para
+        un cálculo instantáneo, o envíanos tu archivo por WhatsApp para una cotización personalizada
+        con el mejor precio de impresión 3D en Barranquilla.
+      </p>
+    </>
+  )
+}
+
+export function ImpresionEmprendedoresContent() {
+  return (
+    <>
+      <p>
+        La <strong className="text-white">impresión 3D para emprendedores</strong> en Barranquilla
+        se ha convertido en una herramienta esencial para quienes quieren lanzar productos al mercado
+        sin grandes inversiones iniciales. Desde prototipos hasta productos finales, la tecnología 3D
+        permite crear productos personalizados con costos mínimos y tiempos de entrega de horas.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Cómo los Emprendedores Usan la <span className="text-primary">Impresión 3D</span> en Barranquilla
+      </h2>
+      <p>
+        Cada vez más emprendedores en Barranquilla están integrando la impresión 3D en sus negocios.
+        Estos son los usos más comunes que vemos en Tecnoprints:
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Prototipos de producto:</strong> Antes de invertir en moldes
+        o producción masiva, imprime un prototipo funcional en Barranquilla por una fracción del costo.
+        Valida tu idea con clientes reales antes de escalar.</li>
+        <li><strong className="text-white">Productos personalizados:</strong> Crea productos únicos
+        como joyería, accesorios, decoración o artículos de marca. Cada pieza puede ser diferente sin
+        costo adicional de setup.</li>
+        <li><strong className="text-white">Empaques y exhibidores:</strong> Diseña displays, soportes
+        y empaques especiales para diferenciarte en ferias y puntos de venta en Barranquilla.</li>
+        <li><strong className="text-white">Repuestos y herramientas:</strong> Fabrica piezas de repuesto
+        para tus máquinas o herramientas especializadas que no se consiguen fácilmente en el mercado local.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Ventajas de <span className="text-primary">Crear Productos 3D</span> para tu Emprendimiento
+      </h2>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Sin pedido mínimo:</strong> Produce desde una sola unidad.
+        Perfecto para emprendedores que están validando su mercado.</li>
+        <li><strong className="text-white">Iteración rápida:</strong> Modifica tu diseño hoy y ten la
+        nueva versión mañana. El ciclo de desarrollo se reduce de meses a días.</li>
+        <li><strong className="text-white">Bajo riesgo financiero:</strong> No necesitas invertir en
+        moldes de $2,000,000+ COP. Un prototipo en Barranquilla puede costar desde $5,000 COP.</li>
+        <li><strong className="text-white">Personalización masiva:</strong> Ofrece productos personalizados
+        a tus clientes sin complicaciones logísticas.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        De la Idea al <span className="text-primary">Prototipo</span> en Barranquilla
+      </h2>
+      <p>
+        El proceso para emprendedores es directo y sin complicaciones. Si ya tienes un diseño 3D
+        (STL, OBJ o STEP), simplemente envíalo a nuestro WhatsApp y te cotizamos en minutos. Si
+        solo tienes una idea o un boceto, podemos recomendarte diseñadores 3D en Barranquilla que
+        trabajan con emprendedores.
+      </p>
+      <p className="mt-4">
+        Usa nuestro{' '}
+        <a href="/cotizar-impresion-3d" className="text-primary underline">cotizador en línea</a> para
+        estimar el costo de tus prototipos al instante. En Tecnoprints Barranquilla ayudamos a
+        emprendedores cada día a materializar sus ideas con impresión 3D rápida, económica y de calidad.
+      </p>
+    </>
+  )
+}
+
+export function RegalosPersonalizadosContent() {
+  return (
+    <>
+      <p>
+        Los <strong className="text-white">regalos personalizados con impresión 3D</strong> son la
+        tendencia que está creciendo en Barranquilla. Olvídate de los regalos genéricos — con la
+        impresión 3D puedes crear piezas únicas con nombres, fechas, formas especiales y diseños
+        que no encontrarás en ninguna tienda.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Ideas de <span className="text-primary">Regalos Personalizados 3D</span>
+      </h2>
+      <p>
+        En Tecnoprints Barranquilla hemos impreso cientos de regalos personalizados. Estas son las
+        ideas más populares entre nuestros clientes:
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Llaveros personalizados:</strong> Con nombres, iniciales,
+        logos o formas especiales. Los llaveros personalizados son el regalo 3D más solicitado en
+        Barranquilla — económicos, prácticos y únicos.</li>
+        <li><strong className="text-white">Figuras 3D personalizadas:</strong> Desde figuras de
+        personajes favoritos hasta réplicas en miniatura de mascotas, carros o edificios. Las figuras
+        3D son perfectas para coleccionistas y fans.</li>
+        <li><strong className="text-white">Letreros y placas con nombre:</strong> Para escritorios,
+        puertas o decoración del hogar. Disponibles en múltiples colores y estilos.</li>
+        <li><strong className="text-white">Cajas y organizadores:</strong> Diseñados a medida con
+        compartimentos específicos para joyas, herramientas o colecciones.</li>
+        <li><strong className="text-white">Decoración temática:</strong> Porta velas, macetas
+        geométricas, figuras decorativas para eventos, souvenirs para fiestas en Barranquilla.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        ¿Cuánto Cuestan los <span className="text-primary">Regalos 3D</span>?
+      </h2>
+      <p>
+        Los regalos personalizados en 3D son más accesibles de lo que piensas. En Barranquilla,
+        estos son los rangos de precio típicos:
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Llaveros y piezas pequeñas:</strong> Desde $3,000 COP
+        por unidad. Ideales para detalles en cantidad.</li>
+        <li><strong className="text-white">Figuras medianas (5-10cm):</strong> Entre $15,000 y
+        $40,000 COP. Perfectas como regalo individual.</li>
+        <li><strong className="text-white">Piezas decorativas grandes:</strong> Desde $40,000 COP.
+        Para regalos premium con acabado especial.</li>
+        <li><strong className="text-white">Pedidos por lote:</strong> Descuentos especiales para
+        souvenirs de eventos, matrimonios o fiestas empresariales.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Cómo Pedir tu <span className="text-primary">Regalo Personalizado</span>
+      </h2>
+      <p>
+        Pedir un regalo personalizado en Tecnoprints Barranquilla es fácil. Si ya tienes un modelo
+        3D, sube tu archivo en nuestro{' '}
+        <a href="/cotizar-impresion-3d" className="text-primary underline">cotizador en línea</a> y
+        obtén un precio instantáneo. Si tienes una idea pero no un diseño, escríbenos por WhatsApp
+        con una descripción o imagen de referencia y te asesoramos sobre cómo hacerlo realidad.
+      </p>
+      <p className="mt-4">
+        Ofrecemos múltiples colores de PLA, incluyendo acabados metalizados (PLA Silk) para regalos
+        con un toque premium. Los tiempos de entrega en Barranquilla son de el mismo día hasta 48 horas para la
+        mayoría de regalos personalizados en 3D.
+      </p>
+    </>
+  )
+}
+
+export function ImpresionIngenieriaContent() {
+  return (
+    <>
+      <p>
+        La <strong className="text-white">impresión 3D para ingeniería</strong> se ha convertido en
+        una herramienta indispensable para profesionales y empresas en Barranquilla. Desde prototipos
+        funcionales hasta piezas de reemplazo y herramientas personalizadas, la manufactura aditiva
+        resuelve problemas reales de ingeniería con rapidez y bajo costo.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        <span className="text-primary">Prototipos Funcionales</span> para Ingenieros
+      </h2>
+      <p>
+        Un prototipo funcional va más allá de lo visual — necesita resistir esfuerzos, encajar con
+        otras piezas y simular el comportamiento del producto final. En Tecnoprints Barranquilla
+        ofrecemos materiales y calidades diseñados para aplicaciones de ingeniería:
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">PLA de alta densidad:</strong> Con relleno del 50-80%,
+        ideal para validar geometrías y ajustes mecánicos. Buena rigidez y precisión dimensional.</li>
+        <li><strong className="text-white">PETG para resistencia:</strong> Mayor resistencia al
+        impacto y a la temperatura que el PLA. Perfecto para piezas que trabajarán bajo estrés
+        mecánico o en ambientes cálidos de Barranquilla.</li>
+        <li><strong className="text-white">TPU flexible:</strong> Para juntas, sellos, amortiguadores
+        y cualquier componente que necesite absorber vibraciones o deformarse sin romperse.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        <span className="text-primary">Piezas 3D Industriales</span> y de Reemplazo
+      </h2>
+      <p>
+        Uno de los usos más prácticos de la impresión 3D en ingeniería es la fabricación de piezas
+        de reemplazo. En Barranquilla, muchas empresas pierden tiempo y dinero esperando repuestos
+        importados. Con impresión 3D, puedes fabricar la pieza localmente en horas:
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Engranajes y poleas:</strong> En PLA o PETG con la
+        precisión necesaria para aplicaciones de baja y media carga.</li>
+        <li><strong className="text-white">Carcasas y cubiertas:</strong> Protege componentes
+        electrónicos con carcasas diseñadas a medida exacta.</li>
+        <li><strong className="text-white">Soportes y brackets:</strong> Fija sensores, cámaras,
+        cables o cualquier componente con montajes personalizados.</li>
+        <li><strong className="text-white">Jigs y fixtures:</strong> Herramientas de alineación,
+        posicionamiento y ensamblaje específicas para tu línea de producción.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Especificaciones <span className="text-primary">Técnicas</span> de Nuestro Servicio
+      </h2>
+      <p>
+        En Tecnoprints Barranquilla trabajamos con impresoras Bambu Lab que ofrecen tolerancias de
+        ±0.1mm en ejes X/Y y capas desde 0.08mm. Para proyectos de ingeniería, recomendamos calidad
+        alta con relleno del 40% o superior para piezas que requieran resistencia mecánica.
+      </p>
+      <p className="mt-4">
+        ¿Necesitas una pieza para un proyecto de ingeniería en Barranquilla? Envía tu archivo STL
+        o STEP a través de nuestro{' '}
+        <a href="/cotizar-impresion-3d" className="text-primary underline">formulario de cotización</a> o
+        por WhatsApp. Te asesoramos sobre el material y la configuración óptima para tu aplicación
+        de impresión 3D en ingeniería.
+      </p>
+    </>
+  )
+}
+
+export function ServicioDomicilioContent() {
+  return (
+    <>
+      <p>
+        En Tecnoprints ofrecemos <strong className="text-white">impresión 3D a domicilio en
+        Barranquilla</strong>. Olvídate de desplazarte — sube tu archivo, recibe tu cotización y te
+        entregamos la pieza terminada directamente en tu puerta. Nuestro servicio de impresión 3D en
+        Barranquilla está diseñado para que el proceso sea 100% digital, rápido y sin complicaciones.
+      </p>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        ¿Cómo Funciona el <span className="text-primary">Servicio a Domicilio</span>?
+      </h2>
+      <p>
+        Nuestro proceso es completamente digital. No necesitas visitar un local ni hacer filas.
+        Así funciona paso a paso:
+      </p>
+      <ol className="list-decimal list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Sube tu archivo:</strong> Envía tu modelo 3D (STL, OBJ
+        o STEP) a través de nuestro{' '}
+        <a href="/cotizar-impresion-3d" className="text-primary underline">cotizador en línea</a> o
+        por WhatsApp. Aceptamos archivos de cualquier software de diseño.</li>
+        <li><strong className="text-white">Recibe tu cotización:</strong> En minutos tendrás el
+        precio exacto basado en los gramos de material, calidad seleccionada y cantidad. Sin costos
+        ocultos ni sorpresas.</li>
+        <li><strong className="text-white">Aprueba y producimos:</strong> Una vez confirmado el
+        pedido, comenzamos a imprimir inmediatamente en nuestras impresoras Bambu Lab de alta
+        velocidad.</li>
+        <li><strong className="text-white">Entrega en tu puerta:</strong> Te llevamos la pieza
+        terminada a cualquier dirección en Barranquilla. También puedes recoger en nuestro punto
+        si lo prefieres.</li>
+      </ol>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        <span className="text-primary">Entrega Rápida</span> en Barranquilla
+      </h2>
+      <p>
+        Sabemos que el tiempo es importante. Por eso nuestro servicio de impresión 3D en Barranquilla
+        está optimizado para entrega rápida:
+      </p>
+      <ul className="list-disc list-inside space-y-2 mt-4">
+        <li><strong className="text-white">Piezas pequeñas y medianas:</strong> Entrega en 24-48
+        horas en Barranquilla. La mayoría de pedidos se completan al día siguiente.</li>
+        <li><strong className="text-white">Proyectos grandes:</strong> Entrega en 2-4 días según
+        la complejidad. Te informamos la fecha exacta al confirmar el pedido.</li>
+        <li><strong className="text-white">Pedidos urgentes:</strong> ¿Lo necesitas para hoy?
+        Contáctanos por WhatsApp y evaluamos la posibilidad de entrega express en Barranquilla.</li>
+      </ul>
+
+      <h2 className="text-2xl font-bold text-white mt-10 mb-4">
+        Cobertura del <span className="text-primary">Servicio</span> en Barranquilla
+      </h2>
+      <p>
+        Nuestro servicio de impresión 3D a domicilio cubre toda Barranquilla y su área metropolitana.
+        Realizamos entregas en todos los barrios de la ciudad, desde el norte hasta el sur. Para
+        ubicaciones fuera de Barranquilla en el Atlántico, también hacemos envíos con empresas de
+        mensajería.
+      </p>
+      <p className="mt-4">
+        ¿Listo para recibir tu impresión 3D a domicilio en Barranquilla? Comienza ahora subiendo tu
+        archivo en nuestro{' '}
+        <a href="/cotizar-impresion-3d" className="text-primary underline">cotizador en línea</a> o
+        escríbenos por WhatsApp para asesoría personalizada. En Tecnoprints hacemos que el servicio
+        de impresión 3D en Barranquilla sea fácil, rápido y accesible para todos.
+      </p>
     </>
   )
 }

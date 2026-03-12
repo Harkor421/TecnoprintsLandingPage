@@ -23,7 +23,7 @@ const stats = [
   { icon: Printer, value: '20+', label: 'Impresoras Activas' },
   { icon: Zap, value: '500mm/s', label: 'Velocidad Máxima' },
   { icon: Layers, value: '24/7', label: 'Producción Continua' },
-  { icon: Clock, value: '24-48h', label: 'Entrega Promedio' },
+  { icon: Clock, value: 'Mismo Día', label: 'Entrega Disponible' },
 ]
 
 function Equipment() {

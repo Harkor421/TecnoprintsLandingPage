@@ -13,7 +13,7 @@ import { FAQ_DATA } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Impresión 3D en Barranquilla | Cotiza al Instante | Tecnoprints',
-  description: 'Servicio #1 de impresión 3D en Barranquilla. Prototipado rápido, maquetas, piezas personalizadas en PLA. Cotiza gratis en línea. Entrega en 24-48 horas. Impresoras Bambu Lab.',
+  description: 'Servicio #1 de impresión 3D en Barranquilla. Prototipado rápido, maquetas, piezas personalizadas en PLA. Cotiza gratis en línea. Entrega desde el mismo día hasta 48 horas. Impresoras Bambu Lab.',
   keywords: [
     'impresión 3D Barranquilla',
     'servicio impresión 3D Barranquilla',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Tecnoprints - Impresión 3D en Barranquilla | Cotiza Gratis',
-    description: 'Servicio de impresión 3D profesional en Barranquilla. Prototipado rápido, maquetas, figuras, piezas funcionales. Entrega en 24-48h.',
+    description: 'Servicio de impresión 3D profesional en Barranquilla. Prototipado rápido, maquetas, figuras, piezas funcionales. Entrega desde el mismo día.',
   },
 }
 

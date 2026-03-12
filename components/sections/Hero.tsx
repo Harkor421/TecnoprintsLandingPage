@@ -57,7 +57,7 @@ function Hero() {
           <FadeIn delay={0.25} duration={0.8}>
             <p className="text-base sm:text-lg text-muted mb-8 max-w-2xl mx-auto leading-relaxed">
               Servicio profesional de impresión 3D en Barranquilla. Prototipado rápido, maquetas,
-              piezas personalizadas. Cotiza gratis y recibe en 24-48 horas.
+              piezas personalizadas. Cotiza gratis y recibe tu pedido el mismo día.
             </p>
           </FadeIn>
 

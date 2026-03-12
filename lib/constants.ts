@@ -33,13 +33,13 @@ export const PARTNERS = [
 
 export const HERO_STATS = [
   { label: 'Proyectos Entregados', value: 500, suffix: '+' },
-  { label: 'Tiempo de Entrega', value: 24, suffix: 'h' },
+  { label: 'Entrega Express', value: 48, suffix: 'h' },
   { label: 'Satisfacción', value: 99, suffix: '%' },
   { label: 'Clientes Activos', value: 50, suffix: '+' },
 ] as const
 
 export const HERO_FEATURES = [
-  'Entrega en 24-48h',
+  'Entrega el mismo día',
   'Sin Pedido Mínimo',
 ] as const
 
@@ -47,7 +47,7 @@ export const CTA_BENEFITS = [
   'Sin cantidad mínima de pedido',
   'Cotizaciones en línea instantáneas',
   'Equipo de soporte experto',
-  'Opciones de envío rápido',
+  'Entrega disponible el mismo día',
 ] as const
 
 export const FAQ_DATA = [
@@ -59,7 +59,7 @@ export const FAQ_DATA = [
   {
     question: '¿Cuánto tiempo tarda en llegar mi pedido?',
     answer:
-      'Los tiempos de entrega varían según la complejidad del proyecto. Para prototipos simples, ofrecemos entrega en 24-48 horas. Proyectos más complejos o lotes grandes pueden tomar de 3 a 7 días hábiles. Siempre te proporcionamos una estimación precisa al momento de cotizar.',
+      'Los tiempos de entrega varían según la complejidad del proyecto. Para prototipos simples, ofrecemos entrega el mismo día o en menos de 48 horas. Proyectos más complejos o lotes grandes pueden tomar de 3 a 7 días hábiles. Siempre te proporcionamos una estimación precisa al momento de cotizar.',
   },
   {
     question: '¿Qué formatos de archivo aceptan?',

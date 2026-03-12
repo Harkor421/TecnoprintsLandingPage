@@ -11,6 +11,11 @@ import {
   PrototipadoRapidoContent,
   ArquitecturaMaquetasContent,
   DondeImprimirContent,
+  ImpresionEconomicaContent,
+  ImpresionEmprendedoresContent,
+  RegalosPersonalizadosContent,
+  ImpresionIngenieriaContent,
+  ServicioDomicilioContent,
 } from '@/lib/blog-content'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import Button from '@/components/ui/Button'
@@ -26,6 +31,11 @@ const contentMap: Record<string, () => JSX.Element> = {
   'prototipado-rapido-barranquilla': PrototipadoRapidoContent,
   'impresion-3d-arquitectura-maquetas': ArquitecturaMaquetasContent,
   'donde-imprimir-3d-barranquilla': DondeImprimirContent,
+  'impresion-3d-economica-barranquilla': ImpresionEconomicaContent,
+  'impresion-3d-emprendedores-barranquilla': ImpresionEmprendedoresContent,
+  'regalos-personalizados-3d-barranquilla': RegalosPersonalizadosContent,
+  'impresion-3d-ingenieria-barranquilla': ImpresionIngenieriaContent,
+  'servicio-impresion-3d-domicilio-barranquilla': ServicioDomicilioContent,
 }
 
 export function generateStaticParams() {

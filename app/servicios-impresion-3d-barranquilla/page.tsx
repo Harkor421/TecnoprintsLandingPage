@@ -33,7 +33,7 @@ const services = [
   {
     icon: Printer,
     title: 'Prototipado Rápido',
-    description: 'Transforma tu idea en un prototipo funcional en 24 a 48 horas. Ideal para validar diseños antes de producción, presentar proyectos académicos o probar conceptos de productos nuevos.',
+    description: 'Transforma tu idea en un prototipo funcional el mismo día. Ideal para validar diseños antes de producción, presentar proyectos académicos o probar conceptos de productos nuevos.',
   },
   {
     icon: Cog,
@@ -54,7 +54,7 @@ const services = [
 
 const advantages = [
   { icon: Zap, text: 'Velocidades de hasta 500mm/s con impresoras Bambu Lab' },
-  { icon: Clock, text: 'Entrega en 24-48 horas para la mayoría de proyectos' },
+  { icon: Clock, text: 'Entrega desde el mismo día hasta 48 horas para la mayoría de proyectos' },
   { icon: Shield, text: 'Precisión de 0.05mm en cada pieza impresa' },
   { icon: Layers, text: 'Producción 24/7 con más de 20 impresoras activas' },
 ]

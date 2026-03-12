@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const siteConfig = {
   name: 'Tecnoprints',
-  description: 'Servicio de impresión 3D en Barranquilla, Colombia. Prototipado rápido, piezas personalizadas en PLA con impresoras Bambu Lab. Cotización inmediata, entrega en 24-48 horas.',
+  description: 'Servicio de impresión 3D en Barranquilla, Colombia. Prototipado rápido, piezas personalizadas en PLA con impresoras Bambu Lab. Cotización inmediata, entrega en mismo día hasta 48 horas.',
   url: 'https://tecnoprints.com',
   ogImage: '/og-image.jpg',
   links: {
@@ -81,7 +81,7 @@ export const defaultMetadata: Metadata = {
     locale: 'es_CO',
     url: siteConfig.url,
     title: `${siteConfig.name} - Impresión 3D Profesional en Barranquilla`,
-    description: 'Servicio de impresión 3D en Barranquilla. Prototipado rápido, piezas personalizadas, maquetas y más. Cotiza gratis en línea. Entrega en 24-48 horas.',
+    description: 'Servicio de impresión 3D en Barranquilla. Prototipado rápido, piezas personalizadas, maquetas y más. Cotiza gratis en línea. Entrega en mismo día hasta 48 horas.',
     siteName: siteConfig.name,
     images: [
       {
@@ -95,7 +95,7 @@ export const defaultMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${siteConfig.name} - Impresión 3D en Barranquilla`,
-    description: 'Cotiza tu impresión 3D al instante. Prototipado rápido, entrega en 24-48h. Barranquilla, Colombia.',
+    description: 'Cotiza tu impresión 3D al instante. Prototipado rápido, entrega desde el mismo día. Barranquilla, Colombia.',
     images: [siteConfig.ogImage],
     creator: '@tecnoprintsco',
   },
@@ -202,7 +202,7 @@ export function generateLocalBusinessSchema() {
           itemOffered: {
             '@type': 'Service',
             name: 'Prototipado Rápido',
-            description: 'Prototipos funcionales impresos en 3D con entrega en 24-48 horas',
+            description: 'Prototipos funcionales impresos en 3D con entrega en mismo día hasta 48 horas',
           },
         },
         {
@@ -257,7 +257,7 @@ export function generateServiceSchema() {
       '@type': 'City',
       name: 'Barranquilla',
     },
-    description: 'Servicio de impresión 3D profesional con impresoras Bambu Lab. Prototipado rápido, piezas personalizadas, maquetas, producción en lotes. Entrega en 24-48 horas en Barranquilla.',
+    description: 'Servicio de impresión 3D profesional con impresoras Bambu Lab. Prototipado rápido, piezas personalizadas, maquetas, producción en lotes. Entrega en mismo día hasta 48 horas en Barranquilla.',
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'COP',
