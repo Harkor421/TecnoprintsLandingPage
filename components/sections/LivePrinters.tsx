@@ -4,7 +4,7 @@ import { useEffect, useState, memo, useCallback } from 'react'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 
 const API_BASE = 'https://bambufarm-api-production.up.railway.app'
-const REFRESH_INTERVAL = 3000
+const REFRESH_INTERVAL = 1500
 
 const PRINTER_NAMES: Record<string, string> = {
   '01P00C511300712': 'P1S-AMS-1',
