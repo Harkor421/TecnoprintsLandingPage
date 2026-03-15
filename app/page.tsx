@@ -7,6 +7,7 @@ import CTA from '@/components/sections/CTA'
 import FAQ from '@/components/sections/FAQ'
 import QuoteForm from '@/components/sections/QuoteForm'
 import ContactForm from '@/components/sections/ContactForm'
+import LivePrinters from '@/components/sections/LivePrinters'
 import { Metadata } from 'next'
 import { generateServiceSchema, generateFAQSchema, generateWebSiteSchema, siteConfig } from '@/lib/seo'
 import { FAQ_DATA } from '@/lib/constants'
@@ -53,6 +54,7 @@ export default function Home() {
       <About />
       <Process />
       <Catalog />
+      <LivePrinters />
       <CTA />
       <QuoteForm />
       <ContactForm />
