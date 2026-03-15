@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState, useRef, useCallback, memo } from 'react'
+import { useEffect, useState, memo } from 'react'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 
 const API_BASE = 'https://bambufarm-api-production.up.railway.app'
-const REFRESH_INTERVAL = 2000
+const REFRESH_INTERVAL = 3000
 
 const PRINTER_NAMES: Record<string, string> = {
   '01P00C511300712': 'P1S-AMS-1',
@@ -107,21 +107,16 @@ function LivePrinters() {
 }
 
 function CameraCard({ printerId, index }: { printerId: string; index: number }) {
-  const imgRef = useRef<HTMLImageElement>(null)
+  const [tick, setTick] = useState(Date.now())
   const [loaded, setLoaded] = useState(false)
   const name = PRINTER_NAMES[printerId] || `Impresora ${index + 1}`
 
-  const refresh = useCallback(() => {
-    if (imgRef.current) {
-      imgRef.current.src = `${API_BASE}/api/public/cameras/${printerId}/frame?t=${Date.now()}`
-    }
-  }, [printerId])
-
   useEffect(() => {
-    refresh()
-    const id = setInterval(refresh, REFRESH_INTERVAL)
+    const id = setInterval(() => setTick(Date.now()), REFRESH_INTERVAL)
     return () => clearInterval(id)
-  }, [refresh])
+  }, [])
+
+  const src = `${API_BASE}/api/public/cameras/${printerId}/frame?t=${tick}`
 
   return (
     <div className="relative group rounded-xl overflow-hidden bg-surface border border-border/60 hover:border-primary/30 transition-all duration-300">
@@ -131,15 +126,16 @@ function CameraCard({ printerId, index }: { printerId: string; index: number }) 
           <div className="absolute inset-0 bg-surface animate-pulse" />
         )}
         <img
-          ref={imgRef}
+          src={src}
           alt={name}
+          style={{ filter: 'brightness(1.15)' }}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           onLoad={() => setLoaded(true)}
           onError={() => setLoaded(false)}
         />
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+        {/* Gradient overlay — subtle, bottom only */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
 
         {/* Live badge */}
         <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
