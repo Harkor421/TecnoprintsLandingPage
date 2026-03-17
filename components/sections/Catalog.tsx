@@ -206,15 +206,20 @@ export default function Catalog() {
               {models.map((model) => (
                 <div key={model.id} className="group">
                   <Card className="p-0 overflow-hidden h-full flex flex-col">
-                    <div className="aspect-square relative bg-background overflow-hidden">
+                    <Link
+                      href={`/model/${model.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="aspect-square relative bg-background overflow-hidden block"
+                    >
                       <Image
                         src={model.cover}
                         alt={model.title}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-105 transition-transform"
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       />
-                    </div>
+                    </Link>
                     <div className="p-3 flex flex-col flex-1">
                       <h3 className="text-sm font-medium line-clamp-2 leading-tight mb-3 flex-1">
                         {model.title}
