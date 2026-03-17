@@ -72,9 +72,9 @@ function Hero() {
                   />
                 </Button>
               </Link>
-              <Link href="#quote" className="w-full sm:w-auto">
+              <Link href="#catalog" className="w-full sm:w-auto">
                 <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  Estimar Cotización en Línea
+                  Ver nuestro catálogo
                 </Button>
               </Link>
             </div>
