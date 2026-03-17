@@ -61,6 +61,38 @@ app.get('/api/models', async (req, res) => {
   }
 })
 
+app.get('/api/models/:id', async (req, res) => {
+  const { id } = req.params
+  const url = `https://api.bambulab.com/v1/design-service/design/${id}`
+
+  try {
+    const resp = await fetch(url)
+    if (!resp.ok) {
+      console.error(`[MakerWorld] Model detail returned ${resp.status}`)
+      return res.status(502).json({ error: 'API unavailable' })
+    }
+
+    const d = await resp.json()
+
+    res.json({
+      id: d.id,
+      title: d.title,
+      description: d.description,
+      cover: d.cover,
+      likeCount: d.likeCount,
+      downloadCount: d.downloadCount,
+      printCount: d.printCount,
+      creator: d.designCreator?.name || 'Unknown',
+      tags: d.tags || [],
+      url: `https://makerworld.com/en/models/${d.id}`,
+      files: d.designFiles || [],
+    })
+  } catch (err) {
+    console.error('[MakerWorld] Model detail error:', err.message)
+    res.status(500).json({ error: 'Failed to fetch model' })
+  }
+})
+
 // ─── Start ──────────────────────────────────────────────────
 
 app.listen(PORT, () => {
