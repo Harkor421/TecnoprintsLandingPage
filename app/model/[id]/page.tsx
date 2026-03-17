@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, Heart, Download, Printer, Loader2 } from 'lucide-react'
 
@@ -41,6 +41,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
   const [model, setModel] = useState<ModelDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [imageIndex, setImageIndex] = useState(0)
+  const thumbnailsRef = useRef<HTMLDivElement>(null)
 
   // Cost parameters
   const costPerGram = 60
@@ -147,23 +148,56 @@ export default function ModelPage({ params }: { params: { id: string } }) {
               )}
             </div>
 
-            {/* Thumbnails strip - like MakerWorld */}
+            {/* Thumbnails strip with navigation - like MakerWorld */}
             {model.images.length > 1 && (
-              <div className="flex gap-3 overflow-x-auto pb-2 mt-4 scroll-smooth">
-                {model.images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setImageIndex(idx)}
-                    className={`flex-shrink-0 h-20 sm:h-24 w-20 sm:w-24 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
-                      idx === imageIndex
-                        ? 'border-primary ring-2 ring-primary/40'
-                        : 'border-border/60 opacity-70 hover:opacity-100 hover:border-primary/50'
-                    }`}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={img} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
-                  </button>
-                ))}
+              <div className="flex items-center gap-2 mt-4">
+                {/* Left arrow */}
+                <button
+                  onClick={() => {
+                    if (thumbnailsRef.current) {
+                      thumbnailsRef.current.scrollBy({ left: -100, behavior: 'smooth' })
+                    }
+                  }}
+                  className="flex-shrink-0 p-2 text-muted hover:text-primary transition-colors"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                {/* Thumbnails container */}
+                <div
+                  ref={thumbnailsRef}
+                  className="flex gap-2 overflow-x-auto flex-1 pb-2 scroll-smooth"
+                  style={{ scrollBehavior: 'smooth' }}
+                >
+                  {model.images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setImageIndex(idx)}
+                      className={`flex-shrink-0 h-20 sm:h-24 w-20 sm:w-24 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
+                        idx === imageIndex
+                          ? 'border-primary ring-2 ring-primary/40'
+                          : 'border-border/60 opacity-70 hover:opacity-100 hover:border-primary/50'
+                      }`}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={img} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+
+                {/* Right arrow */}
+                <button
+                  onClick={() => {
+                    if (thumbnailsRef.current) {
+                      thumbnailsRef.current.scrollBy({ left: 100, behavior: 'smooth' })
+                    }
+                  }}
+                  className="flex-shrink-0 p-2 text-muted hover:text-primary transition-colors"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight size={20} />
+                </button>
               </div>
             )}
 
