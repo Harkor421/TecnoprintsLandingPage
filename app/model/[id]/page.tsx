@@ -97,19 +97,15 @@ export default function ModelPage({ params }: { params: { id: string } }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div className="bg-background/95 backdrop-blur border-b border-border">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link
             href="/#catalog"
-            className="flex items-center gap-2 text-muted hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-muted hover:text-primary transition-colors text-sm"
           >
-            <ChevronLeft size={20} />
-            <span className="text-sm">Volver</span>
+            <ChevronLeft size={18} />
+            Volver al catálogo
           </Link>
-          <div className="text-center flex-1">
-            <h1 className="text-lg sm:text-xl font-bold text-primary">TecnoPrints</h1>
-          </div>
-          <div className="w-12" />
         </div>
       </div>
 
@@ -196,7 +192,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
           {/* Sidebar */}
           <div className="lg:col-span-1">
             {/* Quote Card */}
-            <div className="bg-surface border border-border rounded-lg p-6 mb-6 sticky top-20">
+            <div className="bg-surface border border-border rounded-lg p-6 mb-6 sticky top-6">
               <div className="mb-6 pb-6 border-b border-border">
                 <p className="text-xs text-muted mb-1">Peso estimado</p>
                 <p className="text-3xl font-bold text-white">{model.weight}g</p>
