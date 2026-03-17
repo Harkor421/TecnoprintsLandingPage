@@ -131,17 +131,17 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                 <>
                   <button
                     onClick={() => setImageIndex((i) => (i - 1 + model.images.length) % model.images.length)}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-2 rounded-full transition-all"
+                    className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 p-2.5 sm:p-3 rounded-full transition-all z-10"
                     aria-label="Previous image"
                   >
-                    <ChevronLeft size={20} className="text-white" />
+                    <ChevronLeft size={24} className="text-white" />
                   </button>
                   <button
                     onClick={() => setImageIndex((i) => (i + 1) % model.images.length)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-2 rounded-full transition-all"
+                    className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 p-2.5 sm:p-3 rounded-full transition-all z-10"
                     aria-label="Next image"
                   >
-                    <ChevronRight size={20} className="text-white" />
+                    <ChevronRight size={24} className="text-white" />
                   </button>
                 </>
               )}
@@ -149,27 +149,21 @@ export default function ModelPage({ params }: { params: { id: string } }) {
 
             {/* Thumbnails strip - like MakerWorld */}
             {model.images.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto pb-2 scroll-smooth">
+              <div className="flex gap-3 overflow-x-auto pb-2 mt-4 scroll-smooth">
                 {model.images.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setImageIndex(idx)}
-                    className={`flex-shrink-0 h-24 w-24 rounded overflow-hidden border-2 transition-all ${
+                    className={`flex-shrink-0 h-20 sm:h-24 w-20 sm:w-24 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
                       idx === imageIndex
-                        ? 'border-primary'
-                        : 'border-border/40 opacity-60 hover:opacity-100 hover:border-border'
+                        ? 'border-primary ring-2 ring-primary/40'
+                        : 'border-border/60 opacity-70 hover:opacity-100 hover:border-primary/50'
                     }`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={img} alt={`Photo ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={img} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
                   </button>
                 ))}
-                {/* Navigation arrow for thumbnails on mobile */}
-                {model.images.length > 4 && (
-                  <button className="flex-shrink-0 w-8 flex items-center justify-center text-muted hover:text-primary transition-colors">
-                    <ChevronRight size={20} />
-                  </button>
-                )}
               </div>
             )}
 
