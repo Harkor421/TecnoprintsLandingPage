@@ -181,6 +181,7 @@ function CameraModal({ printerId, onClose, onPrev, onNext, current, total }: {
             src={src}
             alt={name}
             fill
+            unoptimized
             style={{ filter: 'brightness(1.15)' }}
             className="object-cover"
           />
@@ -258,6 +259,7 @@ function CameraCard({ printerId, index, onClick }: { printerId: string; index: n
           src={src}
           alt={name}
           fill
+          unoptimized
           style={{ filter: 'brightness(1.15)' }}
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           onLoad={() => setLoaded(true)}
