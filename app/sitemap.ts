@@ -1,41 +1,53 @@
 import { MetadataRoute } from 'next'
-import { BLOG_POSTS } from '@/lib/blog-data'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://tecnoprints.com'
+const API_BASE = 'https://aware-forgiveness-production.up.railway.app'
 
-  const blogPostUrls: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly',
-    priority: 0.6,
-  }))
-
-  return [
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Static pages
+  const staticPages: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      url: 'https://tecnoprints.com',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: `${baseUrl}/servicios-impresion-3d-barranquilla`,
+      url: 'https://tecnoprints.com/#catalog',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/cotizar-impresion-3d`,
+      url: 'https://tecnoprints.com/#contact',
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
       priority: 0.7,
     },
-    ...blogPostUrls,
   ]
+
+  // Dynamic model pages
+  let dynamicPages: MetadataRoute.Sitemap = []
+
+  try {
+    // Fetch popular models to include in sitemap
+    const res = await fetch(`${API_BASE}/api/models?page=1&limit=50`, {
+      next: { revalidate: 86400 }, // Revalidate once per day
+    })
+
+    if (res.ok) {
+      const data = await res.json()
+      const models = data.models || []
+
+      dynamicPages = models.map((model: { id: number }) => ({
+        url: `https://tecnoprints.com/model/${model.id}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      }))
+    }
+  } catch (error) {
+    console.error('Failed to fetch models for sitemap:', error)
+  }
+
+  return [...staticPages, ...dynamicPages]
 }
