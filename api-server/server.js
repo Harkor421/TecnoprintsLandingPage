@@ -74,9 +74,10 @@ app.get('/api/models/:id', async (req, res) => {
 
     const d = await resp.json()
 
-    // Extract images from first instance
+    // Extract images and print time from first instance
     const pictures = d.instances?.[0]?.pictures || []
     const images = pictures.map(p => p.url)
+    const printTimeMinutes = d.instances?.[0]?.prediction || 0
 
     res.json({
       id: d.id,
@@ -90,6 +91,7 @@ app.get('/api/models/:id', async (req, res) => {
       tags: d.tags || [],
       url: `https://makerworld.com/en/models/${d.id}`,
       weight: d.instances?.[0]?.weight || 0,
+      printTimeMinutes: printTimeMinutes,
       images: images,
       files: d.designFiles || [],
     })

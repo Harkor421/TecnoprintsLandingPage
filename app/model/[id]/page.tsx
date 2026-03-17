@@ -21,6 +21,7 @@ interface ModelDetail {
   description: string
   cover: string
   weight: number
+  printTimeMinutes: number
   images: string[]
   creator: string
   tags: string[]
@@ -88,11 +89,19 @@ export default function ModelPage({ params }: { params: { id: string } }) {
 
   // Calculate quote
   const materialCost = model.weight * costPerGram
-  const totalCost = materialCost
+  const electricityCost = model.printTimeMinutes * 4 // 4 COP per minute
+  const totalCost = materialCost + electricityCost
   const profitAmount = totalCost * (profitMargin / 100)
   const finalPrice = totalCost + profitAmount
 
-  const whatsappMessage = `Hola! Me gustaría que me impriman este modelo 3D:\n\n${model.title}\n${model.url}\n\nPeso estimado: ${model.weight}g\nPrecio estimado: ${formatCOP(finalPrice)}\n\n¿Me pueden confirmar el precio final, tiempo de entrega y opciones de color?`
+  // Format print time
+  const hours = Math.floor(model.printTimeMinutes / 60)
+  const minutes = model.printTimeMinutes % 60
+  const printTimeStr = hours > 0
+    ? `${hours}h ${minutes}m`
+    : `${minutes}m`
+
+  const whatsappMessage = `Hola! Me gustaría que me impriman este modelo 3D:\n\n${model.title}\n${model.url}\n\nPeso estimado: ${model.weight}g\nTiempo estimado: ${printTimeStr}\nPrecio estimado: ${formatCOP(finalPrice)}\n\n¿Me pueden confirmar el precio final, tiempo de entrega y opciones de color?`
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50">
@@ -198,9 +207,17 @@ export default function ModelPage({ params }: { params: { id: string } }) {
           <div className="lg:col-span-1">
             {/* Quote Card */}
             <div className="bg-surface border border-border rounded-lg p-5 sm:p-6 mb-6 lg:sticky lg:top-6">
-              <div className="mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-border">
-                <p className="text-xs text-muted mb-1">Peso estimado</p>
-                <p className="text-2xl sm:text-3xl font-bold text-white">{model.weight}g</p>
+              <div className="mb-4 pb-4 border-b border-border">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-xs text-muted mb-1">Peso</p>
+                    <p className="text-xl sm:text-2xl font-bold text-white">{model.weight}g</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted mb-1">Tiempo</p>
+                    <p className="text-xl sm:text-2xl font-bold text-white">{printTimeStr}</p>
+                  </div>
+                </div>
               </div>
 
               <div className="mb-6 sm:mb-6">
