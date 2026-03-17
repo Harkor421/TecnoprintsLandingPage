@@ -19,7 +19,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const res = await fetch(`${API_BASE}/api/models/${params.id}`, {
-      cache: 'revalidate',
+      next: { revalidate: 3600 },
     })
 
     if (!res.ok) {
