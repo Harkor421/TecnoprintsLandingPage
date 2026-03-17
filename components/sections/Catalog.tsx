@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
+import Link from 'next/link'
 import Card from '@/components/ui/Card'
-import QuoteModal from './QuoteModal'
 import {
   Search, Loader2, Upload,
 } from 'lucide-react'
@@ -39,7 +39,6 @@ export default function Catalog() {
   const [loadingMore, setLoadingMore] = useState(false)
   const [browsePage, setBrowsePage] = useState(1)
   const [searched, setSearched] = useState(false)
-  const [selectedModel, setSelectedModel] = useState<BrowseModel | null>(null)
 
   // Preload trending models
   useEffect(() => {
@@ -218,12 +217,12 @@ export default function Catalog() {
                       <h3 className="text-sm font-medium line-clamp-2 leading-tight mb-3 flex-1">
                         {model.title}
                       </h3>
-                      <button
-                        onClick={() => { setSelectedModel(model); setCopied(false) }}
-                        className="w-full py-2 bg-primary text-black text-xs font-semibold hover:bg-primary-dark transition-colors"
+                      <Link
+                        href={`/model/${model.id}`}
+                        className="w-full py-2 bg-primary text-black text-xs font-semibold hover:bg-primary-dark transition-colors text-center block"
                       >
                         Cotizar Ahora
-                      </button>
+                      </Link>
                     </div>
                   </Card>
                 </div>
@@ -250,8 +249,6 @@ export default function Catalog() {
               </div>
             )}
 
-            {/* ─── Quote Modal ─────────────────────────── */}
-            <QuoteModal model={selectedModel} onClose={() => setSelectedModel(null)} />
           </>
         )}
       </div>
