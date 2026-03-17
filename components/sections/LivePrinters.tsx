@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, memo, useCallback } from 'react'
+import Image from 'next/image'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 
 const API_BASE = 'https://bambufarm-api-production.up.railway.app'
@@ -176,11 +177,12 @@ function CameraModal({ printerId, onClose, onPrev, onNext, current, total }: {
 
         {/* Image */}
         <div className="relative rounded-2xl overflow-hidden bg-surface border border-border/40">
-          <img
+          <Image
             src={src}
             alt={name}
+            fill
             style={{ filter: 'brightness(1.15)' }}
-            className="w-full aspect-video object-cover"
+            className="aspect-video object-cover"
           />
 
           {/* Bottom bar */}
@@ -252,11 +254,12 @@ function CameraCard({ printerId, index, onClick }: { printerId: string; index: n
         {!loaded && (
           <div className="absolute inset-0 bg-surface animate-pulse" />
         )}
-        <img
+        <Image
           src={src}
           alt={name}
+          fill
           style={{ filter: 'brightness(1.15)' }}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           onLoad={() => setLoaded(true)}
           onError={() => setLoaded(false)}
         />
