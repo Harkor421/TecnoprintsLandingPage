@@ -85,6 +85,7 @@ app.get('/api/models/:id', async (req, res) => {
       creator: d.designCreator?.name || 'Unknown',
       tags: d.tags || [],
       url: `https://makerworld.com/en/models/${d.id}`,
+      weight: d.instances?.[0]?.weight || 0,
       files: d.designFiles || [],
     })
   } catch (err) {
