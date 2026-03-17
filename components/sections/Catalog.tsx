@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Card from '@/components/ui/Card'
 import {
   Search, Loader2, Upload,
@@ -40,13 +41,14 @@ export default function Catalog() {
   const [browsePage, setBrowsePage] = useState(1)
   const [searched, setSearched] = useState(false)
 
-  // Preload trending models
+  // Preload trending models from random page
   useEffect(() => {
     let cancelled = false
     async function loadTrending() {
       setBrowseLoading(true)
       try {
-        const res = await fetch(`${API_BASE}/api/models?page=1`)
+        const randomPage = Math.floor(Math.random() * 50) + 1
+        const res = await fetch(`${API_BASE}/api/models?page=${randomPage}`)
         const data = await res.json()
         if (!cancelled) {
           setModels(data.models || [])
@@ -205,12 +207,12 @@ export default function Catalog() {
                 <div key={model.id} className="group">
                   <Card className="p-0 overflow-hidden h-full flex flex-col">
                     <div className="aspect-square relative bg-background overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={model.cover}
                         alt={model.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       />
                     </div>
                     <div className="p-3 flex flex-col flex-1">
@@ -219,6 +221,8 @@ export default function Catalog() {
                       </h3>
                       <Link
                         href={`/model/${model.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="w-full py-2 bg-primary text-black text-xs font-semibold hover:bg-primary-dark transition-colors text-center block"
                       >
                         Cotizar Ahora

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Heart, Download, Printer, Loader2 } from 'lucide-react'
 
 const API_BASE = 'https://aware-forgiveness-production.up.railway.app'
@@ -106,26 +107,23 @@ export default function ModelPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50 flex flex-col">
-      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-16 flex-1">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-12 sm:py-24 flex-1">
         <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Gallery */}
           <div className="lg:col-span-2">
             {/* Main image container */}
             <div className="relative bg-background rounded-lg overflow-hidden mb-4 group">
               <div className="aspect-square relative bg-black">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={model.images[imageIndex] || model.cover}
                   alt={`${model.title} - ${imageIndex + 1}`}
-                  className="w-full h-full object-contain"
+                  fill
+                  priority
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
                 />
               </div>
 
-              {/* 3D Preview badge */}
-              <div className="absolute top-3 left-3 bg-primary text-black px-2.5 py-1.5 rounded-md text-xs font-bold flex items-center gap-1">
-                <span>🎁</span>
-                3D Preview
-              </div>
 
               {/* Navigation arrows */}
               {model.images.length > 1 && (
@@ -175,14 +173,13 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                       <button
                         key={idx}
                         onClick={() => setImageIndex(idx)}
-                        className={`flex-shrink-0 h-20 sm:h-24 w-20 sm:w-24 rounded-lg overflow-hidden border-2 transition-all cursor-pointer hover:scale-105 ${
+                        className={`flex-shrink-0 h-20 sm:h-24 w-20 sm:w-24 rounded-lg overflow-hidden border-2 transition-all cursor-pointer hover:scale-105 relative ${
                           idx === imageIndex
                             ? 'border-primary ring-2 ring-primary/50 scale-105'
                             : 'border-border/50 opacity-60 hover:opacity-100'
                         }`}
                       >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={img} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
+                        <Image src={img} alt={`Foto ${idx + 1}`} fill className="object-cover" />
                       </button>
                     ))}
                   </div>
