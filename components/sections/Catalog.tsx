@@ -216,6 +216,7 @@ export default function Catalog() {
                         src={model.cover}
                         alt={model.title}
                         fill
+                        unoptimized
                         className="object-cover group-hover:scale-105 transition-transform"
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       />

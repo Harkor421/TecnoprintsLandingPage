@@ -120,6 +120,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                     alt={`${model.title} - ${imageIndex + 1}`}
                     fill
                     priority
+                    unoptimized
                     className="object-contain"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
                   />
@@ -181,7 +182,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                             : 'border-border/50 opacity-60 hover:opacity-100'
                         }`}
                       >
-                        <Image src={img} alt={`Foto ${idx + 1}`} fill className="object-cover" />
+                        <Image src={img} alt={`Foto ${idx + 1}`} fill unoptimized className="object-cover" />
                       </button>
                     ))}
                   </div>
