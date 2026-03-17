@@ -176,13 +176,13 @@ function CameraModal({ printerId, onClose, onPrev, onNext, current, total }: {
         </button>
 
         {/* Image */}
-        <div className="relative rounded-2xl overflow-hidden bg-surface border border-border/40">
+        <div className="relative aspect-video rounded-2xl overflow-hidden bg-surface border border-border/40">
           <Image
             src={src}
             alt={name}
             fill
             style={{ filter: 'brightness(1.15)' }}
-            className="aspect-video object-cover"
+            className="object-cover"
           />
 
           {/* Bottom bar */}
