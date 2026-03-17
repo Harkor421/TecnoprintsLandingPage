@@ -108,9 +108,9 @@ export default function ModelPage({ params }: { params: { id: string } }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50 flex flex-col">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12 sm:py-24 flex-1">
-        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 xl:gap-8">
           {/* Gallery */}
-          <div className="lg:col-span-2">
+          <div className="xl:col-span-2 w-full">
             {/* Main image container */}
             <div className="relative bg-background rounded-lg overflow-hidden mb-4 group">
               <div className="aspect-square relative bg-black">
@@ -201,7 +201,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
             )}
 
             {/* Quote Card - Mobile Only */}
-            <div className="lg:hidden bg-surface border border-border rounded-lg p-5 sm:p-6 mb-6">
+            <div className="xl:hidden bg-surface border border-border rounded-lg p-5 sm:p-6 mb-6">
               <div className="mb-4 pb-4 border-b border-border">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -269,9 +269,9 @@ export default function ModelPage({ params }: { params: { id: string } }) {
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="xl:col-span-1">
             {/* Quote Card - Desktop Only */}
-            <div className="hidden lg:block bg-surface border border-border rounded-lg p-5 sm:p-6 mb-6 lg:sticky lg:top-6">
+            <div className="hidden xl:block bg-surface border border-border rounded-lg p-5 sm:p-6 mb-6 xl:sticky xl:top-6">
               <div className="mb-4 pb-4 border-b border-border">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
