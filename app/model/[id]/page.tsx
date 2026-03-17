@@ -94,7 +94,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
   const electricityCost = model.printTimeMinutes * 4 // 4 COP per minute
   const totalCost = materialCost + electricityCost
   const profitAmount = totalCost * (profitMargin / 100)
-  const finalPrice = Math.max(totalCost + profitAmount, 15000)
+  const finalPrice = Math.max(totalCost + profitAmount, 12500)
 
   // Format print time
   const hours = Math.floor(model.printTimeMinutes / 60)

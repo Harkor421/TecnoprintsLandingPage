@@ -84,7 +84,7 @@ app.get('/api/models/:id', async (req, res) => {
       id: d.id,
       title: d.title,
       description: d.summary || d.description || '',
-      cover: d.cover,
+      cover: d.coverUrl,
       likeCount: d.likeCount,
       downloadCount: d.downloadCount,
       printCount: d.printCount,
