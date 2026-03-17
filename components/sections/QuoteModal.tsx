@@ -85,7 +85,7 @@ export default function QuoteModal({
   const electricityCost = 0 // Estimate: user will provide print time
   const totalCost = materialCost + electricityCost
   const profitAmount = totalCost * (profitMargin / 100)
-  const finalPrice = totalCost + profitAmount
+  const finalPrice = Math.max(totalCost + profitAmount, 15000)
 
   return (
     <div
