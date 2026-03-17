@@ -80,6 +80,10 @@ app.get('/api/models/:id', async (req, res) => {
     // prediction is in seconds, convert to minutes
     const printTimeMinutes = Math.round((d.instances?.[0]?.prediction || 0) / 60)
 
+    // Extract STL file URL
+    const stlFile = d.designFiles?.find(f => f.name?.toLowerCase().endsWith('.stl'))
+    const stlUrl = stlFile?.downloadUrl || null
+
     res.json({
       id: d.id,
       title: d.title,
@@ -95,6 +99,7 @@ app.get('/api/models/:id', async (req, res) => {
       printTimeMinutes: printTimeMinutes,
       images: images,
       files: d.designFiles || [],
+      stlUrl: stlUrl,
     })
   } catch (err) {
     console.error('[MakerWorld] Model detail error:', err.message)
