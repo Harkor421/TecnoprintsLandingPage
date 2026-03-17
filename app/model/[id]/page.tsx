@@ -200,6 +200,25 @@ export default function ModelPage({ params }: { params: { id: string } }) {
               </div>
             )}
 
+            {/* Price Card - Mobile Only */}
+            <div className="lg:hidden mt-6 bg-surface border border-border rounded-lg p-5">
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p className="text-xs text-muted mb-1">Peso</p>
+                  <p className="text-lg font-bold text-white">{model.weight}g</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted mb-1">Tiempo</p>
+                  <p className="text-lg font-bold text-white">{printTimeStr}</p>
+                </div>
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-muted mb-1">Precio estimado</p>
+                <p className="text-3xl font-bold text-primary">{formatCOP(finalPrice)}</p>
+                <p className="text-[11px] text-muted mt-1">*Varía por color y acabado</p>
+              </div>
+            </div>
+
             {/* Description */}
             <div className="mt-8 bg-surface border border-border rounded-lg p-6">
               <h2 className="text-xl font-semibold mb-4">Descripción</h2>
