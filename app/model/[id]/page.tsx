@@ -109,8 +109,8 @@ export default function ModelPage({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Gallery */}
           <div className="lg:col-span-2">
             {/* Main image with overlay badge */}
@@ -197,15 +197,15 @@ export default function ModelPage({ params }: { params: { id: string } }) {
           {/* Sidebar */}
           <div className="lg:col-span-1">
             {/* Quote Card */}
-            <div className="bg-surface border border-border rounded-lg p-6 mb-6 sticky top-6">
-              <div className="mb-6 pb-6 border-b border-border">
+            <div className="bg-surface border border-border rounded-lg p-5 sm:p-6 mb-6 lg:sticky lg:top-6">
+              <div className="mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-border">
                 <p className="text-xs text-muted mb-1">Peso estimado</p>
-                <p className="text-3xl font-bold text-white">{model.weight}g</p>
+                <p className="text-2xl sm:text-3xl font-bold text-white">{model.weight}g</p>
               </div>
 
-              <div className="mb-6">
+              <div className="mb-6 sm:mb-6">
                 <p className="text-xs text-muted mb-1">Precio estimado</p>
-                <p className="text-4xl font-bold text-primary">{formatCOP(finalPrice)}</p>
+                <p className="text-3xl sm:text-4xl font-bold text-primary">{formatCOP(finalPrice)}</p>
                 <p className="text-[11px] text-muted mt-2">*Varía por color y acabado</p>
               </div>
 
@@ -213,7 +213,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                 href={`https://wa.me/573239267656?text=${encodeURIComponent(whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-black font-semibold rounded-lg hover:bg-primary-dark transition-colors mb-3"
+                className="w-full flex items-center justify-center gap-2 py-3 sm:py-3 bg-primary text-black font-semibold text-sm sm:text-base rounded-lg hover:bg-primary-dark transition-colors mb-3 active:scale-95"
               >
                 <WhatsAppIcon size={18} />
                 Cotizar por WhatsApp
@@ -223,7 +223,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                 href={model.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center py-2 border border-border text-sm text-white rounded-lg hover:border-primary/50 hover:text-primary transition-colors"
+                className="w-full flex items-center justify-center py-2.5 sm:py-2 border border-border text-xs sm:text-sm text-white rounded-lg hover:border-primary/50 hover:text-primary transition-colors active:scale-95"
               >
                 Ver en MakerWorld
               </a>
