@@ -15,7 +15,6 @@ interface ModelDetail {
   id: number
   title: string
   weight?: number
-  instances?: Array<{ weight: number }>
 }
 
 const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
@@ -73,8 +72,8 @@ export default function QuoteModal({
 
   if (!model) return null
 
-  // Extract weight from the first instance (default variant)
-  const weightGrams = modelDetail?.instances?.[0]?.weight || modelDetail?.weight || 0
+  // Get weight from model details
+  const weightGrams = modelDetail?.weight || 0
 
   // Calculate quote
   const materialCost = weightGrams * costPerGram
