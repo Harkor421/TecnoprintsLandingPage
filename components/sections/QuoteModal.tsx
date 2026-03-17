@@ -128,50 +128,17 @@ export default function QuoteModal({
         {/* Quote Summary */}
         {!loading && modelDetail && (
           <>
-            {/* Material weight info */}
-            <div className="bg-primary/10 border border-primary/30 p-3 sm:p-4 mb-4 rounded text-sm">
-              <p className="text-white font-medium mb-1">Estimación de material:</p>
-              <p className="text-primary font-semibold text-lg">{weightGrams}g de filamento</p>
-              <p className="text-xs text-muted mt-1">
-                Basado en la configuración predeterminada del modelo
+            {/* Price estimate card */}
+            <div className="bg-primary/10 border border-primary/30 p-4 sm:p-5 mb-4 rounded text-center">
+              <p className="text-muted text-xs sm:text-sm mb-2">Peso estimado del modelo</p>
+              <p className="text-white font-semibold text-2xl mb-4">{weightGrams}g</p>
+              <div className="border-t border-primary/30 pt-4">
+                <p className="text-muted text-xs sm:text-sm mb-1">Precio estimado</p>
+                <p className="text-primary font-bold text-3xl">{formatCOP(finalPrice)}</p>
+              </div>
+              <p className="text-muted text-[11px] sm:text-xs mt-3">
+                *El precio puede variar según color, acabado y tiempo de impresión
               </p>
-            </div>
-
-            {/* Price breakdown */}
-            <div className="bg-background border border-border p-3 sm:p-4 mb-4 space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted">Costo material ({weightGrams}g × {formatCOP(costPerGram)}/g)</span>
-                <span className="text-white font-medium">{formatCOP(materialCost)}</span>
-              </div>
-              <div className="border-t border-border pt-2 mt-2">
-                <div className="flex justify-between mb-2">
-                  <span className="text-muted">Subtotal</span>
-                  <span className="text-white font-medium">{formatCOP(totalCost)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted">Ganancia ({profitMargin}%)</span>
-                  <span className="text-primary font-medium">{formatCOP(profitAmount)}</span>
-                </div>
-              </div>
-              <div className="border-t border-primary/30 pt-2 mt-2">
-                <div className="flex justify-between">
-                  <span className="text-white font-semibold">Precio estimado</span>
-                  <span className="text-primary font-bold text-lg">{formatCOP(finalPrice)}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Disclaimer */}
-            <div className="bg-background/50 border border-border p-2.5 mb-4 text-xs text-muted leading-relaxed">
-              <p className="mb-1">
-                <span className="text-white font-medium">Nota:</span> Este es un precio estimado basado en el
-                gramaje del modelo. El precio final puede variar según:
-              </p>
-              <ul className="list-disc list-inside space-y-0.5">
-                <li>Color y tipo de filamento</li>
-                <li>Tiempo de impresión exacto</li>
-                <li>Acabado y preparación</li>
-              </ul>
             </div>
           </>
         )}
