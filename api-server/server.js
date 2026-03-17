@@ -77,7 +77,8 @@ app.get('/api/models/:id', async (req, res) => {
     // Extract images and print time from first instance
     const pictures = d.instances?.[0]?.pictures || []
     const images = pictures.map(p => p.url)
-    const printTimeMinutes = d.instances?.[0]?.prediction || 0
+    // prediction is in seconds, convert to minutes
+    const printTimeMinutes = Math.round((d.instances?.[0]?.prediction || 0) / 60)
 
     res.json({
       id: d.id,
