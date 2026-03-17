@@ -150,54 +150,56 @@ export default function ModelPage({ params }: { params: { id: string } }) {
 
             {/* Thumbnails strip with navigation - like MakerWorld */}
             {model.images.length > 1 && (
-              <div className="flex items-center gap-2 mt-4">
-                {/* Left arrow */}
-                <button
-                  onClick={() => {
-                    if (thumbnailsRef.current) {
-                      thumbnailsRef.current.scrollBy({ left: -100, behavior: 'smooth' })
-                    }
-                  }}
-                  className="flex-shrink-0 p-2 text-muted hover:text-primary transition-colors"
-                  aria-label="Scroll left"
-                >
-                  <ChevronLeft size={20} />
-                </button>
+              <div className="mt-6 pt-4 border-t border-border/30">
+                <div className="flex items-center gap-3">
+                  {/* Left arrow */}
+                  <button
+                    onClick={() => {
+                      if (thumbnailsRef.current) {
+                        thumbnailsRef.current.scrollBy({ left: -120, behavior: 'smooth' })
+                      }
+                    }}
+                    className="flex-shrink-0 p-2.5 text-muted hover:text-primary hover:bg-primary/10 rounded-lg transition-all"
+                    aria-label="Fotos anteriores"
+                  >
+                    <ChevronLeft size={22} />
+                  </button>
 
-                {/* Thumbnails container */}
-                <div
-                  ref={thumbnailsRef}
-                  className="flex gap-2 overflow-x-auto flex-1 pb-2 scroll-smooth"
-                  style={{ scrollBehavior: 'smooth' }}
-                >
-                  {model.images.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setImageIndex(idx)}
-                      className={`flex-shrink-0 h-20 sm:h-24 w-20 sm:w-24 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
-                        idx === imageIndex
-                          ? 'border-primary ring-2 ring-primary/40'
-                          : 'border-border/60 opacity-70 hover:opacity-100 hover:border-primary/50'
-                      }`}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={img} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
+                  {/* Thumbnails container */}
+                  <div
+                    ref={thumbnailsRef}
+                    className="flex gap-3 overflow-x-auto flex-1 pb-2 scroll-smooth"
+                    style={{ scrollBehavior: 'smooth' }}
+                  >
+                    {model.images.map((img, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setImageIndex(idx)}
+                        className={`flex-shrink-0 h-20 sm:h-24 w-20 sm:w-24 rounded-lg overflow-hidden border-2 transition-all cursor-pointer hover:scale-105 ${
+                          idx === imageIndex
+                            ? 'border-primary ring-2 ring-primary/50 scale-105'
+                            : 'border-border/50 opacity-60 hover:opacity-100'
+                        }`}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={img} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Right arrow */}
+                  <button
+                    onClick={() => {
+                      if (thumbnailsRef.current) {
+                        thumbnailsRef.current.scrollBy({ left: 120, behavior: 'smooth' })
+                      }
+                    }}
+                    className="flex-shrink-0 p-2.5 text-muted hover:text-primary hover:bg-primary/10 rounded-lg transition-all"
+                    aria-label="Más fotos"
+                  >
+                    <ChevronRight size={22} />
+                  </button>
                 </div>
-
-                {/* Right arrow */}
-                <button
-                  onClick={() => {
-                    if (thumbnailsRef.current) {
-                      thumbnailsRef.current.scrollBy({ left: 100, behavior: 'smooth' })
-                    }
-                  }}
-                  className="flex-shrink-0 p-2 text-muted hover:text-primary transition-colors"
-                  aria-label="Scroll right"
-                >
-                  <ChevronRight size={20} />
-                </button>
               </div>
             )}
 
