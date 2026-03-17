@@ -113,51 +113,56 @@ export default function ModelPage({ params }: { params: { id: string } }) {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Gallery */}
           <div className="lg:col-span-2">
-            {/* Main image */}
-            <div className="relative aspect-square bg-background border border-border rounded-lg overflow-hidden mb-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={model.images[imageIndex] || model.cover}
-                alt={`${model.title} - ${imageIndex + 1}`}
-                className="w-full h-full object-cover"
-              />
+            {/* Main image with overlay badge */}
+            <div className="relative bg-background rounded-xl overflow-hidden mb-4 group">
+              <div className="aspect-square relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={model.images[imageIndex] || model.cover}
+                  alt={`${model.title} - ${imageIndex + 1}`}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
 
-              {/* Navigation */}
+              {/* Navigation arrows - only show on hover/mobile */}
               {model.images.length > 1 && (
                 <>
                   <button
                     onClick={() => setImageIndex((i) => (i - 1 + model.images.length) % model.images.length)}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-3 rounded-full transition-colors"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 md:opacity-100"
                   >
-                    <ChevronLeft size={24} className="text-white" />
+                    <ChevronLeft size={20} className="text-white" />
                   </button>
                   <button
                     onClick={() => setImageIndex((i) => (i + 1) % model.images.length)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-3 rounded-full transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 md:opacity-100"
                   >
-                    <ChevronRight size={24} className="text-white" />
+                    <ChevronRight size={20} className="text-white" />
                   </button>
-                  {/* Counter */}
-                  <div className="absolute top-4 right-4 bg-black/60 px-3 py-1 rounded text-sm text-white">
-                    {imageIndex + 1} / {model.images.length}
+
+                  {/* Image counter badge */}
+                  <div className="absolute top-3 right-3 bg-black/70 backdrop-blur px-2.5 py-1 rounded text-xs text-white font-medium">
+                    {imageIndex + 1}/{model.images.length}
                   </div>
                 </>
               )}
             </div>
 
-            {/* Thumbnails */}
+            {/* Thumbnails strip */}
             {model.images.length > 1 && (
-              <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
+              <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 lg:mx-0 lg:px-0">
                 {model.images.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setImageIndex(idx)}
-                    className={`aspect-square rounded overflow-hidden border-2 transition-colors ${
-                      idx === imageIndex ? 'border-primary' : 'border-border hover:border-primary/50'
+                    className={`flex-shrink-0 h-20 w-20 rounded-lg overflow-hidden border-2 transition-all ${
+                      idx === imageIndex
+                        ? 'border-primary ring-2 ring-primary/50 ring-offset-2 ring-offset-background'
+                        : 'border-border/50 hover:border-primary/50 opacity-70 hover:opacity-100'
                     }`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={img} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img src={img} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
