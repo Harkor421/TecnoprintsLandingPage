@@ -106,7 +106,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50 flex flex-col">
-      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12 flex-1">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-16 flex-1">
         <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Gallery */}
           <div className="lg:col-span-2">
