@@ -74,10 +74,14 @@ app.get('/api/models/:id', async (req, res) => {
 
     const d = await resp.json()
 
+    // Extract images from first instance
+    const pictures = d.instances?.[0]?.pictures || []
+    const images = pictures.map(p => p.url)
+
     res.json({
       id: d.id,
       title: d.title,
-      description: d.description,
+      description: d.summary || d.description || '',
       cover: d.cover,
       likeCount: d.likeCount,
       downloadCount: d.downloadCount,
@@ -86,6 +90,7 @@ app.get('/api/models/:id', async (req, res) => {
       tags: d.tags || [],
       url: `https://makerworld.com/en/models/${d.id}`,
       weight: d.instances?.[0]?.weight || 0,
+      images: images,
       files: d.designFiles || [],
     })
   } catch (err) {

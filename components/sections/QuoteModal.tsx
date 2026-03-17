@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { X, Loader2, Copy, Check } from 'lucide-react'
+import { X, Loader2, Copy, Check, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface BrowseModel {
   id: number
@@ -15,6 +15,8 @@ interface ModelDetail {
   id: number
   title: string
   weight?: number
+  description?: string
+  images?: string[]
 }
 
 const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
@@ -42,6 +44,7 @@ export default function QuoteModal({
   const [loading, setLoading] = useState(false)
   const [modelDetail, setModelDetail] = useState<ModelDetail | null>(null)
   const [copied, setCopied] = useState(false)
+  const [imageIndex, setImageIndex] = useState(0)
 
   // Cost parameters (from TecnoPrintsAdminPanel defaults)
   const costPerGram = 60 // COP
@@ -99,23 +102,67 @@ export default function QuoteModal({
           <X size={20} />
         </button>
 
-        {/* Model preview */}
-        <div className="flex items-start gap-4 mb-4">
-          <div className="w-20 h-20 flex-shrink-0 bg-background border border-border overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={model.cover}
-              alt={model.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="min-w-0">
-            <h3 className="text-sm font-semibold line-clamp-2 mb-1">
-              {model.title}
-            </h3>
-            <p className="text-[11px] text-muted">por {model.creator}</p>
-          </div>
-        </div>
+        {/* Model carousel and details */}
+        {!loading && modelDetail && (
+          <>
+            {/* Image carousel */}
+            {modelDetail.images && modelDetail.images.length > 0 && (
+              <div className="relative mb-4 bg-background rounded overflow-hidden">
+                <div className="aspect-video relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={modelDetail.images[imageIndex]}
+                    alt={`${modelDetail.title} - Image ${imageIndex + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Navigation buttons */}
+                {modelDetail.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setImageIndex((i) => (i - 1 + modelDetail.images!.length) % modelDetail.images!.length)}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-2 rounded transition-colors"
+                    >
+                      <ChevronLeft size={18} className="text-white" />
+                    </button>
+                    <button
+                      onClick={() => setImageIndex((i) => (i + 1) % modelDetail.images!.length)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 p-2 rounded transition-colors"
+                    >
+                      <ChevronRight size={18} className="text-white" />
+                    </button>
+                    {/* Indicators */}
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                      {modelDetail.images.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setImageIndex(idx)}
+                          className={`w-2 h-2 rounded-full transition-colors ${
+                            idx === imageIndex ? 'bg-primary' : 'bg-white/40'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Title and creator */}
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold mb-1">{modelDetail.title}</h3>
+              <p className="text-xs text-muted">por {modelDetail.creator}</p>
+            </div>
+
+            {/* Description */}
+            {modelDetail.description && (
+              <div className="bg-background border border-border p-3 mb-4 rounded text-sm text-muted leading-relaxed max-h-32 overflow-y-auto">
+                <p dangerouslySetInnerHTML={{ __html: modelDetail.description }} />
+              </div>
+            )}
+          </>
+        )}
 
         {/* Loading state */}
         {loading && (
