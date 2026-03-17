@@ -104,21 +104,8 @@ export default function ModelPage({ params }: { params: { id: string } }) {
   const whatsappMessage = `Hola! Me gustaría que me impriman este modelo 3D:\n\n${model.title}\n${model.url}\n\nPeso estimado: ${model.weight}g\nTiempo estimado: ${printTimeStr}\nPrecio estimado: ${formatCOP(finalPrice)}\n\n¿Me pueden confirmar el precio final, tiempo de entrega y opciones de color?`
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50">
-      {/* Header */}
-      <div className="bg-background/95 backdrop-blur border-b border-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link
-            href="/#catalog"
-            className="inline-flex items-center gap-2 text-muted hover:text-primary transition-colors text-sm"
-          >
-            <ChevronLeft size={18} />
-            Volver al catálogo
-          </Link>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50 flex flex-col">
+      <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-12 flex-1">
         <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Gallery */}
           <div className="lg:col-span-2">
@@ -277,6 +264,19 @@ export default function ModelPage({ params }: { params: { id: string } }) {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="bg-background/50 border-t border-border mt-12 sm:mt-16">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6">
+          <Link
+            href="/#catalog"
+            className="inline-flex items-center gap-2 text-muted hover:text-primary transition-colors text-sm sm:text-base"
+          >
+            <ChevronLeft size={18} />
+            Volver al catálogo
+          </Link>
         </div>
       </div>
     </div>
