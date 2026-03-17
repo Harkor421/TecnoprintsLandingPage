@@ -55,7 +55,7 @@ export default function QuoteModal({
       setLoading(true)
       try {
         const res = await fetch(
-          `https://tecnoprints-api-production.up.railway.app/api/models/${model.id}`
+          `https://aware-forgiveness-production.up.railway.app/api/models/${model.id}`
         )
         if (!res.ok) throw new Error('Failed to load model')
         const data = await res.json()
