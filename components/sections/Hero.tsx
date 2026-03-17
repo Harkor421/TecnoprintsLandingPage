@@ -72,10 +72,13 @@ function Hero() {
                   />
                 </Button>
               </Link>
-              <Link href="#catalog" className="w-full sm:w-auto">
+              <Link href="#catalog" className="w-full sm:w-auto relative inline-block">
                 <Button variant="outline" size="lg" className="w-full sm:w-auto">
                   Ver nuestro catálogo
                 </Button>
+                <span className="absolute -top-2 -right-2 bg-primary text-black text-xs font-bold px-2 py-1 rounded-full shadow-lg shadow-primary/50 animate-pulse">
+                  Nuevo
+                </span>
               </Link>
             </div>
           </FadeIn>
