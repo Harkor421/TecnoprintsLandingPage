@@ -114,14 +114,16 @@ export default function ModelPage({ params }: { params: { id: string } }) {
             {/* Main image container */}
             <div className="relative bg-background rounded-lg overflow-hidden mb-4 group">
               <div className="aspect-square relative bg-black">
-                <Image
-                  src={model.images[imageIndex] || model.cover}
-                  alt={`${model.title} - ${imageIndex + 1}`}
-                  fill
-                  priority
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
-                />
+                {model.images && model.images.length > 0 ? (
+                  <Image
+                    src={model.images[imageIndex]}
+                    alt={`${model.title} - ${imageIndex + 1}`}
+                    fill
+                    priority
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
+                  />
+                ) : null}
               </div>
 
 
