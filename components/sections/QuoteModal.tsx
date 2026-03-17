@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { X, Loader2, Copy, Check, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface BrowseModel {
@@ -14,6 +15,7 @@ interface BrowseModel {
 interface ModelDetail {
   id: number
   title: string
+  creator?: string
   weight?: number
   description?: string
   images?: string[]
@@ -109,11 +111,11 @@ export default function QuoteModal({
             {modelDetail.images && modelDetail.images.length > 0 && (
               <div className="relative mb-4 bg-background rounded overflow-hidden">
                 <div className="aspect-video relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={modelDetail.images[imageIndex]}
                     alt={`${modelDetail.title} - Image ${imageIndex + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
 
