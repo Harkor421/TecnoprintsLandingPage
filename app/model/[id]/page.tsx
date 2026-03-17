@@ -30,7 +30,6 @@ interface ModelDetail {
   downloadCount: number
   printCount: number
   url: string
-  stlUrl?: string
 }
 
 const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
@@ -109,7 +108,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50 flex flex-col">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12 sm:py-24 flex-1">
-        <div className="grid lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Gallery */}
           <div className="lg:col-span-2">
             {/* Main image container */}
@@ -225,6 +224,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                 </div>
               </div>
             )}
+
           </div>
 
           {/* Sidebar */}
