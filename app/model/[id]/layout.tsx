@@ -6,7 +6,7 @@ interface ModelDetail {
   id: number
   title: string
   description: string
-  cover: string
+  images?: string[]
   creator: string
   weight: number
   printTimeMinutes: number
@@ -36,6 +36,9 @@ export async function generateMetadata({
       .replace(/<[^>]*>/g, '')
       .substring(0, 160)
 
+    // Get the first image from the images array
+    const imageUrl = model.images && model.images.length > 0 ? model.images[0] : '/logo.png'
+
     return {
       title: `${model.title} | Tecnoprints 3D`,
       description: `${plainDescription}... Mira este modelo 3D en Tecnoprints, impresión profesional en Barranquilla.`,
@@ -44,7 +47,7 @@ export async function generateMetadata({
         description: `Imprime ${model.title} en Tecnoprints 3D Barranquilla`,
         images: [
           {
-            url: model.cover,
+            url: imageUrl,
             width: 1200,
             height: 630,
             alt: model.title,
@@ -58,7 +61,7 @@ export async function generateMetadata({
         card: 'summary_large_image',
         title: model.title,
         description: `Mira este modelo 3D en Tecnoprints - ${model.creator}`,
-        images: [model.cover],
+        images: [imageUrl],
       },
     }
   } catch (error) {

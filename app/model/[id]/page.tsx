@@ -20,7 +20,6 @@ interface ModelDetail {
   id: number
   title: string
   description: string
-  cover: string
   weight: number
   printTimeMinutes: number
   images: string[]
