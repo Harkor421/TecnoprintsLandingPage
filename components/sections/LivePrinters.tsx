@@ -4,7 +4,12 @@ import { useEffect, useState, memo, useCallback } from 'react'
 import Image from 'next/image'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 
+const WS_BASE = typeof window !== 'undefined'
+  ? `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host.replace(/^tecnoprints\./, 'api.').replace(/localhost:3000/, 'localhost:3001')}`
+  : ''
+
 const API_BASE = 'https://bambufarm-api-production.up.railway.app'
+const FALLBACK_API_BASE = API_BASE
 const REFRESH_INTERVAL = 1500
 
 const PRINTER_NAMES: Record<string, string> = {
@@ -13,34 +18,95 @@ const PRINTER_NAMES: Record<string, string> = {
   '01P09C4B1601189': 'P1S-AMS-2',
   '01P00C582701111': 'P1S-2',
   '01P00C582701216': 'P1S-1',
+  '01P00C582701727': 'P1S-3-New',
 }
 
 function LivePrinters() {
   const [printers, setPrinters] = useState<string[]>([])
   const [bridgeOnline, setBridgeOnline] = useState(false)
   const [selectedPrinter, setSelectedPrinter] = useState<string | null>(null)
+  const [wsConnected, setWsConnected] = useState(false)
 
   useEffect(() => {
     let active = true
-    async function poll() {
+    let ws: WebSocket | null = null
+    let fallbackInterval: NodeJS.Timeout | null = null
+
+    // Try WebSocket first, fallback to REST polling
+    function connectWebSocket() {
       try {
-        const res = await fetch(`${API_BASE}/api/public/cameras`)
-        if (!res.ok) {
-          console.warn(`[LivePrinters] API returned ${res.status}`)
-          return
+        ws = new WebSocket(`${WS_BASE}/ws/cameras`)
+
+        ws.onopen = () => {
+          console.log('[LivePrinters] WebSocket connected')
+          setWsConnected(true)
+          // Request all known printers
+          const allPrinters = Object.keys(PRINTER_NAMES)
+          ws?.send(JSON.stringify({ type: 'init', printers: allPrinters }))
         }
-        const data = await res.json()
-        if (active) {
-          setPrinters(data.printers || [])
-          setBridgeOnline(data.bridgeOnline || false)
+
+        ws.onmessage = (event) => {
+          try {
+            const msg = JSON.parse(event.data)
+            if (msg.type === 'ready') {
+              if (active) {
+                setPrinters(msg.printers || [])
+                setBridgeOnline(msg.printers?.length > 0 || false)
+              }
+            }
+          } catch (err) {
+            console.warn('[LivePrinters] WS message parse error:', err)
+          }
+        }
+
+        ws.onerror = (err) => {
+          console.warn('[LivePrinters] WebSocket error:', err)
+          setWsConnected(false)
+          startFallbackPolling()
+        }
+
+        ws.onclose = () => {
+          console.warn('[LivePrinters] WebSocket closed, falling back to REST polling')
+          setWsConnected(false)
+          startFallbackPolling()
         }
       } catch (err) {
-        console.warn('[LivePrinters] Poll failed:', err instanceof Error ? err.message : String(err))
+        console.warn('[LivePrinters] WebSocket connection failed:', err)
+        startFallbackPolling()
       }
     }
-    poll()
-    const id = setInterval(poll, 10000)
-    return () => { active = false; clearInterval(id) }
+
+    function startFallbackPolling() {
+      if (fallbackInterval) return
+
+      async function poll() {
+        try {
+          const res = await fetch(`${FALLBACK_API_BASE}/api/public/cameras`)
+          if (!res.ok) {
+            console.warn(`[LivePrinters] Fallback API returned ${res.status}`)
+            return
+          }
+          const data = await res.json()
+          if (active) {
+            setPrinters(data.printers || [])
+            setBridgeOnline(data.bridgeOnline || false)
+          }
+        } catch (err) {
+          console.warn('[LivePrinters] Fallback poll failed:', err instanceof Error ? err.message : String(err))
+        }
+      }
+
+      poll()
+      fallbackInterval = setInterval(poll, 10000)
+    }
+
+    connectWebSocket()
+
+    return () => {
+      active = false
+      if (ws) ws.close()
+      if (fallbackInterval) clearInterval(fallbackInterval)
+    }
   }, [])
 
   // Close modal on Escape
