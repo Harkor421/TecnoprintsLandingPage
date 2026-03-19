@@ -54,17 +54,22 @@ function LivePrinters() {
     let active = true
     let ws: WebSocket | null = null
     let fallbackInterval: NodeJS.Timeout | null = null
-    let usingWs = false
+    let reconnectTimeout: NodeJS.Timeout | null = null
+    let reconnectDelay = 1000
 
     function connectWebSocket() {
+      if (!active) return
+      // Clean up previous connection
+      if (ws) { try { ws.close() } catch {} }
+      if (fallbackInterval) { clearInterval(fallbackInterval); fallbackInterval = null }
+
       try {
         ws = new WebSocket(`${WS_BASE}/ws/public/cameras`)
         ws.binaryType = 'arraybuffer'
 
         ws.onopen = () => {
           console.log('[LivePrinters] WebSocket connected')
-          usingWs = true
-          // Subscribe to all known printers
+          reconnectDelay = 1000 // reset backoff on success
           const allPrinters = Object.keys(PRINTER_NAMES)
           ws?.send(JSON.stringify({ type: 'init', printers: allPrinters }))
         }
@@ -95,22 +100,33 @@ function LivePrinters() {
               setBridgeOnline(known.length > 0)
             }
           } catch {
-            // ignore parse errors on binary data
+            // ignore
           }
         }
 
         ws.onerror = () => {
-          usingWs = false
-          startFallbackPolling()
+          scheduleReconnect()
         }
 
         ws.onclose = () => {
-          usingWs = false
-          startFallbackPolling()
+          scheduleReconnect()
         }
       } catch {
-        startFallbackPolling()
+        scheduleReconnect()
       }
+    }
+
+    function scheduleReconnect() {
+      if (!active || reconnectTimeout) return
+      console.log(`[LivePrinters] Reconnecting in ${reconnectDelay}ms...`)
+      // Start fallback polling while disconnected
+      startFallbackPolling()
+      reconnectTimeout = setTimeout(() => {
+        reconnectTimeout = null
+        connectWebSocket()
+      }, reconnectDelay)
+      // Exponential backoff capped at 10s
+      reconnectDelay = Math.min(reconnectDelay * 1.5, 10000)
     }
 
     function startFallbackPolling() {
@@ -135,6 +151,17 @@ function LivePrinters() {
       fallbackInterval = setInterval(poll, 10000)
     }
 
+    // Reconnect when tab regains focus
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'visible' && active) {
+        console.log('[LivePrinters] Tab visible, reconnecting WebSocket')
+        if (reconnectTimeout) { clearTimeout(reconnectTimeout); reconnectTimeout = null }
+        reconnectDelay = 1000
+        connectWebSocket()
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
     connectWebSocket()
 
     // Periodically revoke old blob URLs to free memory
@@ -145,10 +172,11 @@ function LivePrinters() {
 
     return () => {
       active = false
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
       if (ws) ws.close()
       if (fallbackInterval) clearInterval(fallbackInterval)
+      if (reconnectTimeout) clearTimeout(reconnectTimeout)
       clearInterval(revokeInterval)
-      // Clean up all blob URLs
       for (const url of Object.values(frameUrlsRef.current)) URL.revokeObjectURL(url)
       for (const url of blobUrlsToRevoke.current) URL.revokeObjectURL(url)
     }
