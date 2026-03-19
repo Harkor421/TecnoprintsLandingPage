@@ -57,8 +57,9 @@ function LivePrinters() {
             const msg = JSON.parse(event.data)
             if (msg.type === 'ready') {
               if (active) {
-                setPrinters(msg.printers || [])
-                setBridgeOnline(msg.printers?.length > 0 || false)
+                const known = (msg.printers || []).filter((id: string) => id in PRINTER_NAMES)
+                setPrinters(known)
+                setBridgeOnline(known.length > 0)
               }
             }
           } catch (err) {
@@ -95,7 +96,8 @@ function LivePrinters() {
           }
           const data = await res.json()
           if (active) {
-            setPrinters(data.printers || [])
+            const known = (data.printers || []).filter((id: string) => id in PRINTER_NAMES)
+            setPrinters(known)
             setBridgeOnline(data.bridgeOnline || false)
           }
         } catch (err) {
