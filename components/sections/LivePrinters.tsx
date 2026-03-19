@@ -8,10 +8,10 @@ import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 const WS_BASE = typeof window !== 'undefined'
   ? (() => {
       if (window.location.host.includes('localhost')) {
-        return 'ws://localhost:3001' // Local development
+        return 'ws://localhost:3000' // Local Bambufarm development
       }
-      // Production: use the api-server deployed on Railway
-      return 'wss://aware-forgiveness-production.up.railway.app'
+      // Production: use Bambufarm API deployed on Railway
+      return 'wss://bambufarm-api-production.up.railway.app'
     })()
   : ''
 
@@ -42,7 +42,7 @@ function LivePrinters() {
     // Try WebSocket first, fallback to REST polling
     function connectWebSocket() {
       try {
-        ws = new WebSocket(`${WS_BASE}/ws/cameras`)
+        ws = new WebSocket(`${WS_BASE}/ws/public/cameras`)
 
         ws.onopen = () => {
           console.log('[LivePrinters] WebSocket connected')
