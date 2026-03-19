@@ -198,13 +198,8 @@ function LivePrinters() {
 
   return (
     <>
-      <section className="py-16 sm:py-20 md:py-32 bg-background relative overflow-hidden">
-        {/* Subtle radial glow behind the grid */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-primary/[0.03] rounded-full blur-[120px]" />
-        </div>
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <section className="py-16 sm:py-20 md:py-32 bg-background">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollFadeIn direction="up">
             <div className="text-center mb-12 md:mb-16">
               <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-full mb-6">
@@ -390,10 +385,9 @@ function CameraCard({ printerId, index, frameSrc, onClick }: {
 
   return (
     <div
-      className="relative group rounded-xl overflow-hidden bg-surface border border-border/60 hover:border-primary/30 transition-all duration-300 cursor-pointer"
+      className="relative group rounded-lg sm:rounded-xl overflow-hidden bg-surface border border-border/60 hover:border-primary/30 transition-all duration-300 cursor-pointer"
       onClick={onClick}
     >
-      {/* Image container */}
       <div className="relative aspect-[4/3] overflow-hidden">
         {!loaded && (
           <div className="absolute inset-0 bg-surface animate-pulse" />
@@ -408,38 +402,21 @@ function CameraCard({ printerId, index, frameSrc, onClick }: {
           onError={() => setLoaded(false)}
         />
 
-        {/* Gradient overlay — subtle, bottom only */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-
-        {/* Expand hint on hover */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          <div className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center border border-white/20">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="15 3 21 3 21 9" /><polyline points="9 21 3 21 3 15" />
-              <line x1="21" y1="3" x2="14" y2="10" /><line x1="3" y1="21" x2="10" y2="14" />
-            </svg>
-          </div>
-        </div>
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
         {/* Live badge */}
-        <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
+        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-black/50 backdrop-blur-md rounded-full border border-white/10">
           <span className="relative flex h-1.5 w-1.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-500" />
           </span>
-          <span className="text-[10px] font-bold text-white/90 uppercase tracking-wider">Live</span>
+          <span className="text-[8px] sm:text-[10px] font-bold text-white/90 uppercase tracking-wider">Live</span>
         </div>
 
-        {/* Printer name */}
-        <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
-          <div>
-            <p className="text-white font-semibold text-sm leading-tight">{name}</p>
-            <p className="text-white/50 text-[10px] mt-0.5">Bambu Lab</p>
-          </div>
-          <div className="flex items-center gap-1.5 px-2 py-0.5 bg-primary/20 rounded-full border border-primary/30">
-            <span className="w-1 h-1 rounded-full bg-primary" />
-            <span className="text-[9px] font-semibold text-primary uppercase">Activa</span>
-          </div>
+        {/* Printer name — compact on mobile */}
+        <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3">
+          <p className="text-white font-semibold text-xs sm:text-sm leading-tight">{name}</p>
         </div>
       </div>
     </div>
