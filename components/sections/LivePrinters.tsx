@@ -25,13 +25,18 @@ function LivePrinters() {
     async function poll() {
       try {
         const res = await fetch(`${API_BASE}/api/public/cameras`)
-        if (!res.ok) return
+        if (!res.ok) {
+          console.warn(`[LivePrinters] API returned ${res.status}`)
+          return
+        }
         const data = await res.json()
         if (active) {
           setPrinters(data.printers || [])
           setBridgeOnline(data.bridgeOnline || false)
         }
-      } catch {}
+      } catch (err) {
+        console.warn('[LivePrinters] Poll failed:', err instanceof Error ? err.message : String(err))
+      }
     }
     poll()
     const id = setInterval(poll, 10000)
