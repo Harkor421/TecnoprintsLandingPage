@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState, memo, useCallback } from 'react'
-import Image from 'next/image'
+import { useEffect, useState, useRef, memo, useCallback } from 'react'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 
 // WebSocket endpoint for real-time camera feeds (with fallback to REST)
@@ -17,7 +16,7 @@ const WS_BASE = typeof window !== 'undefined'
 
 const API_BASE = 'https://bambufarm-api-production.up.railway.app'
 const FALLBACK_API_BASE = API_BASE
-const REFRESH_INTERVAL = 1500
+const FALLBACK_REFRESH = 1500
 
 const PRINTER_NAMES: Record<string, string> = {
   '01P00C511300712': 'P1S-AMS-1',
@@ -28,58 +27,88 @@ const PRINTER_NAMES: Record<string, string> = {
   '01P00C582701727': 'P1S-3-New',
 }
 
+/**
+ * Parse a binary camera frame from the bridge.
+ * Format: Byte 0 = 0x01 (camera frame), Bytes 1-2 = printerId length (uint16 LE),
+ *         Bytes 3..N = printerId (UTF-8), Bytes N+1.. = JPEG payload
+ */
+function parseBinaryFrame(data: ArrayBuffer): { printerId: string; jpeg: Blob } | null {
+  const view = new DataView(data)
+  if (data.byteLength < 4 || view.getUint8(0) !== 0x01) return null
+  const printerIdLen = view.getUint16(1, true) // little-endian
+  if (data.byteLength < 3 + printerIdLen) return null
+  const printerId = new TextDecoder().decode(new Uint8Array(data, 3, printerIdLen))
+  const jpeg = new Blob([new Uint8Array(data, 3 + printerIdLen)], { type: 'image/jpeg' })
+  return { printerId, jpeg }
+}
+
 function LivePrinters() {
   const [printers, setPrinters] = useState<string[]>([])
   const [bridgeOnline, setBridgeOnline] = useState(false)
   const [selectedPrinter, setSelectedPrinter] = useState<string | null>(null)
-  const [wsConnected, setWsConnected] = useState(false)
+  const [frameUrls, setFrameUrls] = useState<Record<string, string>>({})
+  const frameUrlsRef = useRef<Record<string, string>>({})
+  const blobUrlsToRevoke = useRef<string[]>([])
 
   useEffect(() => {
     let active = true
     let ws: WebSocket | null = null
     let fallbackInterval: NodeJS.Timeout | null = null
+    let usingWs = false
 
-    // Try WebSocket first, fallback to REST polling
     function connectWebSocket() {
       try {
         ws = new WebSocket(`${WS_BASE}/ws/public/cameras`)
+        ws.binaryType = 'arraybuffer'
 
         ws.onopen = () => {
           console.log('[LivePrinters] WebSocket connected')
-          setWsConnected(true)
-          // Request all known printers
+          usingWs = true
+          // Subscribe to all known printers
           const allPrinters = Object.keys(PRINTER_NAMES)
           ws?.send(JSON.stringify({ type: 'init', printers: allPrinters }))
         }
 
         ws.onmessage = (event) => {
+          if (!active) return
+
+          // Binary frame from bridge
+          if (event.data instanceof ArrayBuffer) {
+            const frame = parseBinaryFrame(event.data)
+            if (!frame || !(frame.printerId in PRINTER_NAMES)) return
+
+            const newUrl = URL.createObjectURL(frame.jpeg)
+            const oldUrl = frameUrlsRef.current[frame.printerId]
+            if (oldUrl) blobUrlsToRevoke.current.push(oldUrl)
+
+            frameUrlsRef.current = { ...frameUrlsRef.current, [frame.printerId]: newUrl }
+            setFrameUrls(frameUrlsRef.current)
+            return
+          }
+
+          // JSON message (ready, etc.)
           try {
             const msg = JSON.parse(event.data)
             if (msg.type === 'ready') {
-              if (active) {
-                const known = (msg.printers || []).filter((id: string) => id in PRINTER_NAMES)
-                setPrinters(known)
-                setBridgeOnline(known.length > 0)
-              }
+              const known = (msg.printers || []).filter((id: string) => id in PRINTER_NAMES)
+              setPrinters(known)
+              setBridgeOnline(known.length > 0)
             }
-          } catch (err) {
-            console.warn('[LivePrinters] WS message parse error:', err)
+          } catch {
+            // ignore parse errors on binary data
           }
         }
 
-        ws.onerror = (err) => {
-          console.warn('[LivePrinters] WebSocket error:', err)
-          setWsConnected(false)
+        ws.onerror = () => {
+          usingWs = false
           startFallbackPolling()
         }
 
         ws.onclose = () => {
-          console.warn('[LivePrinters] WebSocket closed, falling back to REST polling')
-          setWsConnected(false)
+          usingWs = false
           startFallbackPolling()
         }
-      } catch (err) {
-        console.warn('[LivePrinters] WebSocket connection failed:', err)
+      } catch {
         startFallbackPolling()
       }
     }
@@ -90,18 +119,15 @@ function LivePrinters() {
       async function poll() {
         try {
           const res = await fetch(`${FALLBACK_API_BASE}/api/public/cameras`)
-          if (!res.ok) {
-            console.warn(`[LivePrinters] Fallback API returned ${res.status}`)
-            return
-          }
+          if (!res.ok) return
           const data = await res.json()
           if (active) {
             const known = (data.printers || []).filter((id: string) => id in PRINTER_NAMES)
             setPrinters(known)
             setBridgeOnline(data.bridgeOnline || false)
           }
-        } catch (err) {
-          console.warn('[LivePrinters] Fallback poll failed:', err instanceof Error ? err.message : String(err))
+        } catch {
+          // ignore
         }
       }
 
@@ -111,10 +137,20 @@ function LivePrinters() {
 
     connectWebSocket()
 
+    // Periodically revoke old blob URLs to free memory
+    const revokeInterval = setInterval(() => {
+      const urls = blobUrlsToRevoke.current.splice(0)
+      for (const url of urls) URL.revokeObjectURL(url)
+    }, 5000)
+
     return () => {
       active = false
       if (ws) ws.close()
       if (fallbackInterval) clearInterval(fallbackInterval)
+      clearInterval(revokeInterval)
+      // Clean up all blob URLs
+      for (const url of Object.values(frameUrlsRef.current)) URL.revokeObjectURL(url)
+      for (const url of blobUrlsToRevoke.current) URL.revokeObjectURL(url)
     }
   }, [])
 
@@ -167,7 +203,13 @@ function LivePrinters() {
           <ScrollFadeIn direction="up" delay={0.1}>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
               {topRow.map((printerId, i) => (
-                <CameraCard key={printerId} printerId={printerId} index={i} onClick={() => setSelectedPrinter(printerId)} />
+                <CameraCard
+                  key={printerId}
+                  printerId={printerId}
+                  index={i}
+                  frameSrc={frameUrls[printerId]}
+                  onClick={() => setSelectedPrinter(printerId)}
+                />
               ))}
             </div>
           </ScrollFadeIn>
@@ -178,7 +220,12 @@ function LivePrinters() {
               <div className="flex justify-center gap-4 md:gap-5">
                 {bottomRow.map((printerId, i) => (
                   <div key={printerId} className="w-[calc(50%-8px)] md:w-[calc(33.333%-14px)]">
-                    <CameraCard printerId={printerId} index={topRow.length + i} onClick={() => setSelectedPrinter(printerId)} />
+                    <CameraCard
+                      printerId={printerId}
+                      index={topRow.length + i}
+                      frameSrc={frameUrls[printerId]}
+                      onClick={() => setSelectedPrinter(printerId)}
+                    />
                   </div>
                 ))}
               </div>
@@ -202,6 +249,7 @@ function LivePrinters() {
       {selectedPrinter && (
         <CameraModal
           printerId={selectedPrinter}
+          frameSrc={frameUrls[selectedPrinter]}
           onClose={() => setSelectedPrinter(null)}
           onPrev={() => {
             const idx = printers.indexOf(selectedPrinter)
@@ -219,23 +267,25 @@ function LivePrinters() {
   )
 }
 
-function CameraModal({ printerId, onClose, onPrev, onNext, current, total }: {
+function CameraModal({ printerId, frameSrc, onClose, onPrev, onNext, current, total }: {
   printerId: string
+  frameSrc?: string
   onClose: () => void
   onPrev: () => void
   onNext: () => void
   current: number
   total: number
 }) {
-  const [tick, setTick] = useState(Date.now())
   const name = PRINTER_NAMES[printerId] || `Impresora ${current}`
-
+  // Fallback to REST if no WS frame available
+  const [tick, setTick] = useState(Date.now())
   useEffect(() => {
-    const id = setInterval(() => setTick(Date.now()), REFRESH_INTERVAL)
+    if (frameSrc) return
+    const id = setInterval(() => setTick(Date.now()), FALLBACK_REFRESH)
     return () => clearInterval(id)
-  }, [])
+  }, [frameSrc])
 
-  const src = `${API_BASE}/api/public/cameras/${printerId}/frame?t=${tick}`
+  const src = frameSrc || `${API_BASE}/api/public/cameras/${printerId}/frame?t=${tick}`
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={onClose}>
@@ -257,13 +307,12 @@ function CameraModal({ printerId, onClose, onPrev, onNext, current, total }: {
 
         {/* Image */}
         <div className="relative aspect-video rounded-2xl overflow-hidden bg-surface border border-border/40">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={src}
             alt={name}
-            fill
-            unoptimized
             style={{ filter: 'brightness(1.15)' }}
-            className="object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
           />
 
           {/* Bottom bar */}
@@ -313,17 +362,24 @@ function CameraModal({ printerId, onClose, onPrev, onNext, current, total }: {
   )
 }
 
-function CameraCard({ printerId, index, onClick }: { printerId: string; index: number; onClick: () => void }) {
-  const [tick, setTick] = useState(Date.now())
+function CameraCard({ printerId, index, frameSrc, onClick }: {
+  printerId: string
+  index: number
+  frameSrc?: string
+  onClick: () => void
+}) {
   const [loaded, setLoaded] = useState(false)
   const name = PRINTER_NAMES[printerId] || `Impresora ${index + 1}`
 
+  // Fallback to REST polling only if no WS frames
+  const [tick, setTick] = useState(Date.now())
   useEffect(() => {
-    const id = setInterval(() => setTick(Date.now()), REFRESH_INTERVAL)
+    if (frameSrc) return
+    const id = setInterval(() => setTick(Date.now()), FALLBACK_REFRESH)
     return () => clearInterval(id)
-  }, [])
+  }, [frameSrc])
 
-  const src = `${API_BASE}/api/public/cameras/${printerId}/frame?t=${tick}`
+  const src = frameSrc || `${API_BASE}/api/public/cameras/${printerId}/frame?t=${tick}`
 
   return (
     <div
@@ -335,13 +391,12 @@ function CameraCard({ printerId, index, onClick }: { printerId: string; index: n
         {!loaded && (
           <div className="absolute inset-0 bg-surface animate-pulse" />
         )}
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={src}
           alt={name}
-          fill
-          unoptimized
           style={{ filter: 'brightness(1.15)' }}
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           onLoad={() => setLoaded(true)}
           onError={() => setLoaded(false)}
         />
