@@ -4,8 +4,15 @@ import { useEffect, useState, memo, useCallback } from 'react'
 import Image from 'next/image'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 
+// WebSocket endpoint for real-time camera feeds (with fallback to REST)
 const WS_BASE = typeof window !== 'undefined'
-  ? `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host.replace(/^tecnoprints\./, 'api.').replace(/localhost:3000/, 'localhost:3001')}`
+  ? (() => {
+      if (window.location.host.includes('localhost')) {
+        return 'ws://localhost:3001' // Local development
+      }
+      // Production: use the api-server deployed on Railway
+      return 'wss://aware-forgiveness-production.up.railway.app'
+    })()
   : ''
 
 const API_BASE = 'https://bambufarm-api-production.up.railway.app'
