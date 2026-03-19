@@ -196,9 +196,6 @@ function LivePrinters() {
 
   if (!bridgeOnline || printers.length === 0) return null
 
-  const topRow = printers.slice(0, 3)
-  const bottomRow = printers.slice(3)
-
   return (
     <>
       <section className="py-16 sm:py-20 md:py-32 bg-background relative overflow-hidden">
@@ -227,10 +224,10 @@ function LivePrinters() {
             </div>
           </ScrollFadeIn>
 
-          {/* Top row */}
+          {/* 2 cols mobile, 3 cols desktop — clean 2×3 / 3×2 grid */}
           <ScrollFadeIn direction="up" delay={0.1}>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
-              {topRow.map((printerId, i) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
+              {printers.map((printerId, i) => (
                 <CameraCard
                   key={printerId}
                   printerId={printerId}
@@ -242,26 +239,8 @@ function LivePrinters() {
             </div>
           </ScrollFadeIn>
 
-          {/* Bottom row — centered */}
-          {bottomRow.length > 0 && (
-            <ScrollFadeIn direction="up" delay={0.2}>
-              <div className="flex justify-center gap-4 md:gap-5">
-                {bottomRow.map((printerId, i) => (
-                  <div key={printerId} className="w-[calc(50%-8px)] md:w-[calc(33.333%-14px)]">
-                    <CameraCard
-                      printerId={printerId}
-                      index={topRow.length + i}
-                      frameSrc={frameUrls[printerId]}
-                      onClick={() => setSelectedPrinter(printerId)}
-                    />
-                  </div>
-                ))}
-              </div>
-            </ScrollFadeIn>
-          )}
-
           {/* Active printers count */}
-          <ScrollFadeIn direction="up" delay={0.3}>
+          <ScrollFadeIn direction="up" delay={0.2}>
             <div className="mt-8 md:mt-10 flex items-center justify-center gap-3">
               <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-transparent to-border" />
               <p className="text-xs text-muted/60 uppercase tracking-widest font-medium">
