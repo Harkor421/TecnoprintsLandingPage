@@ -4,7 +4,7 @@ export const siteConfig = {
   name: 'Tecnoprints',
   description: 'Servicio de impresión 3D en Barranquilla, Colombia. Prototipado rápido, piezas personalizadas en PLA con impresoras Bambu Lab. Cotización inmediata, entrega en mismo día hasta 48 horas.',
   url: 'https://tecnoprints.com',
-  ogImage: '/og-image.jpg',
+  ogImage: '/preview-tecnoprints.png',
   links: {
     instagram: 'https://instagram.com/tecnoprintsco',
     tiktok: 'https://www.tiktok.com/@tecnoprints',
