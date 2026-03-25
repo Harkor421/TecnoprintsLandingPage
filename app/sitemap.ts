@@ -4,7 +4,7 @@ import { BLOG_POSTS } from '@/lib/blog-data'
 const API_BASE = 'https://aware-forgiveness-production.up.railway.app'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Static pages
+  // Static pages (no anchor links — Google doesn't index fragments)
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: 'https://tecnoprints.com',
@@ -13,22 +13,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     {
-      url: 'https://tecnoprints.com/#catalog',
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: 'https://tecnoprints.com/#contact',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
       url: 'https://tecnoprints.com/servicios-impresion-3d-barranquilla',
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.85,
     },
     {
       url: 'https://tecnoprints.com/cotizar-impresion-3d',

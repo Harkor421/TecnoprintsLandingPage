@@ -21,13 +21,8 @@ export const ANIMATION = {
 export const PARTNERS = [
   {
     name: 'Degentech SAS',
-    logo: '/degentech-logo.png',
+    logo: '/logo.png',
     url: 'https://degentech.co',
-  },
-  {
-    name: 'Centro INCA',
-    logo: '/inca-logo.png',
-    url: 'https://centroinca.com/centroinca/',
   },
 ] as const
 
