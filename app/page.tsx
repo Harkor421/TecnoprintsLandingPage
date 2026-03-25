@@ -12,8 +12,8 @@ import { generateServiceSchema, generateFAQSchema, generateWebSiteSchema, siteCo
 import { FAQ_DATA } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Impresión 3D en Barranquilla | Cotiza al Instante | Tecnoprints',
-  description: 'Servicio #1 de impresión 3D en Barranquilla. Prototipado rápido, maquetas, piezas personalizadas en PLA. Cotiza gratis en línea. Entrega desde el mismo día hasta 48 horas. Impresoras Bambu Lab.',
+  title: 'Impresión 3D FDM y Resina en Barranquilla | Cotiza al Instante | Tecnoprints',
+  description: 'Servicio #1 de impresión 3D FDM y resina en Barranquilla. PLA, PETG, ABS, Nylon, Fibra de Carbono, Resina. Prototipado rápido, maquetas, piezas personalizadas. Cotiza gratis. Entrega desde el mismo día hasta 48 horas. Impresoras Bambu Lab.',
   keywords: [
     'impresión 3D Barranquilla',
     'servicio impresión 3D Barranquilla',
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     canonical: siteConfig.url,
   },
   openGraph: {
-    title: 'Tecnoprints - Impresión 3D en Barranquilla | Cotiza Gratis',
-    description: 'Servicio de impresión 3D profesional en Barranquilla. Prototipado rápido, maquetas, figuras, piezas funcionales. Entrega desde el mismo día.',
+    title: 'Tecnoprints - Impresión 3D FDM y Resina en Barranquilla',
+    description: 'Impresión 3D FDM (PLA, PETG, ABS, Nylon, Fibra Carbono) y Resina. Prototipado rápido, maquetas, piezas. Entrega desde el mismo día.',
   },
 }
 

@@ -8,20 +8,23 @@ import Card from '@/components/ui/Card'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 
 export const metadata: Metadata = {
-  title: 'Servicios de Impresión 3D en Barranquilla',
-  description: 'Servicio profesional de impresión 3D en Barranquilla, Colombia. Prototipado rápido, piezas personalizadas en PLA, producción en serie con impresoras Bambu Lab. Cotización inmediata.',
+  title: 'Servicios de Impresión 3D en Barranquilla | FDM y Resina',
+  description: 'Servicio profesional de impresión 3D FDM y resina en Barranquilla. PLA, PETG, ABS, Nylon, Nylon fibra carbono, Resina. Prototipado rápido, piezas personalizadas, producción en serie con impresoras Bambu Lab. Cotización inmediata.',
   keywords: [
     'impresión 3D Barranquilla',
+    'impresión FDM Barranquilla',
+    'impresión resina Barranquilla',
     'servicio impresión 3D',
     'prototipado rápido Barranquilla',
     'piezas 3D personalizadas',
-    'impresión PLA Barranquilla',
+    'impresión PLA PETG ABS Nylon',
+    'nylon fibra carbono',
     'impresión 3D Colombia',
     'producción 3D en serie',
   ],
   openGraph: {
-    title: 'Servicios de Impresión 3D en Barranquilla | Tecnoprints',
-    description: 'Servicio profesional de impresión 3D en Barranquilla. Prototipado rápido, piezas personalizadas, producción en serie.',
+    title: 'Servicios de Impresión 3D FDM y Resina en Barranquilla',
+    description: 'Impresión 3D FDM (PLA, PETG, ABS, Nylon, Fibra de Carbono) y Resina. Prototipado rápido, piezas personalizadas, producción en serie.',
     url: `${siteConfig.url}/servicios-impresion-3d-barranquilla`,
   },
   alternates: {
