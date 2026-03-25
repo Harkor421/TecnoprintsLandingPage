@@ -1,5 +1,4 @@
 import Hero from '@/components/sections/Hero'
-import Partners from '@/components/sections/Partners'
 import About from '@/components/sections/About'
 import Process from '@/components/sections/Process'
 import Catalog from '@/components/sections/Catalog'
@@ -50,7 +49,6 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
       />
       <Hero />
-      <Partners />
       <About />
       <Process />
       <Catalog />
