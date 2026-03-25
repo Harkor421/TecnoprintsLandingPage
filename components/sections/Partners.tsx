@@ -2,57 +2,57 @@
 
 import { memo } from 'react'
 
+const PARTNERS = ['DEGENTECH', 'CENTRO INCA']
+
 function Partners() {
+  const items = [...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS]
+
   return (
-    <section className="py-16 md:py-20 bg-background overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <p className="text-sm text-muted tracking-wide">
-            Empresas que confían en nosotros
-          </p>
-        </div>
+    <section className="py-12 md:py-16 bg-background overflow-hidden">
+      <div className="text-center mb-8">
+        <p className="text-xs text-muted/60 uppercase tracking-[0.2em] font-medium">
+          Empresas que confían en nosotros
+        </p>
+      </div>
 
-        {/* LED Banner with graphite texture */}
-        <div className="relative w-full h-20 md:h-24 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-xl overflow-hidden border border-slate-700/50 shadow-lg">
-          {/* Graphite texture overlay */}
-          <div
-            className="absolute inset-0 opacity-30 pointer-events-none"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='100' height='100' fill='%23ffffff' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E")`,
-              backgroundSize: '200px 200px',
-            }}
-          />
+      {/* LED Banner */}
+      <div className="relative w-full h-14 md:h-16 bg-[#0f1115] overflow-hidden border-y border-white/[0.04]">
+        {/* Subtle grain texture */}
+        <div
+          className="absolute inset-0 opacity-[0.15] pointer-events-none mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")`,
+            backgroundSize: '128px 128px',
+          }}
+        />
 
-          {/* Scrolling text container */}
-          <div className="relative h-full flex items-center">
-            <style>{`
-              @keyframes ledScroll {
-                0% { transform: translateX(100%); }
-                100% { transform: translateX(-100%); }
-              }
-              .led-banner { animation: ledScroll 15s linear infinite; }
-            `}</style>
-
-            <div className="led-banner whitespace-nowrap flex items-center gap-12 px-4">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="flex items-center gap-12 shrink-0">
-                  <span className="text-lg md:text-2xl font-bold text-white/80 tracking-wider">
-                    DEGENTECH
-                  </span>
-                  <span className="text-white/30 text-xl">•</span>
-                  <span className="text-lg md:text-2xl font-bold text-white/80 tracking-wider">
-                    CENTRO INCA
-                  </span>
-                  <span className="text-white/30 text-xl">•</span>
-                </div>
-              ))}
-            </div>
+        {/* Marquee track */}
+        <div className="relative h-full flex items-center">
+          <div className="flex animate-marquee">
+            {items.map((name, i) => (
+              <div key={i} className="flex items-center shrink-0">
+                <span className="text-sm md:text-base font-semibold text-white/50 tracking-[0.15em] uppercase px-8 md:px-12">
+                  {name}
+                </span>
+                <span className="text-white/15 text-xs">◆</span>
+              </div>
+            ))}
           </div>
-
-          {/* Fade edges for smooth effect */}
-          <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-slate-900 to-transparent pointer-events-none" />
-          <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-slate-900 to-transparent pointer-events-none" />
+          <div className="flex animate-marquee" aria-hidden>
+            {items.map((name, i) => (
+              <div key={i} className="flex items-center shrink-0">
+                <span className="text-sm md:text-base font-semibold text-white/50 tracking-[0.15em] uppercase px-8 md:px-12">
+                  {name}
+                </span>
+                <span className="text-white/15 text-xs">◆</span>
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* Fade edges */}
+        <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0f1115] to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#0f1115] to-transparent pointer-events-none z-10" />
       </div>
     </section>
   )
