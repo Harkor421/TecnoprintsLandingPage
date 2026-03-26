@@ -102,7 +102,11 @@ export default function ModelPage({ params }: { params: { id: string } }) {
     ? `${hours}h ${minutes}m`
     : `${minutes}m`
 
-  const whatsappMessage = `Hola! Me gustaría que me impriman este modelo 3D:\n\n${model.title}\n${model.url}\n\nPeso estimado: ${model.weight}g\nTiempo estimado: ${printTimeStr}\nPrecio estimado: ${formatCOP(finalPrice)}\n\n¿Me pueden confirmar el precio final, tiempo de entrega y opciones de color?`
+  const isHighPrice = finalPrice > 100000
+
+  const whatsappMessage = isHighPrice
+    ? `Hola! Me gustaría cotizar este modelo 3D:\n\n${model.title}\n${model.url}\n\nPeso estimado: ${model.weight}g\nTiempo estimado: ${printTimeStr}\n\n¿Me pueden dar el precio, tiempo de entrega y opciones de color?`
+    : `Hola! Me gustaría que me impriman este modelo 3D:\n\n${model.title}\n${model.url}\n\nPeso estimado: ${model.weight}g\nTiempo estimado: ${printTimeStr}\nPrecio estimado: ${formatCOP(finalPrice)}\n\n¿Me pueden confirmar el precio final, tiempo de entrega y opciones de color?`
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-surface/50 flex flex-col">
@@ -218,9 +222,19 @@ export default function ModelPage({ params }: { params: { id: string } }) {
               </div>
 
               <div className="mb-6 sm:mb-6">
-                <p className="text-xs text-muted mb-1">Precio estimado</p>
-                <p className="text-3xl sm:text-4xl font-bold text-primary">{formatCOP(finalPrice)}</p>
-                <p className="text-[11px] text-muted mt-2">*Varía por color y acabado</p>
+                {isHighPrice ? (
+                  <>
+                    <p className="text-xs text-muted mb-1">Precio</p>
+                    <p className="text-lg sm:text-xl font-bold text-white">Cotiza este producto por WhatsApp</p>
+                    <p className="text-[11px] text-muted mt-2">Contáctanos para obtener el precio de este modelo</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-xs text-muted mb-1">Precio estimado</p>
+                    <p className="text-3xl sm:text-4xl font-bold text-primary">{formatCOP(finalPrice)}</p>
+                    <p className="text-[11px] text-muted mt-2">*Varía por color y acabado</p>
+                  </>
+                )}
               </div>
 
               <a
@@ -288,9 +302,19 @@ export default function ModelPage({ params }: { params: { id: string } }) {
               </div>
 
               <div className="mb-6 sm:mb-6">
-                <p className="text-xs text-muted mb-1">Precio estimado</p>
-                <p className="text-3xl sm:text-4xl font-bold text-primary">{formatCOP(finalPrice)}</p>
-                <p className="text-[11px] text-muted mt-2">*Varía por color y acabado</p>
+                {isHighPrice ? (
+                  <>
+                    <p className="text-xs text-muted mb-1">Precio</p>
+                    <p className="text-lg sm:text-xl font-bold text-white">Cotiza este producto por WhatsApp</p>
+                    <p className="text-[11px] text-muted mt-2">Contáctanos para obtener el precio de este modelo</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-xs text-muted mb-1">Precio estimado</p>
+                    <p className="text-3xl sm:text-4xl font-bold text-primary">{formatCOP(finalPrice)}</p>
+                    <p className="text-[11px] text-muted mt-2">*Varía por color y acabado</p>
+                  </>
+                )}
               </div>
 
               <a
