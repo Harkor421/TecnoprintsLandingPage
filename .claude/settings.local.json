@@ -9,7 +9,9 @@
       "Bash(move degentech-logo.png public )",
       "Bash(move:*)",
       "Bash(npx next build:*)",
-      "Bash(npm run build)"
+      "Bash(npm run build)",
+      "Bash(1:*)",
+      "Bash(find /Users/samirgonzalez/Documents/GitHub/TecnoprintsLandingPage -name *.railway* -o -name .railway)"
     ]
   }
 }
