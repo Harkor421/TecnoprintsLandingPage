@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-const API_BASE = 'https://aware-forgiveness-production.up.railway.app'
+const API_BASE = 'https://tecnoprints-api-production.up.railway.app'
 
 interface ModelDetail {
   id: number

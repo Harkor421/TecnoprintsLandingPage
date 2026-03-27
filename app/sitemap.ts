@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { BLOG_POSTS } from '@/lib/blog-data'
 
-const API_BASE = 'https://aware-forgiveness-production.up.railway.app'
+const API_BASE = 'https://tecnoprints-api-production.up.railway.app'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages (no anchor links — Google doesn't index fragments)

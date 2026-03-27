@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Heart, Download, Printer, Loader2 } from 'lucide-react'
 
-const API_BASE = 'https://aware-forgiveness-production.up.railway.app'
+const API_BASE = 'https://tecnoprints-api-production.up.railway.app'
 
 const formatCOP = (value: number) => {
   return new Intl.NumberFormat('es-CO', {
