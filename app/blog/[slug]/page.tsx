@@ -140,7 +140,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 Cotiza tu impresión 3D en Barranquilla ahora mismo.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="https://wa.me/573239267656" target="_blank" rel="noopener noreferrer">
+                <Link href="https://wa.me/573007576187" target="_blank" rel="noopener noreferrer">
                   <Button className="w-full sm:w-auto">Cotizar por WhatsApp</Button>
                 </Link>
                 <Link href="/cotizar-impresion-3d">

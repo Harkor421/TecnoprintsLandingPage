@@ -15,7 +15,7 @@ const footerLinks = {
   resources: [
     { label: 'Blog', href: '/blog' },
     { label: 'Preguntas Frecuentes', href: '/#faq' },
-    { label: 'WhatsApp', href: 'https://wa.me/573239267656' },
+    { label: 'WhatsApp', href: 'https://wa.me/573007576187' },
     { label: 'Instagram', href: 'https://instagram.com/tecnoprintsco' },
     { label: 'TikTok', href: 'https://www.tiktok.com/@tecnoprints' },
   ],
@@ -36,7 +36,7 @@ const TikTokIcon = ({ size = 22 }: { size?: number }) => (
 const socialLinks = [
   { icon: Instagram, href: 'https://instagram.com/tecnoprintsco', label: 'Instagram' },
   { icon: TikTokIcon, href: 'https://www.tiktok.com/@tecnoprints', label: 'TikTok' },
-  { icon: WhatsAppIcon, href: 'https://wa.me/573239267656', label: 'WhatsApp' },
+  { icon: WhatsAppIcon, href: 'https://wa.me/573007576187', label: 'WhatsApp' },
 ]
 
 export default function Footer() {

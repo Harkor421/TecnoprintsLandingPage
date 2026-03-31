@@ -11,7 +11,8 @@
       "Bash(npx next build:*)",
       "Bash(npm run build)",
       "Bash(1:*)",
-      "Bash(find /Users/samirgonzalez/Documents/GitHub/TecnoprintsLandingPage -name *.railway* -o -name .railway)"
+      "Bash(find /Users/samirgonzalez/Documents/GitHub/TecnoprintsLandingPage -name *.railway* -o -name .railway)",
+      "Bash(xargs sed:*)"
     ]
   }
 }

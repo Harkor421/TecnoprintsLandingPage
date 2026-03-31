@@ -223,7 +223,7 @@ export default function QuoteModal({
         {/* Actions */}
         <div className="space-y-3">
           <a
-            href={`https://wa.me/573239267656?text=${encodeURIComponent(
+            href={`https://wa.me/573007576187?text=${encodeURIComponent(
               `Hola! Me gustaría que me impriman este modelo 3D:\n\n` +
               `${model.title}\n` +
               `${model.url}\n\n` +

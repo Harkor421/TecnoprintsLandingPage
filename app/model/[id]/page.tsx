@@ -238,7 +238,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
               </div>
 
               <a
-                href={`https://wa.me/573239267656?text=${encodeURIComponent(whatsappMessage)}`}
+                href={`https://wa.me/573007576187?text=${encodeURIComponent(whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3 sm:py-3 bg-primary text-black font-semibold text-sm sm:text-base rounded-lg hover:bg-primary-dark transition-colors mb-3 active:scale-95"
@@ -318,7 +318,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
               </div>
 
               <a
-                href={`https://wa.me/573239267656?text=${encodeURIComponent(whatsappMessage)}`}
+                href={`https://wa.me/573007576187?text=${encodeURIComponent(whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3 sm:py-3 bg-primary text-black font-semibold text-sm sm:text-base rounded-lg hover:bg-primary-dark transition-colors mb-3 active:scale-95"
