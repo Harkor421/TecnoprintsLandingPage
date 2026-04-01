@@ -197,7 +197,7 @@ export default function ServiciosPage() {
               estimador en línea para calcular el material de tu pieza.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="https://wa.me/573007576187" target="_blank" rel="noopener noreferrer">
+              <Link href="https://wa.me/573239267656" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="w-full sm:w-auto group">
                   Cotizar por WhatsApp
                   <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />

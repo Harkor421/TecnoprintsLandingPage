@@ -8,7 +8,7 @@ export const siteConfig = {
   links: {
     instagram: 'https://instagram.com/tecnoprintsco',
     tiktok: 'https://www.tiktok.com/@tecnoprints',
-    whatsapp: 'https://wa.me/573007576187',
+    whatsapp: 'https://wa.me/573239267656',
   },
   keywords: [
     // Core Barranquilla
@@ -133,7 +133,7 @@ export function generateLocalBusinessSchema() {
       url: `${siteConfig.url}/logo.png`,
     },
     image: `${siteConfig.url}/og-image.jpg`,
-    telephone: '+573007576187',
+    telephone: '+573239267656',
     email: 'contact@tecnoprints.com',
     address: {
       '@type': 'PostalAddress',

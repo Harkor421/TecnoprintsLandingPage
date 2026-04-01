@@ -105,7 +105,7 @@ export default function QuoteForm() {
       `Precio estimado: ${formatCOP(result.priceEstimateCOP)}\n\n` +
       `¿Me pueden dar el precio final?`
     )
-    window.open(`https://wa.me/573007576187?text=${message}`, '_blank')
+    window.open(`https://wa.me/573239267656?text=${message}`, '_blank')
   }
 
   const handleReset = () => {

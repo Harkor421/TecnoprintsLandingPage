@@ -63,7 +63,7 @@ function Hero() {
 
           <FadeIn delay={0.4} duration={0.8}>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 px-4 sm:px-0">
-              <Link href="https://wa.me/573007576187" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+              <Link href="https://wa.me/573239267656" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                 <Button size="lg" className="group w-full sm:w-auto">
                   Solicitar Cotización
                   <ArrowRight
