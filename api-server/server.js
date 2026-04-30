@@ -101,93 +101,133 @@ app.get('/health', (req, res) => {
 
 // In-memory cache to avoid hammering MakerWorld
 const modelsCache = new Map() // cacheKey → { data, expiresAt }
-const CACHE_TTL_MS = 5 * 60 * 1000 // 5 minutes
+const CACHE_TTL_MS = 10 * 60 * 1000 // 10 minutes
 
-// Valid sort values for MakerWorld API
-// recommend (default), newest, mostFavorited, mostLiked, mostDownloaded,
-// mostBookmarked, mostBoosted, mostPicked, mostCollected, mostRecent
-const VALID_SORTS = new Set([
-  'recommend', 'newest', 'mostFavorited', 'mostLiked',
-  'mostDownloaded', 'mostBookmarked', 'mostBoosted',
-  'mostPicked', 'mostCollected', 'mostRecent',
+// Image transform for smaller thumbnails (BBL OSS supports resize)
+const thumbnailUrl = (url) => {
+  if (!url) return url
+  const sep = url.includes('?') ? '&' : '?'
+  return `${url}${sep}x-oss-process=image/resize,w_400/format,webp/quality,Q_80`
+}
+
+const mapHit = (d) => ({
+  id: d.id,
+  title: d.title,
+  slug: d.slug,
+  cover: thumbnailUrl(d.cover),
+  coverFull: d.cover,
+  likeCount: d.likeCount || 0,
+  downloadCount: d.downloadCount || 0,
+  printCount: d.printCount || 0,
+  collectionCount: d.collectionCount || 0,
+  creator: d.designCreator?.name || 'Unknown',
+  tags: d.tags || [],
+  url: `https://makerworld.com/en/models/${d.id}`,
+  hotScore: d.hotScore || 0,
+  createTime: d.createTime || '',
+})
+
+// Fetch a larger pool from MakerWorld for client-side sorting
+async function fetchPool(endpoint, { keyword = '', limit = 50, offset = 0 } = {}) {
+  const cacheKey = `pool::${endpoint}::${keyword}::${limit}::${offset}`
+  const cached = modelsCache.get(cacheKey)
+  if (cached && cached.expiresAt > Date.now()) return cached.data
+
+  const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
+  if (keyword) params.set('keyword', keyword)
+
+  const url = `https://api.bambulab.com/v1/search-service/select/${endpoint}?${params}`
+  const resp = await fetch(url)
+  if (!resp.ok) {
+    console.error(`[MakerWorld] ${endpoint} returned ${resp.status}`)
+    return { hits: [], total: 0 }
+  }
+
+  const data = await resp.json()
+  const result = { hits: data?.hits || [], total: data?.total || 0 }
+
+  modelsCache.set(cacheKey, { data: result, expiresAt: Date.now() + CACHE_TTL_MS })
+
+  // Cleanup old cache entries occasionally
+  if (modelsCache.size > 100) {
+    const now = Date.now()
+    for (const [key, val] of modelsCache.entries()) {
+      if (val.expiresAt < now) modelsCache.delete(key)
+    }
+  }
+
+  return result
+}
+
+// Available sort modes
+//   default / recommend  → /select/design2 (recent recommended)
+//   hot                  → /select/design (sorted by hotScore)
+//   mostDownloaded       → fetch larger pool from /select/design, sort by downloadCount
+//   mostLiked            → fetch larger pool from /select/design, sort by likeCount
+//   mostPrinted          → fetch larger pool from /select/design, sort by printCount
+//   mostCollected        → fetch larger pool from /select/design, sort by collectionCount
+//   newest               → fetch larger pool, sort by createTime desc
+const SORT_MODES = new Set([
+  '', 'default', 'recommend', 'hot', 'newest',
+  'mostDownloaded', 'mostLiked', 'mostPrinted', 'mostCollected',
 ])
-
-// Valid period values
-const VALID_PERIODS = new Set(['today', 'thisWeek', 'thisMonth', 'all'])
 
 app.get('/api/models', async (req, res) => {
   const keyword = (req.query.keyword || '').toString().trim()
-  const page = parseInt(req.query.page || '1', 10)
-  const limit = parseInt(req.query.limit || '12', 10)
-  const sort = req.query.sort && VALID_SORTS.has(req.query.sort) ? req.query.sort : ''
-  const period = req.query.period && VALID_PERIODS.has(req.query.period) ? req.query.period : ''
-  const category = req.query.category ? String(req.query.category) : ''
-
-  // Cache by query signature
-  const cacheKey = `${keyword}::${page}::${limit}::${sort}::${period}::${category}`
-  const cached = modelsCache.get(cacheKey)
-  if (cached && cached.expiresAt > Date.now()) {
-    res.set('X-Cache', 'HIT')
-    return res.json(cached.data)
-  }
+  const page = Math.max(1, parseInt(req.query.page || '1', 10))
+  const limit = Math.min(50, Math.max(1, parseInt(req.query.limit || '12', 10)))
+  const sortRaw = (req.query.sort || '').toString()
+  const sort = SORT_MODES.has(sortRaw) ? sortRaw : ''
 
   try {
-    const offset = (page - 1) * limit
-    const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
-    if (keyword) params.set('keyword', keyword)
-    if (sort) params.set('sort', sort)
-    if (period) params.set('period', period)
-    if (category) params.set('category', category)
+    let models = []
+    let total = 0
 
-    const url = `https://api.bambulab.com/v1/search-service/select/design2?${params}`
+    if (sort === 'recommend' || sort === 'default' || sort === '') {
+      // Use /select/design2 (recommended/recent feed)
+      const offset = (page - 1) * limit
+      const pool = await fetchPool('design2', { keyword, limit, offset })
+      models = pool.hits.map(mapHit)
+      total = pool.total
+    } else if (sort === 'hot') {
+      // Use /select/design with normal pagination (already sorted by hotScore)
+      const offset = (page - 1) * limit
+      const pool = await fetchPool('design', { keyword, limit, offset })
+      models = pool.hits.map(mapHit)
+      total = pool.total
+    } else {
+      // Client-side sort: fetch a bigger pool from /select/design then sort
+      const POOL_SIZE = 50
+      const pool = await fetchPool('design', { keyword, limit: POOL_SIZE, offset: 0 })
+      let sorted = pool.hits.map(mapHit)
 
-    const resp = await fetch(url)
-    if (!resp.ok) {
-      console.error(`[MakerWorld] API returned ${resp.status} for ${url}`)
-      return res.status(502).json({ error: 'API unavailable', models: [], total: 0 })
-    }
-
-    const data = await resp.json()
-    const hits = data?.hits || []
-    const total = data?.total || 0
-
-    // Add image transform for smaller thumbnails (BBL OSS supports resize)
-    const thumbnailUrl = (url) => {
-      if (!url) return url
-      // Append OSS image processing for ~400px thumbnails (still high quality, ~10x smaller)
-      const sep = url.includes('?') ? '&' : '?'
-      return `${url}${sep}x-oss-process=image/resize,w_400/format,webp/quality,Q_80`
-    }
-
-    const models = hits.map((d) => ({
-      id: d.id,
-      title: d.title,
-      slug: d.slug,
-      cover: thumbnailUrl(d.cover),
-      coverFull: d.cover,
-      likeCount: d.likeCount,
-      downloadCount: d.downloadCount,
-      printCount: d.printCount,
-      creator: d.designCreator?.name || 'Unknown',
-      tags: d.tags || [],
-      url: `https://makerworld.com/en/models/${d.id}`,
-    }))
-
-    const responseData = { models, total }
-    modelsCache.set(cacheKey, { data: responseData, expiresAt: Date.now() + CACHE_TTL_MS })
-
-    // Cleanup old cache entries occasionally
-    if (modelsCache.size > 200) {
-      const now = Date.now()
-      for (const [key, val] of modelsCache.entries()) {
-        if (val.expiresAt < now) modelsCache.delete(key)
+      switch (sort) {
+        case 'mostDownloaded':
+          sorted.sort((a, b) => b.downloadCount - a.downloadCount)
+          break
+        case 'mostLiked':
+          sorted.sort((a, b) => b.likeCount - a.likeCount)
+          break
+        case 'mostPrinted':
+          sorted.sort((a, b) => b.printCount - a.printCount)
+          break
+        case 'mostCollected':
+          sorted.sort((a, b) => b.collectionCount - a.collectionCount)
+          break
+        case 'newest':
+          sorted.sort((a, b) => (b.createTime > a.createTime ? 1 : -1))
+          break
       }
+
+      // Apply pagination on the sorted pool
+      const offset = (page - 1) * limit
+      models = sorted.slice(offset, offset + limit)
+      total = pool.total
     }
 
-    res.set('X-Cache', 'MISS')
-    res.json(responseData)
+    res.json({ models, total })
   } catch (err) {
-    console.error('[MakerWorld] Search error:', err.message)
+    console.error('[MakerWorld] Error:', err.message)
     res.status(500).json({ error: 'Failed to fetch models', models: [], total: 0 })
   }
 })

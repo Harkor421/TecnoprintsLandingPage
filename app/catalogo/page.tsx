@@ -26,18 +26,18 @@ interface ApiModel {
   creator: string
 }
 
+type SortMode = 'recommend' | 'hot' | 'newest' | 'mostLiked' | 'mostDownloaded' | 'mostPrinted' | 'mostCollected'
+
 async function fetchModels(opts: {
   page?: number
   keyword?: string
-  sort?: 'recommend' | 'newest' | 'mostLiked' | 'mostDownloaded' | 'mostBoosted' | 'mostCollected'
-  period?: 'today' | 'thisWeek' | 'thisMonth' | 'all'
+  sort?: SortMode
   limit?: number
 } = {}): Promise<ApiModel[]> {
   const params = new URLSearchParams()
   params.set('page', String(opts.page ?? 1))
   if (opts.keyword) params.set('keyword', opts.keyword)
   if (opts.sort) params.set('sort', opts.sort)
-  if (opts.period) params.set('period', opts.period)
   if (opts.limit) params.set('limit', String(opts.limit))
   try {
     const res = await fetch(`${API_BASE}/api/models?${params}`)
@@ -72,12 +72,12 @@ export default function CatalogoPage() {
   useEffect(() => {
     let cancelled = false
     async function loadSections() {
-      // Fire each section in parallel with its own sort
-      const [recommendData, downloadedData, likedData, trendingData] = await Promise.all([
+      // Fire each section in parallel with distinct sort modes
+      const [recommendData, downloadedData, likedData, hotData] = await Promise.all([
         fetchModels({ sort: 'recommend', limit: 12 }),
-        fetchModels({ sort: 'mostDownloaded', period: 'thisMonth', limit: 12 }),
-        fetchModels({ sort: 'mostLiked', period: 'thisMonth', limit: 12 }),
-        fetchModels({ sort: 'mostBoosted', period: 'thisWeek', limit: 12 }),
+        fetchModels({ sort: 'mostDownloaded', limit: 12 }),
+        fetchModels({ sort: 'mostLiked', limit: 12 }),
+        fetchModels({ sort: 'hot', limit: 12 }),
       ])
 
       if (cancelled) return
@@ -85,7 +85,7 @@ export default function CatalogoPage() {
       setRecommended(recommendData)
       setTopDownloaded(downloadedData)
       setMostLiked(likedData)
-      setTrending(trendingData)
+      setTrending(hotData)
       setLoadingSections(false)
     }
     loadSections()
@@ -210,15 +210,15 @@ export default function CatalogoPage() {
           <>
             <ProductRow
               title="Recomendados para ti"
-              subtitle="Selección curada de MakerWorld"
+              subtitle="Selección curada por MakerWorld"
               models={recommended}
               loading={loadingSections}
               emoji="✨"
             />
 
             <ProductRow
-              title="Más Descargados del Mes"
-              subtitle="Los modelos más descargados en los últimos 30 días"
+              title="Más Descargados"
+              subtitle="Los modelos con más descargas entre los más populares"
               models={topDownloaded}
               loading={loadingSections}
               emoji="🔥"
@@ -226,7 +226,7 @@ export default function CatalogoPage() {
 
             <ProductRow
               title="Más Populares"
-              subtitle="Los modelos con más likes este mes"
+              subtitle="Los modelos con más likes de la comunidad"
               models={mostLiked}
               loading={loadingSections}
               emoji="❤️"
@@ -234,7 +234,7 @@ export default function CatalogoPage() {
 
             <ProductRow
               title="En Tendencia"
-              subtitle="Lo más destacado de esta semana"
+              subtitle="Lo más caliente del momento"
               models={trending}
               loading={loadingSections}
               emoji="📈"
