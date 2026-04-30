@@ -319,27 +319,21 @@ export default function CatalogoPage() {
                   {searchResults.map((model, idx) => (
                     <ProductCard key={model.id} model={model} size="lg" priority={idx < 5} />
                   ))}
+                  {loadingMore && Array.from({ length: 10 }).map((_, i) => (
+                    <div key={`sk-${i}`} className="bg-surface border border-border rounded-lg overflow-hidden">
+                      <div className="aspect-square bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%]" />
+                      <div className="p-2.5 sm:p-3 space-y-2">
+                        <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-full" />
+                        <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-2/3" />
+                        <div className="h-7 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded mt-3" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
-                {/* Infinite scroll sentinel + loading skeletons */}
+                {/* Infinite scroll sentinel */}
                 {searchResults.length < searchTotal && (
-                  <>
-                    {loadingMore && (
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mt-3 sm:mt-4">
-                        {Array.from({ length: 6 }).map((_, i) => (
-                          <div key={`sk-${i}`} className="bg-surface border border-border rounded-lg overflow-hidden">
-                            <div className="aspect-square bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%]" />
-                            <div className="p-2.5 sm:p-3 space-y-2">
-                              <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-full" />
-                              <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-2/3" />
-                              <div className="h-7 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded mt-3" />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    <div ref={sentinelRef} className="h-1" />
-                  </>
+                  <div ref={sentinelRef} className="h-1" />
                 )}
 
                 {/* End reached message */}
