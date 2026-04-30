@@ -172,6 +172,36 @@ const SORT_MODES = new Set([
   'mostDownloaded', 'mostLiked', 'mostPrinted', 'mostCollected',
 ])
 
+// Fetch a large combined pool (up to MAX_POOL items) from multiple paginated requests
+async function fetchLargePool(endpoint, { keyword = '', maxItems = 200, batchSize = 50 } = {}) {
+  const cacheKey = `largepool::${endpoint}::${keyword}::${maxItems}::${batchSize}`
+  const cached = modelsCache.get(cacheKey)
+  if (cached && cached.expiresAt > Date.now()) return cached.data
+
+  const batches = Math.ceil(maxItems / batchSize)
+  const requests = []
+  for (let i = 0; i < batches; i++) {
+    requests.push(fetchPool(endpoint, { keyword, limit: batchSize, offset: i * batchSize }))
+  }
+
+  const results = await Promise.all(requests)
+  const allHits = []
+  const seen = new Set()
+  for (const r of results) {
+    for (const hit of r.hits) {
+      if (hit?.id && !seen.has(hit.id)) {
+        seen.add(hit.id)
+        allHits.push(hit)
+      }
+    }
+  }
+
+  const total = results[0]?.total || allHits.length
+  const result = { hits: allHits, total }
+  modelsCache.set(cacheKey, { data: result, expiresAt: Date.now() + CACHE_TTL_MS })
+  return result
+}
+
 app.get('/api/models', async (req, res) => {
   const keyword = (req.query.keyword || '').toString().trim()
   const page = Math.max(1, parseInt(req.query.page || '1', 10))
@@ -184,22 +214,36 @@ app.get('/api/models', async (req, res) => {
     let total = 0
 
     if (sort === 'recommend' || sort === 'default' || sort === '') {
-      // Use /select/design2 (recommended/recent feed)
+      // /select/design2 paginated (recommended/recent feed)
       const offset = (page - 1) * limit
       const pool = await fetchPool('design2', { keyword, limit, offset })
       models = pool.hits.map(mapHit)
       total = pool.total
     } else if (sort === 'hot') {
-      // Use /select/design with normal pagination (already sorted by hotScore)
+      // /select/design — already sorted by hotScore
       const offset = (page - 1) * limit
       const pool = await fetchPool('design', { keyword, limit, offset })
       models = pool.hits.map(mapHit)
       total = pool.total
     } else {
-      // Client-side sort: fetch a bigger pool from /select/design then sort
-      const POOL_SIZE = 50
-      const pool = await fetchPool('design', { keyword, limit: POOL_SIZE, offset: 0 })
-      let sorted = pool.hits.map(mapHit)
+      // For metric-based sorts, fetch a LARGE pool from BOTH endpoints
+      // This gives ~400 unique models to sort over → real variety
+      const [poolA, poolB] = await Promise.all([
+        fetchLargePool('design', { keyword, maxItems: 200 }),
+        fetchLargePool('design2', { keyword, maxItems: 200 }),
+      ])
+
+      // Merge and dedupe
+      const combined = []
+      const seen = new Set()
+      for (const hit of [...poolA.hits, ...poolB.hits]) {
+        if (hit?.id && !seen.has(hit.id)) {
+          seen.add(hit.id)
+          combined.push(hit)
+        }
+      }
+
+      let sorted = combined.map(mapHit)
 
       switch (sort) {
         case 'mostDownloaded':
@@ -219,10 +263,9 @@ app.get('/api/models', async (req, res) => {
           break
       }
 
-      // Apply pagination on the sorted pool
       const offset = (page - 1) * limit
       models = sorted.slice(offset, offset + limit)
-      total = pool.total
+      total = poolA.total || combined.length
     }
 
     res.json({ models, total })
