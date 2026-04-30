@@ -70,38 +70,37 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-[80dvh] bg-gradient-to-b from-background via-background to-surface/50 pt-20 sm:pt-24 pb-12">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[80dvh] bg-gradient-to-b from-background via-background to-surface/50 pt-16 sm:pt-24 pb-12">
+      <div className="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-4 sm:mb-8 pt-4 sm:pt-0">
           <Link
-            href="/#catalog"
-            className="inline-flex items-center gap-2 text-muted hover:text-primary transition-colors text-sm mb-4"
+            href="/catalogo"
+            className="inline-flex items-center gap-1.5 text-muted hover:text-primary transition-colors text-xs sm:text-sm mb-3"
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={14} />
             Seguir explorando
           </Link>
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <h1 className="text-2xl sm:text-3xl font-bold">Tu carrito</h1>
+          <div className="flex items-center justify-between gap-3">
+            <h1 className="text-xl sm:text-3xl font-bold">Tu carrito</h1>
             <button
               onClick={() => {
                 if (confirm('¿Vaciar el carrito?')) clearCart()
               }}
-              className="text-xs text-muted hover:text-red-400 transition-colors flex items-center gap-1.5"
+              className="text-[11px] sm:text-xs text-muted hover:text-red-400 active:text-red-400 transition-colors flex items-center gap-1 px-2 py-1"
             >
-              <Trash2 size={14} />
-              Vaciar carrito
+              <Trash2 size={13} />
+              Vaciar
             </button>
           </div>
         </div>
 
         {/* Dimensions disclaimer */}
-        <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6 flex items-start gap-3">
-          <Ruler size={18} className="text-primary flex-shrink-0 mt-0.5" />
-          <p className="text-xs sm:text-sm text-muted leading-relaxed">
-            <span className="text-white font-medium">Las dimensiones</span> dependen del diseño original del modelo.
-            Antes de imprimir, confirmaremos contigo las medidas exactas y el tamaño deseado por WhatsApp para
-            ajustarnos a tus necesidades.
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 flex items-start gap-2.5 sm:gap-3">
+          <Ruler size={16} className="text-primary flex-shrink-0 mt-0.5" />
+          <p className="text-[11px] sm:text-sm text-muted leading-snug sm:leading-relaxed">
+            <span className="text-white font-medium">Las dimensiones</span> dependen del diseño original.
+            Confirmamos las medidas exactas y el tamaño deseado por WhatsApp.
           </p>
         </div>
 

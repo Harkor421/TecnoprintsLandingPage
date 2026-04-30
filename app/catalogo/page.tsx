@@ -167,14 +167,16 @@ export default function CatalogoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-20 sm:pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background pt-16 sm:pt-24 pb-16">
 
-        {/* Hero / Search */}
-        <div className="mb-8 sm:mb-12">
-          <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+      {/* Sticky search bar — Amazon-style on mobile */}
+      <div className="sticky top-16 z-30 bg-background/95 backdrop-blur-md border-b border-border/40 -mx-0 sm:relative sm:top-0 sm:bg-transparent sm:backdrop-blur-none sm:border-0">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-0">
+
+          {/* Title — only on desktop */}
+          <div className="hidden sm:flex items-center justify-between flex-wrap gap-3 mb-6 sm:pt-0">
             <div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold mb-2">
                 Catálogo de <span className="text-primary">Modelos 3D</span>
               </h1>
               <p className="text-sm sm:text-base text-muted">
@@ -199,31 +201,55 @@ export default function CatalogoPage() {
             className="flex gap-2 max-w-2xl"
           >
             <div className="relative flex-1">
-              <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
               <input
-                type="text"
+                type="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="¿Qué quieres imprimir hoy?"
-                className="w-full pl-10 pr-4 py-3 bg-surface border border-border rounded-lg text-sm placeholder:text-muted/60 focus:outline-none focus:border-primary transition-colors"
+                placeholder="Busca un modelo 3D..."
+                className="w-full pl-9 pr-3 py-2.5 sm:py-3 bg-surface border border-border rounded-lg text-sm placeholder:text-muted/60 focus:outline-none focus:border-primary transition-colors"
               />
             </div>
             <button
               type="submit"
               disabled={searchLoading || !searchQuery.trim()}
-              className="px-5 py-3 bg-primary text-black font-semibold text-sm rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
+              className="px-4 sm:px-5 py-2.5 sm:py-3 bg-primary text-black font-semibold text-sm rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
             >
-              {searchLoading ? <Loader2 size={18} className="animate-spin" /> : 'Buscar'}
+              {searchLoading ? <Loader2 size={16} className="animate-spin" /> : 'Buscar'}
             </button>
           </form>
+        </div>
+      </div>
 
-          {/* Quick tags */}
-          <div className="flex flex-wrap gap-2 mt-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+
+        {/* Mobile-only: title strip + cart pill */}
+        <div className="sm:hidden flex items-center justify-between gap-2 py-3 mb-2">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-lg font-bold leading-tight truncate">
+              Catálogo <span className="text-primary">3D</span>
+            </h1>
+            <p className="text-[11px] text-muted truncate">+1,900 modelos listos para imprimir</p>
+          </div>
+          {totalItems > 0 && (
+            <Link
+              href="/carrito"
+              className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 bg-primary text-black font-semibold text-xs rounded-full"
+            >
+              <ShoppingCart size={14} />
+              {totalItems}
+            </Link>
+          )}
+        </div>
+
+        {/* Quick category chips — horizontal scroll on mobile */}
+        <div className="-mx-3 sm:mx-0 px-3 sm:px-0 mb-4 sm:mb-8 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-2 sm:flex-wrap min-w-max sm:min-w-0">
             {POPULAR_SEARCHES.map((term) => (
               <button
                 key={term}
                 onClick={() => handleQuickSearch(term)}
-                className={`px-3 py-1.5 border rounded-full text-xs transition-colors ${
+                className={`flex-shrink-0 px-3 py-1.5 border rounded-full text-xs whitespace-nowrap transition-colors ${
                   searched && searchQuery === term
                     ? 'border-primary bg-primary/10 text-primary'
                     : 'border-border text-muted hover:border-primary/50 hover:text-white'
@@ -274,13 +300,13 @@ export default function CatalogoPage() {
 
         {/* Search results */}
         {searched && (
-          <div ref={searchRef} className="scroll-mt-24">
-            <div className="flex items-end justify-between mb-4 flex-wrap gap-3">
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold">
-                  Resultados para “{searchQuery}”
+          <div ref={searchRef} className="scroll-mt-32 sm:scroll-mt-24">
+            <div className="flex items-center justify-between mb-3 sm:mb-4 gap-3">
+              <div className="min-w-0 flex-1">
+                <h2 className="text-base sm:text-xl md:text-2xl font-bold truncate">
+                  Resultados: <span className="text-primary">“{searchQuery}”</span>
                 </h2>
-                <p className="text-xs sm:text-sm text-muted mt-1">
+                <p className="text-[11px] sm:text-sm text-muted mt-0.5">
                   {searchTotal.toLocaleString()} modelos encontrados
                 </p>
               </div>
@@ -290,9 +316,9 @@ export default function CatalogoPage() {
                   setSearchResults([])
                   setSearchQuery('')
                 }}
-                className="text-xs text-muted hover:text-primary transition-colors"
+                className="flex-shrink-0 text-[11px] sm:text-xs text-muted hover:text-primary active:text-primary transition-colors px-2 py-1"
               >
-                ← Volver al catálogo
+                ← Volver
               </button>
             </div>
 

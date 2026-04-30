@@ -24,19 +24,19 @@ export default function ProductRow({
   }
 
   return (
-    <section className="mb-10 sm:mb-12">
-      <div className="flex items-end justify-between mb-3 sm:mb-4 px-1">
-        <div>
-          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white flex items-center gap-2">
-            {emoji && <span>{emoji}</span>}
-            {title}
+    <section className="mb-7 sm:mb-12">
+      <div className="flex items-end justify-between mb-2.5 sm:mb-4 px-0">
+        <div className="min-w-0 flex-1">
+          <h2 className="text-base sm:text-xl md:text-2xl font-bold text-white flex items-center gap-1.5 sm:gap-2 leading-tight">
+            {emoji && <span className="text-base sm:text-xl">{emoji}</span>}
+            <span className="truncate">{title}</span>
           </h2>
           {subtitle && (
-            <p className="text-xs sm:text-sm text-muted mt-0.5">{subtitle}</p>
+            <p className="text-[11px] sm:text-sm text-muted mt-0.5 line-clamp-1">{subtitle}</p>
           )}
         </div>
 
-        <div className="hidden sm:flex items-center gap-1.5">
+        <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
           <button
             onClick={() => scrollBy(-400)}
             className="p-1.5 rounded-full bg-surface border border-border hover:border-primary/40 hover:text-primary text-muted transition-all"

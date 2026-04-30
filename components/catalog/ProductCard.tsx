@@ -55,15 +55,15 @@ export default function ProductCard({
   }
 
   const sizeClasses = {
-    sm: 'min-w-[140px] sm:min-w-[160px]',
-    md: 'min-w-[170px] sm:min-w-[200px]',
+    sm: 'min-w-[130px] sm:min-w-[160px]',
+    md: 'min-w-[150px] sm:min-w-[200px]',
     lg: 'w-full',
   }
 
   return (
     <Link
       href={`/model/${model.id}`}
-      className={`group block ${sizeClasses[size]} bg-surface border border-border hover:border-primary/40 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-primary/5`}
+      className={`group block ${sizeClasses[size]} bg-surface border border-border hover:border-primary/40 active:border-primary/40 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-primary/5 touch-manipulation`}
     >
       {/* Image */}
       <div className="aspect-square relative bg-surface overflow-hidden">
@@ -106,8 +106,8 @@ export default function ProductCard({
       </div>
 
       {/* Content */}
-      <div className="p-2.5 sm:p-3 flex flex-col gap-2">
-        <h3 className="text-xs sm:text-sm font-medium text-white line-clamp-2 leading-tight min-h-[2.5em]">
+      <div className="p-2 sm:p-3 flex flex-col gap-1.5 sm:gap-2">
+        <h3 className="text-[12px] sm:text-sm font-medium text-white line-clamp-2 leading-snug min-h-[2.4em]">
           {model.title}
         </h3>
 
@@ -119,7 +119,7 @@ export default function ProductCard({
 
         <button
           onClick={handleAdd}
-          className={`w-full py-1.5 sm:py-2 text-[11px] sm:text-xs font-semibold rounded transition-colors flex items-center justify-center gap-1 ${
+          className={`w-full py-2 sm:py-2 text-[11px] sm:text-xs font-semibold rounded transition-colors flex items-center justify-center gap-1 active:scale-95 touch-manipulation ${
             justAdded
               ? 'bg-primary/80 text-black'
               : inCart
