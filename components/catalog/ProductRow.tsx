@@ -55,12 +55,21 @@ export default function ProductRow({
       </div>
 
       {loading ? (
-        <div className="flex gap-3 sm:gap-4 overflow-hidden">
+        <div className="flex gap-3 sm:gap-4 overflow-hidden -mx-4 px-4 sm:-mx-1 sm:px-1">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="min-w-[170px] sm:min-w-[200px] aspect-[3/4] bg-surface/50 rounded-lg animate-pulse"
-            />
+              className="min-w-[170px] sm:min-w-[200px] bg-surface border border-border rounded-lg overflow-hidden flex-shrink-0"
+            >
+              {/* Image shimmer */}
+              <div className="aspect-square bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%]" />
+              {/* Content shimmer */}
+              <div className="p-2.5 sm:p-3 space-y-2">
+                <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-full" />
+                <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-2/3" />
+                <div className="h-7 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded mt-3" />
+              </div>
+            </div>
           ))}
         </div>
       ) : (
@@ -69,9 +78,9 @@ export default function ProductRow({
           className="flex gap-3 sm:gap-4 overflow-x-auto pb-2 -mx-4 px-4 sm:-mx-1 sm:px-1 snap-x snap-mandatory scrollbar-hide"
           style={{ scrollbarWidth: 'none' }}
         >
-          {models.map((model) => (
+          {models.map((model, idx) => (
             <div key={model.id} className="snap-start">
-              <ProductCard model={model} />
+              <ProductCard model={model} priority={idx < 4} />
             </div>
           ))}
         </div>

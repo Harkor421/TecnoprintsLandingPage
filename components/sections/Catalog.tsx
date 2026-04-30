@@ -3,12 +3,11 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import Card from '@/components/ui/Card'
 import {
-  Search, Loader2, Upload, Check, ShoppingCart,
+  Search, Loader2, Upload, ArrowRight,
 } from 'lucide-react'
 import { useCart } from '@/lib/cart'
+import ProductCard from '@/components/catalog/ProductCard'
 
 // ─── Constants ───────────────────────────────────────────────
 
@@ -36,7 +35,7 @@ interface BrowseModel {
 
 export default function Catalog() {
   const router = useRouter()
-  const { addItem, items: cartItems } = useCart()
+  useCart() // ensure CartProvider is mounted
   const [searchQuery, setSearchQuery] = useState('')
   const [models, setModels] = useState<BrowseModel[]>([])
   const [browseTotal, setBrowseTotal] = useState(0)
@@ -44,28 +43,18 @@ export default function Catalog() {
   const [loadingMore, setLoadingMore] = useState(false)
   const [browsePage, setBrowsePage] = useState(1)
   const [searched, setSearched] = useState(false)
-  const [recentlyAdded, setRecentlyAdded] = useState<number | null>(null)
 
-  const handleAddToCart = useCallback((model: BrowseModel) => {
-    addItem({
-      id: model.id,
-      title: model.title,
-      cover: model.cover,
-      url: model.url,
-    })
-    setRecentlyAdded(model.id)
-    // Navigate to full catalog after a brief feedback flash so users land in the retail experience
-    setTimeout(() => router.push('/catalogo'), 600)
-  }, [addItem, router])
+  const handleNavigateToCatalog = useCallback(() => {
+    router.push('/catalogo')
+  }, [router])
 
-  // Preload trending models from random page
+  // Preload trending models from popular sort
   useEffect(() => {
     let cancelled = false
     async function loadTrending() {
       setBrowseLoading(true)
       try {
-        const randomPage = Math.floor(Math.random() * 50) + 1
-        const res = await fetch(`${API_BASE}/api/models?page=${randomPage}`)
+        const res = await fetch(`${API_BASE}/api/models?sort=mostDownloaded&period=thisMonth&limit=8`)
         const data = await res.json()
         if (!cancelled) {
           setModels(data.models || [])
@@ -195,11 +184,19 @@ export default function Catalog() {
           </p>
         </div>
 
-        {/* Loading (only on initial load) */}
+        {/* Skeleton loading */}
         {browseLoading && models.length === 0 && (
-          <div className="flex items-center justify-center py-16">
-            <Loader2 size={24} className="animate-spin text-primary mr-2" />
-            <span className="text-muted text-sm">Cargando modelos...</span>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="bg-surface border border-border rounded-lg overflow-hidden">
+                <div className="aspect-square bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%]" />
+                <div className="p-2.5 sm:p-3 space-y-2">
+                  <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-full" />
+                  <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-2/3" />
+                  <div className="h-7 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded mt-3" />
+                </div>
+              </div>
+            ))}
           </div>
         )}
 
@@ -215,75 +212,36 @@ export default function Catalog() {
           <>
             <p className="text-xs text-muted mb-4 text-center">
               {searched
-                ? `${browseTotal.toLocaleString()} modelos encontrados — ordenados por más descargados`
+                ? `${browseTotal.toLocaleString()} modelos encontrados`
                 : 'Modelos populares — busca algo específico o explora lo más descargado'}
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-              {models.map((model) => {
-                const inCart = cartItems.some((i) => i.id === model.id)
-                const justAdded = recentlyAdded === model.id
-                return (
-                  <div key={model.id} className="group">
-                    <Card className="p-0 overflow-hidden h-full flex flex-col">
-                      <Link
-                        href={`/model/${model.id}`}
-                        className="aspect-square relative bg-background overflow-hidden block"
-                      >
-                        <Image
-                          src={model.cover}
-                          alt={model.title}
-                          fill
-                          unoptimized
-                          className="object-cover group-hover:scale-105 transition-transform"
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                        />
-                      </Link>
-                      <div className="p-3 flex flex-col flex-1">
-                        <h3 className="text-sm font-medium line-clamp-2 leading-tight mb-3 flex-1">
-                          {model.title}
-                        </h3>
-                        <button
-                          onClick={() => handleAddToCart(model)}
-                          className={`w-full py-2 text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 ${
-                            justAdded
-                              ? 'bg-primary/80 text-black'
-                              : inCart
-                                ? 'bg-surface border border-primary text-primary hover:bg-primary/10'
-                                : 'bg-primary text-black hover:bg-primary-dark'
-                          }`}
-                        >
-                          {justAdded ? (
-                            <>
-                              <Check size={14} />
-                              Agregado
-                            </>
-                          ) : inCart ? (
-                            <>
-                              <ShoppingCart size={14} />
-                              En el carrito
-                            </>
-                          ) : (
-                            <>
-                              <ShoppingCart size={14} />
-                              Agregar al carrito
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    </Card>
-                  </div>
-                )
-              })}
+              {models.map((model, idx) => (
+                <ProductCard
+                  key={model.id}
+                  model={model}
+                  priority={idx < 4}
+                  size="lg"
+                  onAfterAdd={handleNavigateToCatalog}
+                />
+              ))}
             </div>
 
-            {/* Load more */}
-            {models.length < browseTotal && (
-              <div className="flex justify-center mt-6">
+            {/* CTA to full catalog */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8">
+              <Link
+                href="/catalogo"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black font-semibold text-sm rounded-lg hover:bg-primary-dark transition-colors"
+              >
+                Ver catálogo completo
+                <ArrowRight size={16} />
+              </Link>
+              {models.length < browseTotal && (
                 <button
                   onClick={handleLoadMore}
                   disabled={loadingMore}
-                  className="px-6 py-3 border border-border text-sm font-medium hover:border-primary/50 hover:text-primary transition-colors disabled:opacity-50"
+                  className="px-6 py-3 border border-border text-sm font-medium rounded-lg hover:border-primary/50 hover:text-primary transition-colors disabled:opacity-50"
                 >
                   {loadingMore ? (
                     <span className="flex items-center gap-2">
@@ -291,11 +249,11 @@ export default function Catalog() {
                       Cargando...
                     </span>
                   ) : (
-                    `Cargar más modelos (${models.length} de ${browseTotal.toLocaleString()})`
+                    'Cargar más aquí'
                   )}
                 </button>
-              </div>
-            )}
+              )}
+            </div>
 
           </>
         )}

@@ -26,9 +26,19 @@ interface ApiModel {
   creator: string
 }
 
-async function fetchModelsPage(page: number, keyword?: string): Promise<ApiModel[]> {
-  const params = new URLSearchParams({ page: String(page) })
-  if (keyword) params.set('keyword', keyword)
+async function fetchModels(opts: {
+  page?: number
+  keyword?: string
+  sort?: 'recommend' | 'newest' | 'mostLiked' | 'mostDownloaded' | 'mostBoosted' | 'mostCollected'
+  period?: 'today' | 'thisWeek' | 'thisMonth' | 'all'
+  limit?: number
+} = {}): Promise<ApiModel[]> {
+  const params = new URLSearchParams()
+  params.set('page', String(opts.page ?? 1))
+  if (opts.keyword) params.set('keyword', opts.keyword)
+  if (opts.sort) params.set('sort', opts.sort)
+  if (opts.period) params.set('period', opts.period)
+  if (opts.limit) params.set('limit', String(opts.limit))
   try {
     const res = await fetch(`${API_BASE}/api/models?${params}`)
     const data = await res.json()
@@ -58,28 +68,24 @@ export default function CatalogoPage() {
   const [searched, setSearched] = useState(false)
   const searchRef = useRef<HTMLDivElement>(null)
 
-  // Load recommendation sections
+  // Load recommendation sections — each section uses a real MakerWorld sort
   useEffect(() => {
     let cancelled = false
     async function loadSections() {
-      const randomA = Math.floor(Math.random() * 30) + 1
-      const randomB = Math.floor(Math.random() * 30) + 1
-      const randomC = Math.floor(Math.random() * 30) + 1
-
-      const [pageA, pageB, pageC, pageD] = await Promise.all([
-        fetchModelsPage(randomA),
-        fetchModelsPage(randomB),
-        fetchModelsPage(randomC),
-        fetchModelsPage(1),
+      // Fire each section in parallel with its own sort
+      const [recommendData, downloadedData, likedData, trendingData] = await Promise.all([
+        fetchModels({ sort: 'recommend', limit: 12 }),
+        fetchModels({ sort: 'mostDownloaded', period: 'thisMonth', limit: 12 }),
+        fetchModels({ sort: 'mostLiked', period: 'thisMonth', limit: 12 }),
+        fetchModels({ sort: 'mostBoosted', period: 'thisWeek', limit: 12 }),
       ])
 
       if (cancelled) return
 
-      // Sort each page by different criteria
-      setRecommended(pageA.slice(0, 10))
-      setTopDownloaded([...pageB].sort((a, b) => b.downloadCount - a.downloadCount).slice(0, 10))
-      setMostLiked([...pageC].sort((a, b) => b.likeCount - a.likeCount).slice(0, 10))
-      setTrending([...pageD].sort((a, b) => b.printCount - a.printCount).slice(0, 10))
+      setRecommended(recommendData)
+      setTopDownloaded(downloadedData)
+      setMostLiked(likedData)
+      setTrending(trendingData)
       setLoadingSections(false)
     }
     loadSections()
@@ -204,15 +210,15 @@ export default function CatalogoPage() {
           <>
             <ProductRow
               title="Recomendados para ti"
-              subtitle="Modelos seleccionados que podrían gustarte"
+              subtitle="Selección curada de MakerWorld"
               models={recommended}
               loading={loadingSections}
               emoji="✨"
             />
 
             <ProductRow
-              title="Más Descargados"
-              subtitle="Los favoritos de la comunidad maker"
+              title="Más Descargados del Mes"
+              subtitle="Los modelos más descargados en los últimos 30 días"
               models={topDownloaded}
               loading={loadingSections}
               emoji="🔥"
@@ -220,7 +226,7 @@ export default function CatalogoPage() {
 
             <ProductRow
               title="Más Populares"
-              subtitle="Modelos con más likes"
+              subtitle="Los modelos con más likes este mes"
               models={mostLiked}
               loading={loadingSections}
               emoji="❤️"
@@ -228,7 +234,7 @@ export default function CatalogoPage() {
 
             <ProductRow
               title="En Tendencia"
-              subtitle="Lo que más se está imprimiendo ahora"
+              subtitle="Lo más destacado de esta semana"
               models={trending}
               loading={loadingSections}
               emoji="📈"

@@ -3,18 +3,23 @@
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
-import { MessageCircle, Upload, Printer, Truck, ArrowRight } from 'lucide-react'
+import { MessageCircle, Upload, Library, Printer, Truck, ArrowRight } from 'lucide-react'
 
 const steps = [
   {
-    icon: MessageCircle,
-    title: 'Contáctanos por WhatsApp',
-    description: 'Escríbenos por WhatsApp con tu idea o archivo 3D. Te cotizamos de forma rápida y personalizada.',
+    icon: Library,
+    title: 'Explora nuestro catálogo',
+    description: '¿No tienes archivo? Tenemos un catálogo con miles de modelos listos para imprimir. Agrega lo que te guste al carrito.',
   },
   {
     icon: Upload,
-    title: 'O usa nuestra web',
-    description: 'Si no estamos disponibles, sube tu archivo (STL, OBJ, STEP) a nuestro sistema en línea y obtén un estimado al instante.',
+    title: 'O sube tu propio archivo',
+    description: '¿Ya tienes tu diseño? Sube tu archivo (STL, OBJ, STEP) y obtén un estimado al instante o cotízalo con nosotros.',
+  },
+  {
+    icon: MessageCircle,
+    title: 'Confirmamos por WhatsApp',
+    description: 'Te confirmamos dimensiones, materiales, color y precio final por WhatsApp. Sin compromiso, sin sorpresas.',
   },
   {
     icon: Printer,
@@ -24,7 +29,7 @@ const steps = [
   {
     icon: Truck,
     title: 'Recibe tus Piezas',
-    description: 'Tus piezas son inspeccionadas, empacadas con cuidado y enviadas directamente a tu puerta.',
+    description: 'Tus piezas son inspeccionadas, empacadas con cuidado y enviadas a tu puerta en 1 a 3 días hábiles.',
   },
 ]
 
@@ -41,13 +46,13 @@ export default function Process() {
               </span>
             </h2>
             <p className="text-muted max-w-2xl mx-auto">
-              Obtener tus piezas es muy fácil. Contáctanos directo por WhatsApp
-              o usa nuestro cotizador en línea si no estamos disponibles.
+              Tienes dos formas de empezar: explorar nuestro catálogo de miles de modelos
+              o subir tu propio archivo 3D. Tú eliges.
             </p>
           </div>
         </ScrollFadeIn>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
           {steps.map((step, index) => (
             <ScrollFadeIn key={step.title} direction="up" delay={index * 0.1}>
               <div className="relative">
@@ -76,14 +81,19 @@ export default function Process() {
         </div>
 
         <ScrollFadeIn direction="up" delay={0.4}>
-          <div className="text-center mt-12">
-            <Link href="https://wa.me/573239267656" target="_blank" rel="noopener noreferrer">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-12">
+            <Link href="/catalogo">
               <Button size="lg" className="group">
-                Iniciar Proyecto
+                Explorar Catálogo
                 <ArrowRight
                   size={18}
                   className="ml-2 group-hover:translate-x-1 transition-transform"
                 />
+              </Button>
+            </Link>
+            <Link href="https://wa.me/573239267656" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" className="group">
+                Cotizar por WhatsApp
               </Button>
             </Link>
           </div>

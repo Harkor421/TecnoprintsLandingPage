@@ -20,12 +20,17 @@ export interface ProductCardModel {
 export default function ProductCard({
   model,
   size = 'md',
+  priority = false,
+  onAfterAdd,
 }: {
   model: ProductCardModel
   size?: 'sm' | 'md' | 'lg'
+  priority?: boolean
+  onAfterAdd?: () => void
 }) {
   const { addItem, items } = useCart()
   const [justAdded, setJustAdded] = useState(false)
+  const [imgLoaded, setImgLoaded] = useState(false)
   const inCart = items.some((i) => i.id === model.id)
 
   const handleAdd = (e: React.MouseEvent) => {
@@ -38,7 +43,10 @@ export default function ProductCard({
       url: model.url,
     })
     setJustAdded(true)
-    setTimeout(() => setJustAdded(false), 1500)
+    setTimeout(() => {
+      setJustAdded(false)
+      onAfterAdd?.()
+    }, 700)
   }
 
   const formatNum = (n: number) => {
@@ -58,13 +66,23 @@ export default function ProductCard({
       className={`group block ${sizeClasses[size]} bg-surface border border-border hover:border-primary/40 rounded-lg overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-primary/5`}
     >
       {/* Image */}
-      <div className="aspect-square relative bg-background overflow-hidden">
+      <div className="aspect-square relative bg-surface overflow-hidden">
+        {/* Skeleton shimmer */}
+        {!imgLoaded && (
+          <div className="absolute inset-0 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%]" />
+        )}
         <Image
           src={model.cover}
           alt={model.title}
           fill
           unoptimized
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : 'auto'}
+          onLoad={() => setImgLoaded(true)}
+          onError={() => setImgLoaded(true)}
+          className={`object-cover group-hover:scale-105 transition-all duration-300 ${
+            imgLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 200px"
         />
 

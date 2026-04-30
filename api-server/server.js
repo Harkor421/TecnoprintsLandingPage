@@ -99,20 +99,51 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
+// In-memory cache to avoid hammering MakerWorld
+const modelsCache = new Map() // cacheKey → { data, expiresAt }
+const CACHE_TTL_MS = 5 * 60 * 1000 // 5 minutes
+
+// Valid sort values for MakerWorld API
+// recommend (default), newest, mostFavorited, mostLiked, mostDownloaded,
+// mostBookmarked, mostBoosted, mostPicked, mostCollected, mostRecent
+const VALID_SORTS = new Set([
+  'recommend', 'newest', 'mostFavorited', 'mostLiked',
+  'mostDownloaded', 'mostBookmarked', 'mostBoosted',
+  'mostPicked', 'mostCollected', 'mostRecent',
+])
+
+// Valid period values
+const VALID_PERIODS = new Set(['today', 'thisWeek', 'thisMonth', 'all'])
+
 app.get('/api/models', async (req, res) => {
-  const keyword = req.query.keyword || ''
+  const keyword = (req.query.keyword || '').toString().trim()
   const page = parseInt(req.query.page || '1', 10)
-  const limit = 12
+  const limit = parseInt(req.query.limit || '12', 10)
+  const sort = req.query.sort && VALID_SORTS.has(req.query.sort) ? req.query.sort : ''
+  const period = req.query.period && VALID_PERIODS.has(req.query.period) ? req.query.period : ''
+  const category = req.query.category ? String(req.query.category) : ''
+
+  // Cache by query signature
+  const cacheKey = `${keyword}::${page}::${limit}::${sort}::${period}::${category}`
+  const cached = modelsCache.get(cacheKey)
+  if (cached && cached.expiresAt > Date.now()) {
+    res.set('X-Cache', 'HIT')
+    return res.json(cached.data)
+  }
 
   try {
     const offset = (page - 1) * limit
     const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
-    if (keyword.trim()) params.set('keyword', keyword.trim())
+    if (keyword) params.set('keyword', keyword)
+    if (sort) params.set('sort', sort)
+    if (period) params.set('period', period)
+    if (category) params.set('category', category)
+
     const url = `https://api.bambulab.com/v1/search-service/select/design2?${params}`
 
     const resp = await fetch(url)
     if (!resp.ok) {
-      console.error(`[MakerWorld] API returned ${resp.status}`)
+      console.error(`[MakerWorld] API returned ${resp.status} for ${url}`)
       return res.status(502).json({ error: 'API unavailable', models: [], total: 0 })
     }
 
@@ -120,11 +151,20 @@ app.get('/api/models', async (req, res) => {
     const hits = data?.hits || []
     const total = data?.total || 0
 
+    // Add image transform for smaller thumbnails (BBL OSS supports resize)
+    const thumbnailUrl = (url) => {
+      if (!url) return url
+      // Append OSS image processing for ~400px thumbnails (still high quality, ~10x smaller)
+      const sep = url.includes('?') ? '&' : '?'
+      return `${url}${sep}x-oss-process=image/resize,w_400/format,webp/quality,Q_80`
+    }
+
     const models = hits.map((d) => ({
       id: d.id,
       title: d.title,
       slug: d.slug,
-      cover: d.cover,
+      cover: thumbnailUrl(d.cover),
+      coverFull: d.cover,
       likeCount: d.likeCount,
       downloadCount: d.downloadCount,
       printCount: d.printCount,
@@ -133,7 +173,19 @@ app.get('/api/models', async (req, res) => {
       url: `https://makerworld.com/en/models/${d.id}`,
     }))
 
-    res.json({ models, total })
+    const responseData = { models, total }
+    modelsCache.set(cacheKey, { data: responseData, expiresAt: Date.now() + CACHE_TTL_MS })
+
+    // Cleanup old cache entries occasionally
+    if (modelsCache.size > 200) {
+      const now = Date.now()
+      for (const [key, val] of modelsCache.entries()) {
+        if (val.expiresAt < now) modelsCache.delete(key)
+      }
+    }
+
+    res.set('X-Cache', 'MISS')
+    res.json(responseData)
   } catch (err) {
     console.error('[MakerWorld] Search error:', err.message)
     res.status(500).json({ error: 'Failed to fetch models', models: [], total: 0 })
