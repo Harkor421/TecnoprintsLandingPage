@@ -2,11 +2,30 @@
 
 import { useState, memo } from 'react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ShoppingCart } from 'lucide-react'
 import Logo from '@/components/ui/Logo'
 import Button from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import { NAVIGATION } from '@/lib/constants'
+import { useCart } from '@/lib/cart'
+
+function CartIcon() {
+  const { totalItems } = useCart()
+  return (
+    <Link
+      href="/carrito"
+      className="relative p-2 text-muted hover:text-white transition-colors touch-manipulation"
+      aria-label={`Carrito (${totalItems} items)`}
+    >
+      <ShoppingCart size={22} />
+      {totalItems > 0 && (
+        <span className="absolute -top-0.5 -right-0.5 bg-primary text-black text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+          {totalItems > 99 ? '99+' : totalItems}
+        </span>
+      )}
+    </Link>
+  )
+}
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -35,8 +54,9 @@ function Header() {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* CTA Button + Cart */}
+          <div className="hidden md:flex items-center gap-3">
+            <CartIcon />
             <Link href="https://wa.me/573239267656" target="_blank" rel="noopener noreferrer">
               <Button variant="primary" size="sm">
                 Cotizar Ahora
@@ -44,15 +64,18 @@ function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 -mr-2 text-muted hover:text-white transition-colors touch-manipulation"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            aria-expanded={isMobileMenuOpen}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile right side: cart + menu button */}
+          <div className="md:hidden flex items-center gap-1 -mr-2">
+            <CartIcon />
+            <button
+              className="p-2 text-muted hover:text-white transition-colors touch-manipulation"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={isMobileMenuOpen}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 

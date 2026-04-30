@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import Card from '@/components/ui/Card'
 import {
-  Search, Loader2, Upload,
+  Search, Loader2, Upload, Check, ShoppingCart,
 } from 'lucide-react'
+import { useCart } from '@/lib/cart'
 
 // ─── Constants ───────────────────────────────────────────────
 
@@ -33,6 +35,8 @@ interface BrowseModel {
 // ─── Main Component ──────────────────────────────────────────
 
 export default function Catalog() {
+  const router = useRouter()
+  const { addItem, items: cartItems } = useCart()
   const [searchQuery, setSearchQuery] = useState('')
   const [models, setModels] = useState<BrowseModel[]>([])
   const [browseTotal, setBrowseTotal] = useState(0)
@@ -40,6 +44,18 @@ export default function Catalog() {
   const [loadingMore, setLoadingMore] = useState(false)
   const [browsePage, setBrowsePage] = useState(1)
   const [searched, setSearched] = useState(false)
+  const [recentlyAdded, setRecentlyAdded] = useState<number | null>(null)
+
+  const handleAddToCart = useCallback((model: BrowseModel) => {
+    addItem({
+      id: model.id,
+      title: model.title,
+      cover: model.cover,
+      url: model.url,
+    })
+    setRecentlyAdded(model.id)
+    setTimeout(() => setRecentlyAdded((current) => current === model.id ? null : current), 1500)
+  }, [addItem])
 
   // Preload trending models from random page
   useEffect(() => {
@@ -203,40 +219,61 @@ export default function Catalog() {
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-              {models.map((model) => (
-                <div key={model.id} className="group">
-                  <Card className="p-0 overflow-hidden h-full flex flex-col">
-                    <Link
-                      href={`/model/${model.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="aspect-square relative bg-background overflow-hidden block"
-                    >
-                      <Image
-                        src={model.cover}
-                        alt={model.title}
-                        fill
-                        unoptimized
-                        className="object-cover group-hover:scale-105 transition-transform"
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                      />
-                    </Link>
-                    <div className="p-3 flex flex-col flex-1">
-                      <h3 className="text-sm font-medium line-clamp-2 leading-tight mb-3 flex-1">
-                        {model.title}
-                      </h3>
+              {models.map((model) => {
+                const inCart = cartItems.some((i) => i.id === model.id)
+                const justAdded = recentlyAdded === model.id
+                return (
+                  <div key={model.id} className="group">
+                    <Card className="p-0 overflow-hidden h-full flex flex-col">
                       <Link
                         href={`/model/${model.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full py-2 bg-primary text-black text-xs font-semibold hover:bg-primary-dark transition-colors text-center block"
+                        className="aspect-square relative bg-background overflow-hidden block"
                       >
-                        Cotizar Ahora
+                        <Image
+                          src={model.cover}
+                          alt={model.title}
+                          fill
+                          unoptimized
+                          className="object-cover group-hover:scale-105 transition-transform"
+                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        />
                       </Link>
-                    </div>
-                  </Card>
-                </div>
-              ))}
+                      <div className="p-3 flex flex-col flex-1">
+                        <h3 className="text-sm font-medium line-clamp-2 leading-tight mb-3 flex-1">
+                          {model.title}
+                        </h3>
+                        <button
+                          onClick={() => handleAddToCart(model)}
+                          className={`w-full py-2 text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 ${
+                            justAdded
+                              ? 'bg-primary/80 text-black'
+                              : inCart
+                                ? 'bg-surface border border-primary text-primary hover:bg-primary/10'
+                                : 'bg-primary text-black hover:bg-primary-dark'
+                          }`}
+                        >
+                          {justAdded ? (
+                            <>
+                              <Check size={14} />
+                              Agregado
+                            </>
+                          ) : inCart ? (
+                            <>
+                              <ShoppingCart size={14} />
+                              En el carrito
+                            </>
+                          ) : (
+                            <>
+                              <ShoppingCart size={14} />
+                              Agregar al carrito
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </Card>
+                  </div>
+                )
+              })}
             </div>
 
             {/* Load more */}

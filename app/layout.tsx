@@ -5,6 +5,7 @@ import { defaultMetadata, viewport as seoViewport, generateLocalBusinessSchema }
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import WhatsAppFloat from '@/components/ui/WhatsAppFloat'
+import { CartProvider } from '@/lib/cart'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,10 +28,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} bg-background text-white antialiased`}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <CartProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </CartProvider>
       </body>
     </html>
   )

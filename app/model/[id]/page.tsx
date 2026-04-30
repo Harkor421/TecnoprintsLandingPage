@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight, Heart, Download, Printer, Loader2 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Heart, Download, Printer, Loader2, ShoppingCart, Check, Ruler } from 'lucide-react'
+import { useCart } from '@/lib/cart'
 
 const API_BASE = 'https://tecnoprints-api-production.up.railway.app'
 
@@ -38,9 +39,11 @@ const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
 )
 
 export default function ModelPage({ params }: { params: { id: string } }) {
+  const { addItem, items: cartItems } = useCart()
   const [model, setModel] = useState<ModelDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [imageIndex, setImageIndex] = useState(0)
+  const [justAdded, setJustAdded] = useState(false)
   const thumbnailsRef = useRef<HTMLDivElement>(null)
 
   // Cost parameters
@@ -93,7 +96,7 @@ export default function ModelPage({ params }: { params: { id: string } }) {
   const electricityCost = model.printTimeMinutes * 4 // 4 COP per minute
   const totalCost = materialCost + electricityCost
   const profitAmount = totalCost * (profitMargin / 100)
-  const finalPrice = Math.max(totalCost + profitAmount, 12500)
+  const finalPrice = Math.max(totalCost + profitAmount, 15000)
 
   // Format print time
   const hours = Math.floor(model.printTimeMinutes / 60)
@@ -103,6 +106,22 @@ export default function ModelPage({ params }: { params: { id: string } }) {
     : `${minutes}m`
 
   const isHighPrice = finalPrice > 100000
+
+  const inCart = cartItems.some((i) => i.id === model.id)
+
+  const handleAddToCart = () => {
+    addItem({
+      id: model.id,
+      title: model.title,
+      cover: model.images?.[0] || '',
+      url: model.url,
+      weight: model.weight,
+      printTimeMinutes: model.printTimeMinutes,
+      estimatedPrice: isHighPrice ? undefined : finalPrice,
+    })
+    setJustAdded(true)
+    setTimeout(() => setJustAdded(false), 1500)
+  }
 
   const whatsappMessage = isHighPrice
     ? `Hola! Me gustaría cotizar este modelo 3D:\n\n${model.title}\n${model.url}\n\nPeso estimado: ${model.weight}g\nTiempo estimado: ${printTimeStr}\n\n¿Me pueden dar el precio, tiempo de entrega y opciones de color?`
@@ -237,21 +256,47 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                 )}
               </div>
 
+              <button
+                onClick={handleAddToCart}
+                className={`w-full flex items-center justify-center gap-2 py-3 font-semibold text-sm sm:text-base rounded-lg transition-colors mb-3 active:scale-95 ${
+                  justAdded
+                    ? 'bg-primary/80 text-black'
+                    : inCart
+                      ? 'bg-surface border border-primary text-primary hover:bg-primary/10'
+                      : 'bg-primary text-black hover:bg-primary-dark'
+                }`}
+              >
+                {justAdded ? (
+                  <><Check size={18} /> Agregado al carrito</>
+                ) : inCart ? (
+                  <><ShoppingCart size={18} /> Ya está en el carrito</>
+                ) : (
+                  <><ShoppingCart size={18} /> Agregar al carrito</>
+                )}
+              </button>
+
               <a
                 href={`https://wa.me/573239267656?text=${encodeURIComponent(whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 sm:py-3 bg-primary text-black font-semibold text-sm sm:text-base rounded-lg hover:bg-primary-dark transition-colors mb-3 active:scale-95"
+                className="w-full flex items-center justify-center gap-2 py-2.5 border border-border bg-surface text-white text-xs sm:text-sm rounded-lg hover:border-primary/50 hover:text-primary transition-colors mb-3 active:scale-95"
               >
-                <WhatsAppIcon size={18} />
-                Cotizar por WhatsApp
+                <WhatsAppIcon size={16} />
+                Cotizar solo este por WhatsApp
               </a>
+
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 mb-3 flex items-start gap-2">
+                <Ruler size={14} className="text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-[11px] text-muted leading-relaxed">
+                  Las dimensiones dependen del diseño. Confirmamos las medidas exactas por WhatsApp.
+                </p>
+              </div>
 
               <a
                 href={model.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center py-2.5 sm:py-2 border border-border text-xs sm:text-sm text-white rounded-lg hover:border-primary/50 hover:text-primary transition-colors active:scale-95"
+                className="w-full flex items-center justify-center py-2 text-xs text-muted hover:text-primary transition-colors"
               >
                 Ver en MakerWorld
               </a>
@@ -317,21 +362,47 @@ export default function ModelPage({ params }: { params: { id: string } }) {
                 )}
               </div>
 
+              <button
+                onClick={handleAddToCart}
+                className={`w-full flex items-center justify-center gap-2 py-3 font-semibold text-sm sm:text-base rounded-lg transition-colors mb-3 active:scale-95 ${
+                  justAdded
+                    ? 'bg-primary/80 text-black'
+                    : inCart
+                      ? 'bg-surface border border-primary text-primary hover:bg-primary/10'
+                      : 'bg-primary text-black hover:bg-primary-dark'
+                }`}
+              >
+                {justAdded ? (
+                  <><Check size={18} /> Agregado al carrito</>
+                ) : inCart ? (
+                  <><ShoppingCart size={18} /> Ya está en el carrito</>
+                ) : (
+                  <><ShoppingCart size={18} /> Agregar al carrito</>
+                )}
+              </button>
+
               <a
                 href={`https://wa.me/573239267656?text=${encodeURIComponent(whatsappMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3 sm:py-3 bg-primary text-black font-semibold text-sm sm:text-base rounded-lg hover:bg-primary-dark transition-colors mb-3 active:scale-95"
+                className="w-full flex items-center justify-center gap-2 py-2.5 border border-border bg-surface text-white text-xs sm:text-sm rounded-lg hover:border-primary/50 hover:text-primary transition-colors mb-3 active:scale-95"
               >
-                <WhatsAppIcon size={18} />
-                Cotizar por WhatsApp
+                <WhatsAppIcon size={16} />
+                Cotizar solo este por WhatsApp
               </a>
+
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 mb-3 flex items-start gap-2">
+                <Ruler size={14} className="text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-[11px] text-muted leading-relaxed">
+                  Las dimensiones dependen del diseño. Confirmamos las medidas exactas por WhatsApp.
+                </p>
+              </div>
 
               <a
                 href={model.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center py-2.5 sm:py-2 border border-border text-xs sm:text-sm text-white rounded-lg hover:border-primary/50 hover:text-primary transition-colors active:scale-95"
+                className="w-full flex items-center justify-center py-2 text-xs text-muted hover:text-primary transition-colors"
               >
                 Ver en MakerWorld
               </a>

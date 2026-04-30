@@ -44,11 +44,12 @@ function parseBinaryFrame(data: ArrayBuffer): { printerId: string; jpeg: Blob } 
 
 function LivePrinters() {
   const [printers, setPrinters] = useState<string[]>([])
-  const [bridgeOnline, setBridgeOnline] = useState(false)
   const [selectedPrinter, setSelectedPrinter] = useState<string | null>(null)
   const [frameUrls, setFrameUrls] = useState<Record<string, string>>({})
   const frameUrlsRef = useRef<Record<string, string>>({})
   const blobUrlsToRevoke = useRef<string[]>([])
+  // Track which printers have received at least one frame (more accurate than bridge status)
+  const [activePrinters, setActivePrinters] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     let active = true
@@ -88,6 +89,14 @@ function LivePrinters() {
 
             frameUrlsRef.current = { ...frameUrlsRef.current, [frame.printerId]: newUrl }
             setFrameUrls(frameUrlsRef.current)
+
+            // Track this printer as active (has received at least one frame)
+            setActivePrinters(prev => {
+              if (prev.has(frame.printerId)) return prev
+              const next = new Set(prev)
+              next.add(frame.printerId)
+              return next
+            })
             return
           }
 
@@ -96,8 +105,11 @@ function LivePrinters() {
             const msg = JSON.parse(event.data)
             if (msg.type === 'ready') {
               const known = (msg.printers || []).filter((id: string) => id in PRINTER_NAMES)
-              setPrinters(known)
-              setBridgeOnline(known.length > 0)
+              setPrinters(prev => {
+                // Merge server-reported printers with any we already have frames for
+                const merged = new Set([...prev, ...known])
+                return Array.from(merged)
+              })
             }
           } catch {
             // ignore
@@ -139,8 +151,10 @@ function LivePrinters() {
           const data = await res.json()
           if (active) {
             const known = (data.printers || []).filter((id: string) => id in PRINTER_NAMES)
-            setPrinters(known)
-            setBridgeOnline(data.bridgeOnline || false)
+            setPrinters(prev => {
+              const merged = new Set([...prev, ...known])
+              return Array.from(merged)
+            })
           }
         } catch {
           // ignore
@@ -194,7 +208,10 @@ function LivePrinters() {
     }
   }, [selectedPrinter])
 
-  if (!bridgeOnline || printers.length === 0) return null
+  // Show section if we have any printers with frames OR server reported available cameras.
+  // Don't hide everything just because one camera dropped — show what we have.
+  const visiblePrinters = printers.length > 0 ? printers : Array.from(activePrinters)
+  if (visiblePrinters.length === 0) return null
 
   return (
     <>
@@ -214,7 +231,7 @@ function LivePrinters() {
                 <span className="text-primary">Trabajando Ahora</span>
               </h2>
               <p className="text-sm sm:text-base text-muted max-w-xl mx-auto">
-                {printers.length} impresoras produciendo piezas en este momento para nuestros clientes.
+                {visiblePrinters.length} impresoras produciendo piezas en este momento para nuestros clientes.
               </p>
             </div>
           </ScrollFadeIn>
@@ -222,7 +239,7 @@ function LivePrinters() {
           {/* 2 cols mobile, 3 cols desktop — clean 2×3 / 3×2 grid */}
           <ScrollFadeIn direction="up" delay={0.1}>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
-              {printers.map((printerId, i) => (
+              {visiblePrinters.map((printerId, i) => (
                 <CameraCard
                   key={printerId}
                   printerId={printerId}
@@ -254,15 +271,15 @@ function LivePrinters() {
           frameSrc={frameUrls[selectedPrinter]}
           onClose={() => setSelectedPrinter(null)}
           onPrev={() => {
-            const idx = printers.indexOf(selectedPrinter)
-            setSelectedPrinter(printers[(idx - 1 + printers.length) % printers.length])
+            const idx = visiblePrinters.indexOf(selectedPrinter)
+            setSelectedPrinter(visiblePrinters[(idx - 1 + visiblePrinters.length) % visiblePrinters.length])
           }}
           onNext={() => {
-            const idx = printers.indexOf(selectedPrinter)
-            setSelectedPrinter(printers[(idx + 1) % printers.length])
+            const idx = visiblePrinters.indexOf(selectedPrinter)
+            setSelectedPrinter(visiblePrinters[(idx + 1) % visiblePrinters.length])
           }}
-          current={printers.indexOf(selectedPrinter) + 1}
-          total={printers.length}
+          current={visiblePrinters.indexOf(selectedPrinter) + 1}
+          total={visiblePrinters.length}
         />
       )}
     </>
