@@ -92,6 +92,8 @@ export default function CatalogoPage() {
     return () => { cancelled = true }
   }, [])
 
+  const SEARCH_PAGE_SIZE = 36
+
   const handleSearch = useCallback(async (overrideQuery?: string) => {
     const q = (overrideQuery || searchQuery).trim()
     if (!q) return
@@ -101,12 +103,15 @@ export default function CatalogoPage() {
     setSearchPage(1)
 
     try {
-      const params = new URLSearchParams({ page: '1', keyword: q })
+      const params = new URLSearchParams({
+        page: '1',
+        keyword: q,
+        limit: String(SEARCH_PAGE_SIZE),
+      })
       const res = await fetch(`${API_BASE}/api/models?${params}`)
       const data = await res.json()
       setSearchResults(data.models || [])
       setSearchTotal(data.total || 0)
-      // Smooth scroll to results
       setTimeout(() => {
         searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }, 100)
@@ -119,17 +124,42 @@ export default function CatalogoPage() {
   }, [searchQuery])
 
   const handleLoadMore = useCallback(async () => {
+    if (loadingMore) return
     const next = searchPage + 1
     setLoadingMore(true)
     try {
-      const params = new URLSearchParams({ page: String(next), keyword: searchQuery.trim() })
+      const params = new URLSearchParams({
+        page: String(next),
+        keyword: searchQuery.trim(),
+        limit: String(SEARCH_PAGE_SIZE),
+      })
       const res = await fetch(`${API_BASE}/api/models?${params}`)
       const data = await res.json()
       setSearchResults((prev) => [...prev, ...(data.models || [])])
       setSearchPage(next)
     } catch { /* ignore */ }
     finally { setLoadingMore(false) }
-  }, [searchPage, searchQuery])
+  }, [searchPage, searchQuery, loadingMore])
+
+  // Infinite scroll: observe sentinel and trigger loadMore when in view
+  const sentinelRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!searched) return
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loadingMore && searchResults.length < searchTotal) {
+          handleLoadMore()
+        }
+      },
+      { rootMargin: '600px 0px' } // Pre-load 600px before sentinel enters view
+    )
+
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [searched, loadingMore, searchResults.length, searchTotal, handleLoadMore])
 
   const handleQuickSearch = (term: string) => {
     setSearchQuery(term)
@@ -267,9 +297,17 @@ export default function CatalogoPage() {
             </div>
 
             {searchLoading && searchResults.length === 0 ? (
-              <div className="flex items-center justify-center py-16">
-                <Loader2 size={24} className="animate-spin text-primary mr-2" />
-                <span className="text-muted text-sm">Buscando...</span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="bg-surface border border-border rounded-lg overflow-hidden">
+                    <div className="aspect-square bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%]" />
+                    <div className="p-2.5 sm:p-3 space-y-2">
+                      <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-full" />
+                      <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-2/3" />
+                      <div className="h-7 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded mt-3" />
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : searchResults.length === 0 ? (
               <div className="text-center py-16">
@@ -278,28 +316,37 @@ export default function CatalogoPage() {
             ) : (
               <>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-                  {searchResults.map((model) => (
-                    <ProductCard key={model.id} model={model} size="lg" />
+                  {searchResults.map((model, idx) => (
+                    <ProductCard key={model.id} model={model} size="lg" priority={idx < 5} />
                   ))}
                 </div>
 
+                {/* Infinite scroll sentinel + loading skeletons */}
                 {searchResults.length < searchTotal && (
-                  <div className="flex justify-center mt-8">
-                    <button
-                      onClick={handleLoadMore}
-                      disabled={loadingMore}
-                      className="px-6 py-3 border border-border rounded-lg text-sm font-medium hover:border-primary/50 hover:text-primary transition-colors disabled:opacity-50"
-                    >
-                      {loadingMore ? (
-                        <span className="flex items-center gap-2">
-                          <Loader2 size={16} className="animate-spin" />
-                          Cargando...
-                        </span>
-                      ) : (
-                        `Cargar más (${searchResults.length} de ${searchTotal.toLocaleString()})`
-                      )}
-                    </button>
-                  </div>
+                  <>
+                    {loadingMore && (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mt-3 sm:mt-4">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                          <div key={`sk-${i}`} className="bg-surface border border-border rounded-lg overflow-hidden">
+                            <div className="aspect-square bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%]" />
+                            <div className="p-2.5 sm:p-3 space-y-2">
+                              <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-full" />
+                              <div className="h-3 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded w-2/3" />
+                              <div className="h-7 bg-gradient-to-r from-surface via-border/40 to-surface animate-shimmer bg-[length:200%_100%] rounded mt-3" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <div ref={sentinelRef} className="h-1" />
+                  </>
+                )}
+
+                {/* End reached message */}
+                {searchResults.length >= searchTotal && searchResults.length > 0 && (
+                  <p className="text-center text-xs text-muted mt-8 py-4">
+                    Has visto los {searchResults.length.toLocaleString()} modelos disponibles
+                  </p>
                 )}
               </>
             )}
