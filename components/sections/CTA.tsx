@@ -47,7 +47,7 @@ function CTA() {
             <p className="text-muted mb-6">
               Ya sea para tu tesis, tu emprendimiento o tu empresa, en Tecnoprints
               hacemos realidad tus ideas. Desde una sola pieza hasta producción en serie,
-              con entrega disponible el mismo día.
+              con entrega en 1 a 3 días hábiles y servicio express el mismo día disponible.
             </p>
             <ul className="space-y-3 mb-8">
               {CTA_BENEFITS.map((item) => (

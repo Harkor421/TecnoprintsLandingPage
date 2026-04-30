@@ -49,7 +49,7 @@ export default function Footer() {
             <Logo />
             <p className="mt-4 text-muted text-sm max-w-md">
               Servicios profesionales de impresión 3D para prototipado y producción.
-              Entrega el mismo día disponible. Impresiones de alta calidad en PLA para tus proyectos creativos e ingenieriles.
+              Entrega estándar en 1 a 3 días hábiles, con opción express el mismo día. Impresiones de alta calidad para tus proyectos creativos e ingenieriles.
             </p>
             <div className="mt-6 space-y-3">
               <a href="mailto:contact@tecnoprints.com" className="flex items-center gap-3 text-sm text-muted hover:text-white transition-colors py-1 touch-manipulation">

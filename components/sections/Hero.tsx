@@ -57,7 +57,7 @@ function Hero() {
           <FadeIn delay={0.25} duration={0.8}>
             <p className="text-base sm:text-lg text-muted mb-8 max-w-2xl mx-auto leading-relaxed">
               Servicio profesional de impresión 3D FDM y resina. PLA, PETG, ABS, Nylon, Nylon con fibra de carbono, Resina.
-              Prototipado rápido, maquetas, piezas personalizadas. Cotiza gratis y recibe tu pedido el mismo día.
+              Prototipado rápido, maquetas, piezas personalizadas. Entrega en 1 a 3 días hábiles, con opción express el mismo día.
             </p>
           </FadeIn>
 

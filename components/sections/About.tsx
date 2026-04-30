@@ -15,7 +15,7 @@ export default function About() {
               Tecnoprints es un servicio de impresión 3D profesional ubicado en Barranquilla, Colombia.
               Contamos con más de 20 impresoras Bambu Lab de última generación operando simultáneamente,
               lo que nos permite ofrecer prototipado rápido, piezas personalizadas y producción en serie
-              con entregas desde el mismo día.
+              con entregas estándar en 1 a 3 días hábiles y opción express el mismo día.
             </p>
             <p>
               Nos especializamos en impresión FDM con PLA de alta calidad para todo tipo de proyectos:

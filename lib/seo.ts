@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const siteConfig = {
   name: 'Tecnoprints',
-  description: 'Servicio de impresión 3D FDM y resina en Barranquilla, Colombia. PLA, PETG, ABS, Nylon, Nylon fibra carbono, Resina. Prototipado rápido, piezas personalizadas con impresoras Bambu Lab. Cotización inmediata, entrega en mismo día hasta 48 horas.',
+  description: 'Servicio de impresión 3D FDM y resina en Barranquilla, Colombia. PLA, PETG, ABS, Nylon, Nylon fibra carbono, Resina. Prototipado rápido, piezas personalizadas con impresoras Bambu Lab. Cotización inmediata, entrega en 1 a 3 días hábiles, express el mismo día disponible.',
   url: 'https://tecnoprints.com',
   ogImage: '/preview-tecnoprints.png',
   links: {
@@ -81,7 +81,7 @@ export const defaultMetadata: Metadata = {
     locale: 'es_CO',
     url: siteConfig.url,
     title: `${siteConfig.name} - Impresión 3D FDM y Resina en Barranquilla`,
-    description: 'Impresión 3D FDM (PLA, PETG, ABS, Nylon, Fibra de Carbono) y Resina en Barranquilla. Prototipado rápido, piezas personalizadas, maquetas. Cotiza gratis. Entrega en mismo día hasta 48 horas.',
+    description: 'Impresión 3D FDM (PLA, PETG, ABS, Nylon, Fibra de Carbono) y Resina en Barranquilla. Prototipado rápido, piezas personalizadas, maquetas. Cotiza gratis. Entrega en 1 a 3 días hábiles, express el mismo día disponible.',
     siteName: siteConfig.name,
     images: [
       {
@@ -95,7 +95,7 @@ export const defaultMetadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${siteConfig.name} - Impresión 3D FDM y Resina en Barranquilla`,
-    description: 'Impresión 3D FDM y resina. PLA, PETG, ABS, Nylon, Fibra de Carbono. Cotiza al instante, entrega desde el mismo día.',
+    description: 'Impresión 3D FDM y resina. PLA, PETG, ABS, Nylon, Fibra de Carbono. Cotiza al instante, entrega en 1 a 3 días hábiles, express el mismo día.',
     images: [siteConfig.ogImage],
     creator: '@tecnoprintsco',
   },
@@ -202,7 +202,7 @@ export function generateLocalBusinessSchema() {
           itemOffered: {
             '@type': 'Service',
             name: 'Prototipado Rápido',
-            description: 'Prototipos funcionales impresos en 3D con entrega en mismo día hasta 48 horas',
+            description: 'Prototipos funcionales impresos en 3D con entrega en 1 a 3 días hábiles, opción express el mismo día disponible',
           },
         },
         {
@@ -257,7 +257,7 @@ export function generateServiceSchema() {
       '@type': 'City',
       name: 'Barranquilla',
     },
-    description: 'Servicio de impresión 3D profesional con impresoras Bambu Lab. Prototipado rápido, piezas personalizadas, maquetas, producción en lotes. Entrega en mismo día hasta 48 horas en Barranquilla.',
+    description: 'Servicio de impresión 3D profesional con impresoras Bambu Lab. Prototipado rápido, piezas personalizadas, maquetas, producción en lotes. Entrega en 1 a 3 días hábiles, express el mismo día disponible en Barranquilla.',
     offers: {
       '@type': 'AggregateOffer',
       priceCurrency: 'COP',

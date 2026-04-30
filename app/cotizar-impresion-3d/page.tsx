@@ -7,7 +7,7 @@ import ScrollFadeIn from '@/components/ui/ScrollFadeIn'
 
 export const metadata: Metadata = {
   title: 'Cotizar Impresión 3D - Estimado Instantáneo',
-  description: 'Cotiza tu impresión 3D al instante. Sube tu archivo STL y obtén un estimado automático de material. Servicio de impresión 3D en Barranquilla con entrega desde el mismo día hasta 48 horas.',
+  description: 'Cotiza tu impresión 3D al instante. Sube tu archivo STL y obtén un estimado automático de material. Servicio de impresión 3D en Barranquilla con entrega en 1 a 3 días hábiles, express el mismo día disponible.',
   keywords: [
     'cotizar impresión 3D',
     'precio impresión 3D',

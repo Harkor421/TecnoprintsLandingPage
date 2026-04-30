@@ -13,7 +13,7 @@ import { FAQ_DATA } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Impresión 3D FDM y Resina en Barranquilla | Cotiza al Instante | Tecnoprints',
-  description: 'Servicio #1 de impresión 3D FDM y resina en Barranquilla. PLA, PETG, ABS, Nylon, Fibra de Carbono, Resina. Prototipado rápido, maquetas, piezas personalizadas. Cotiza gratis. Entrega desde el mismo día hasta 48 horas. Impresoras Bambu Lab.',
+  description: 'Servicio #1 de impresión 3D FDM y resina en Barranquilla. PLA, PETG, ABS, Nylon, Fibra de Carbono, Resina. Prototipado rápido, maquetas, piezas personalizadas. Cotiza gratis. Entrega en 1 a 3 días hábiles, express el mismo día disponible. Impresoras Bambu Lab.',
   keywords: [
     'impresión 3D Barranquilla',
     'servicio impresión 3D Barranquilla',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Tecnoprints - Impresión 3D FDM y Resina en Barranquilla',
-    description: 'Impresión 3D FDM (PLA, PETG, ABS, Nylon, Fibra Carbono) y Resina. Prototipado rápido, maquetas, piezas. Entrega desde el mismo día.',
+    description: 'Impresión 3D FDM (PLA, PETG, ABS, Nylon, Fibra Carbono) y Resina. Prototipado rápido, maquetas, piezas. Entrega en 1 a 3 días hábiles, express el mismo día.',
   },
 }
 

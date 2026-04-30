@@ -54,8 +54,9 @@ export default function Catalog() {
       url: model.url,
     })
     setRecentlyAdded(model.id)
-    setTimeout(() => setRecentlyAdded((current) => current === model.id ? null : current), 1500)
-  }, [addItem])
+    // Navigate to full catalog after a brief feedback flash so users land in the retail experience
+    setTimeout(() => router.push('/catalogo'), 600)
+  }, [addItem, router])
 
   // Preload trending models from random page
   useEffect(() => {

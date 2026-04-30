@@ -5,7 +5,7 @@
 
 export const NAVIGATION = [
   { href: '/servicios-impresion-3d-barranquilla', label: 'Servicios' },
-  { href: '/#catalog', label: 'Catálogo' },
+  { href: '/catalogo', label: 'Catálogo' },
   { href: '/#process', label: 'Cómo Funciona' },
   { href: '/#about', label: 'Nosotros' },
   { href: '/blog', label: 'Blog' },
@@ -34,15 +34,15 @@ export const HERO_STATS = [
 ] as const
 
 export const HERO_FEATURES = [
-  'Entrega el mismo día',
-  'Sin Pedido Mínimo',
+  'Entrega en 1 a 3 días hábiles',
+  'Express el mismo día disponible',
 ] as const
 
 export const CTA_BENEFITS = [
-  'Sin cantidad mínima de pedido',
+  'Pedido mínimo de 35.000 COP',
   'Cotizaciones en línea instantáneas',
   'Equipo de soporte experto',
-  'Entrega disponible el mismo día',
+  'Entrega en 1 a 3 días hábiles · Express el mismo día disponible',
 ] as const
 
 export const FAQ_DATA = [
@@ -54,7 +54,7 @@ export const FAQ_DATA = [
   {
     question: '¿Cuánto tiempo tarda en llegar mi pedido?',
     answer:
-      'Los tiempos de entrega varían según la complejidad del proyecto. Para prototipos simples, ofrecemos entrega el mismo día o en menos de 48 horas. Proyectos más complejos o lotes grandes pueden tomar de 3 a 7 días hábiles. Siempre te proporcionamos una estimación precisa al momento de cotizar.',
+      'Nuestro tiempo de entrega estándar es de 1 a 3 días hábiles para la mayoría de los proyectos. Si necesitas tu pieza de manera urgente, contamos con servicio express que te entrega el mismo día (sujeto a disponibilidad y con un cargo adicional). Proyectos más complejos o lotes grandes pueden tomar de 4 a 7 días hábiles. Siempre te proporcionamos una estimación precisa al momento de cotizar.',
   },
   {
     question: '¿Qué formatos de archivo aceptan?',
